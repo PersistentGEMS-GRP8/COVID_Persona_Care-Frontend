@@ -13,7 +13,6 @@ import AddHospitalAdmin from './components/Admin/ManageHAdmins/AddHospitalAdmin'
 
 
 // import Login from './components/Register';
-import Register from './components/Register';
 import UpdateHospitalAdmin from './components/Admin/ManageHAdmins/UpdateHospitalAdmin';
 
 function App() {
