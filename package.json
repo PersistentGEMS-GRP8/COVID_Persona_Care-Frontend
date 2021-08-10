@@ -16,7 +16,7 @@
     "web-vitals": "^1.1.2"
   },
   "devDependencies": {},
-  "proxy": "http://localhost:8088",
+  "proxy": "http://localhost:8088/COVIDPersonaCare",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
