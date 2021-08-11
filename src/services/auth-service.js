@@ -1,7 +1,8 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
-const API_URL = "http://localhost:8096/COVIDPersonaCare/";
+const API_URL = "http://localhost:8088/COVIDPersonaCare/";
+
 
 class AuthService {
   login(username, password) {
