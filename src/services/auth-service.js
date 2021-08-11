@@ -1,4 +1,5 @@
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 const API_URL = "http://localhost:8096/COVIDPersonaCare/";
 
@@ -12,9 +13,13 @@ class AuthService {
       .then(response => {
         if (response.data.token) {
           localStorage.setItem("token", JSON.stringify(response.data.token));
+          localStorage.setItem("id", response.data.id);
+          localStorage.setItem("user", JSON.stringify(jwtDecode(response.data.token)));
         }
 
-        return response.data;
+        return response.status;
+      }).catch(function(e){
+        console.log(e);
       });
   }
 
