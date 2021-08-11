@@ -20,26 +20,21 @@ class AdminManageHAdmins extends Component {
 
         getHospitalAdminList().then(res => {
           let response = res;
-
             let {HospitalAdminList} = this.state;
             response.map((item, i) => {
                 HospitalAdminList.push(item)
                 return  HospitalAdminList;
             });
-           // console.log("kkkkkkkkkkkkkkkkkkkk",HospitalAdminList);
-
             this.setState({
                 HospitalAdminList
             });
         });
     }
-
  
     removeHospitalAdmin = item => {
 
         const {HospitalAdminList} = this.state;
         console.log(HospitalAdminList);
-
         this.setState({
             HospitalAdminList: HospitalAdminList.filter(i => {
                 return i !== item;
@@ -77,10 +72,8 @@ class AdminManageHAdmins extends Component {
             items={this.state.HospitalAdminList}
             removeHospitalAdmin={this.removeHospitalAdmin}
             updateHospitalAdmin={this.updateHospitalAdmin}
-
        />
        </div>
-     
       </div>
     );
   }

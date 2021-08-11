@@ -27,10 +27,8 @@ class AdminDashboard extends Component {
 
                 return  HospitalList;
 
-
             });
-            console.log("HospitalList:",HospitalList);
-
+            //console.log("HospitalList:",HospitalList);
             this.setState({
                 HospitalList
             });
@@ -41,8 +39,7 @@ class AdminDashboard extends Component {
     removeHospital = item => {
 
         const {HospitalList} = this.state;
-        console.log(HospitalList);
-
+       // console.log(HospitalList);
         this.setState({
             HospitalList: HospitalList.filter(i => {
                 return i !== item;
@@ -61,7 +58,6 @@ class AdminDashboard extends Component {
                 return i !== item;
             })
         });
-
         updateHospital(item.hId);
     };
 
@@ -81,7 +77,6 @@ class AdminDashboard extends Component {
                     items={this.state.HospitalList}
                     removeHospital={this.removeHospital}
                     updateHospital={this.updateHospital}
-
             />
             </div>
       </div>

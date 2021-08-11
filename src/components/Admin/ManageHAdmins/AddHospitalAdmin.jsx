@@ -3,8 +3,6 @@ import {postHospitalAdmin,  createHospitalAdmin} from "../../Actions/hospitalAdm
 import AdminNavbar from '../AdminNavbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {getHospitalList} from "../../Actions/hospitalAPICalls";
-// import { postUser } from "../../Actions/authAPICalls";
-
 
 class AddHospitalAdmin extends Component {
     constructor(props) {
@@ -38,8 +36,6 @@ class AddHospitalAdmin extends Component {
                   HospitalList.push(item)
     
                   return  HospitalList;
-    
-    
               });
               console.log("HospitalList:",HospitalList);
 
@@ -47,17 +43,7 @@ class AddHospitalAdmin extends Component {
                   HospitalList
               });
             });
-
     }
-
-    // getHospitalListNames=()=>{
-    //     this.state.HospitalList.forEach(element => {
-    //         console.log("ELEMEnRR",element.hName); 
-    //         return element.hName;    
-    //      });
-    //  }
-
-
 
     onSubmit = e => {
         e.preventDefault();
@@ -74,11 +60,7 @@ class AddHospitalAdmin extends Component {
             role:this.state.role,
         };
 
-            // console.log("BLhhh",hAdminCredentials);
-            // console.log(item);
-
             postHospitalAdmin({item});
-
 
             //Add username & password to PersonaUser Table
             createHospitalAdmin({personaUser});
@@ -86,15 +68,12 @@ class AddHospitalAdmin extends Component {
             console.log("Add Hospital Admin success");
             this.resetForm();
 
-            // this.props.history.push('/manageHadmins')
-            // window.location.reload(false);
+            this.props.history.push('/manageHadmins')
+            window.location.reload(false);
 
              };
 
     resetForm = () => { 
-        
-      // this.getHospitalListNames();
-
         console.log(this.state.HospitalList);
 
         console.log("Cancel");
