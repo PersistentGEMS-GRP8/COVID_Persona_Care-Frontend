@@ -56,11 +56,8 @@ class ManagerList extends Component {
         <Navbar/>
         <div className="container">
         <br></br>
-          <h3>Managers</h3>
-          
-          <button className="btn button-custom float-end" onClick={this.addManager}>Register Manager</button>
-          
-          
+          <h3>Managers</h3>        
+          <button className="btn button-custom float-end" onClick={this.addManager}>Register Manager</button>         
           <br/><br/>
           <table className="table table-hover">
             <thead>

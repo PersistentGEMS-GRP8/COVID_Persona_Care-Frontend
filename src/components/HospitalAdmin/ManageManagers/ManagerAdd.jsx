@@ -21,27 +21,10 @@ class ManagerAdd extends Component {
     }
   }
 
-  // emptyManager = {
-  //   id:'',
-  //   name: '',
-  //   email: '',
-  //   contactNo: '',
-  //   hId:2
-  // };
-
-  // emptyUser = {
-  //   id:'',
-  //   username: '',
-  //   password: '',
-  //   role: 'ROLE_MANAGER',
-  // };
-
   constructor(props) {
     super(props);
     this.state = {
       person: this.emptyPerson
-      // manager: this.emptyManager,
-      // user:this.emptyUser
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
