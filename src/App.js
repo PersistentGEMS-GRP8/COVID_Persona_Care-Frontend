@@ -1,10 +1,13 @@
+
 import './App.css';
 import './css/layout.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Home from './components/Home';
+import Home from './components/LandingPage/Home'
+import SearchHospital from './components/LandingPage/SearchHospital';
+
 import Footer from './components/layout/footer';
 import Register from './pages/Register';
 
@@ -26,6 +29,8 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path='/register' component={Register} />
+          <Route path='/search/:hospital'  component={SearchHospital}/>
+
           <Route path='/managers' component={ManagerList}/>
           <Route path='/manager/add' component={ManagerAdd}/>
           <Route path='/manager/:id' component={ManagerEdit}/>
