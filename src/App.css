@@ -21,6 +21,14 @@ blue gray cards background: #dce7f3 */
     font-size: 1rem;
     border-radius: .25rem;
 
+  }
+
+.button-custom{
+  background-color: #007FA3 !important;
+  color: white !important;
 }
 
-  
+.button-delete{
+  background-color: #654321 !important;
+  color: white !important;
+}

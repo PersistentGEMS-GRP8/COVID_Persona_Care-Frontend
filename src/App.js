@@ -1,31 +1,51 @@
-import './css/layout.css';
 import './App.css';
+import './css/layout.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import Home from './components/Home';
-import Footer from './components/layout/footer';
-import Login from './pages/auth/Login';
-// import Login from './pages/auth/Login';
 
+import Home from './components/LandingPage/Home'
+import SearchHospital from './components/LandingPage/SearchHospital';
+
+import Footer from './components/layout/footer';
+import Register from './pages/Register';
+
+import Login from './pages/auth/Login';
+import ManagerList from './components/HospitalAdmin/ManageManagers/ManagerList';
+import ManagerEdit from './components/HospitalAdmin/ManageManagers/ManagerEdit';
+import ManagerAdd from './components/HospitalAdmin/ManageManagers/ManagerAdd';
+import ReceptionistList from './components/HospitalAdmin/ManageReceptionists/ReceptionistList';
+import ReceptionistAdd from './components/HospitalAdmin/ManageReceptionists/ReceptionistAdd';
+import ReceptionistEdit from './components/HospitalAdmin/ManageReceptionists/ReceptionistEdit';
 
 import AdminDashboard from './components/Admin/AdminDashboard';
 import AddHospital from './components/Admin/ManageHospitals/AddHospital';
 import UpdateHospital from './components/Admin/ManageHospitals/UpdateHospital';
 import AdminManageHAdmins from './components/Admin/ManageHAdmins/AdminManageHAdmins';
 import AddHospitalAdmin from './components/Admin/ManageHAdmins/AddHospitalAdmin';
-
-
-// import Login from './components/Register';
 import UpdateHospitalAdmin from './components/Admin/ManageHAdmins/UpdateHospitalAdmin';
 
 function App() {
   return (
     <div>
       <Router>
-        <Switch>
+         <main>
+          <Container>
+          <Switch>       
           <Route exact path="/" component={Home} />
+        
+          <Route exact path="/login" component={Login} />
+          <Route exact path='/register' component={Register} />
+          <Route path='/search/:hospital'  component={SearchHospital}/>
 
-          {/* Admin Dashboard Route */}
+          <Route path='/managers' component={ManagerList}/>
+          <Route path='/manager/add' component={ManagerAdd}/>
+          <Route path='/manager/:id' component={ManagerEdit}/>
+          <Route path='/receptionists' component={ReceptionistList}/>
+          <Route path='/receptionist/add' component={ReceptionistAdd}/>
+          <Route path='/receptionist/:id' component={ReceptionistEdit}/>
+            
+           {/* Admin Dashboard Route */}
           <Route exact path="/admindashboard" component={AdminDashboard} />
 
           {/* Hospital routes */}
@@ -39,12 +59,11 @@ function App() {
           <Route exact path="/addHospitalAdmin" component={AddHospitalAdmin} />
           <Route exact path="/updateHospitalAdmin/:id" component={UpdateHospitalAdmin} />
 
-          <Route exact path="/login" component={Login}/>
-
-
-        </Switch>
+          </Switch>
+         </Container>
+        </main>
+       <Footer />
       </Router>
-      <Footer/>
     </div>
   );
 }

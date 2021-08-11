@@ -28,6 +28,7 @@ function Login() {
     return (
       <div className="Comment">
         <div className="form-group">
+
             <label for="exampleInputEmail1">Username</label>
             <input type="text" class="form-control"  placeholder="Enter username" onChange={handleUsername}/>
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>

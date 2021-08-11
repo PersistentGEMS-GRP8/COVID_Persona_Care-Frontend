@@ -19,7 +19,3 @@ export const HADMIN = {
     // UPDATE_HOSPITAL: BASE_URL + '/hospitals/',
 }
 
-
-
-
-
