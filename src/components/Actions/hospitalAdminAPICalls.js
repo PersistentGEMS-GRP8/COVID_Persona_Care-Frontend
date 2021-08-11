@@ -1,10 +1,11 @@
 import axios from 'axios';
 import {HADMIN} from '../../constants/url';
+import authHeader from '../../services/auth-header';
 
 //get all hospital admins
 export const getHospitalAdminList = () => {
     return axios
-        .get(HADMIN.GET_ALL )
+        .get(HADMIN.GET_ALL , { headers: authHeader() })
         
         .then(res => {
             return res.data;
@@ -23,7 +24,7 @@ export const getHospitalAdmin = (id) => {
         console.log("IDDDD",id);
 
     return axios
-        .get(HADMIN.GET_ALL+id )
+        .get(HADMIN.GET_ALL+id , { headers: authHeader() })
         
         .then(res => {
             console.log("RESDATA",res.data);
@@ -42,7 +43,7 @@ export const getHospitalAdmin = (id) => {
 //post hospital admin
 export const postHospitalAdmin = ({item}) => {
     return axios
-        .post(HADMIN.POST_HADMIN, item)
+        .post(HADMIN.POST_HADMIN, item, { headers: authHeader() })
         .then(res => {
             console.log(res.data);
         })
@@ -61,7 +62,7 @@ export const postHospitalAdmin = ({item}) => {
 export const deleteHospitalAdmin = (id) => {
     // console.log("IDDDD",id);
     return axios
-        .delete(HADMIN.GET_ALL+ id )
+        .delete(HADMIN.GET_ALL+ id , { headers: authHeader() })
         .then(res => {
             console.log(res.data);
         })
@@ -78,7 +79,7 @@ export const deleteHospitalAdmin = (id) => {
      //update hospital admin
      export const updateHospitalAdmin = (id,{item}) => {
         return axios
-            .put(HADMIN.GET_ALL+id,item)
+            .put(HADMIN.GET_ALL+id,item, { headers: authHeader() })
             .then(res => {
                 console.log(res.data);
             })

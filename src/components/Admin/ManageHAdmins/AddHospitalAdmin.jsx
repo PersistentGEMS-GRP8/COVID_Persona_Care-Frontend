@@ -84,8 +84,8 @@ class AddHospitalAdmin extends Component {
             console.log("Add Hospital Admin success");
             this.resetForm();
 
-            this.props.history.push('/manageHadmins')
-            window.location.reload(false);
+            // this.props.history.push('/manageHadmins')
+            // window.location.reload(false);
 
              };
 

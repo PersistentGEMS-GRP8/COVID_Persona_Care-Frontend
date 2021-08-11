@@ -1,10 +1,13 @@
 import './css/layout.css';
-import './App.css'
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Home from './components/Home';
-import Footer from './components/layout/footer'
+import Footer from './components/layout/footer';
+import Login from './pages/auth/Login';
+// import Login from './pages/auth/Login';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import AdminDashboard from './components/Admin/AdminDashboard';
 import AddHospital from './components/Admin/ManageHospitals/AddHospital';
 import UpdateHospital from './components/Admin/ManageHospitals/UpdateHospital';
@@ -35,6 +38,9 @@ function App() {
           <Route exact path="/manageHadmins" component={AdminManageHAdmins} />
           <Route exact path="/addHospitalAdmin" component={AddHospitalAdmin} />
           <Route exact path="/updateHospitalAdmin/:id" component={UpdateHospitalAdmin} />
+
+          <Route exact path="/login" component={Login}/>
+
 
         </Switch>
       </Router>

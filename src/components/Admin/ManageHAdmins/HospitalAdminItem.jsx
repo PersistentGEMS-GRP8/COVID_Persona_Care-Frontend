@@ -4,8 +4,8 @@ class HospitalAdminItem extends Component {
   static defaultProps = {
     hospitalAdminData:
         { id: 1,
-        mame: "hName",
-        email: "location",
+        name: "name",
+        email: "email",
         contactNo:0,
          
         }

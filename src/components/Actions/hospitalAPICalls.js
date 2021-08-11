@@ -1,10 +1,12 @@
 import axios from 'axios';
 import {HOSPITAL} from '../../constants/url';
+import authHeader from '../../services/auth-header';
+
 
 //get all hospitals
 export const getHospitalList = () => {
     return axios
-        .get(HOSPITAL.GET_ALL )
+        .get(HOSPITAL.GET_ALL, { headers: authHeader() } )
         
         .then(res => {
             return res.data;
@@ -21,7 +23,7 @@ export const getHospitalList = () => {
 //get hospital
 export const getHospital = (id) => {
     return axios
-        .get(HOSPITAL.GET_ALL+id )
+        .get(HOSPITAL.GET_ALL+id ,{ headers: authHeader() })
         
         .then(res => {
             console.log("RESDATA",res.data);
@@ -40,7 +42,7 @@ export const getHospital = (id) => {
 //post hospital
 export const postHospital = ({item}) => {
     return axios
-        .post(HOSPITAL.POST_HOSPITAL, item)
+        .post(HOSPITAL.POST_HOSPITAL, item, { headers: authHeader() })
         .then(res => {
             console.log(res.data);
         })
@@ -59,7 +61,7 @@ export const postHospital = ({item}) => {
 export const deleteHospital = (id) => {
     // console.log("IDDDD",id);
     return axios
-        .delete(HOSPITAL.GET_ALL+ id )
+        .delete(HOSPITAL.GET_ALL+ id , { headers: authHeader() })
         .then(res => {
             console.log(res.data);
         })
@@ -76,7 +78,7 @@ export const deleteHospital = (id) => {
      //update hospital
      export const updateHospital = (hId,{item}) => {
         return axios
-            .put(HOSPITAL.GET_ALL+hId,item)
+            .put(HOSPITAL.GET_ALL+hId,item, { headers: authHeader() })
             .then(res => {
                 console.log(res.data);
             })

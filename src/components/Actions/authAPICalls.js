@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { USER } from '../../constants/url';
+import authHeader from '../../services/auth-header';
 
 
 //create a user
-export const postUser = ({item}) => {
+export const postUser = ({hAdminCredentials}) => {
+    console.log("POSTUSER",hAdminCredentials)
     return axios
-        .post(USER.POST_CREATEUSER, item)
+        .post(USER.POST_CREATEUSER, hAdminCredentials + { headers: authHeader() })
         .then(res => {
             console.log(res.data);
         })
