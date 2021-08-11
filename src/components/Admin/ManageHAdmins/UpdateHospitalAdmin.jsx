@@ -65,9 +65,7 @@ class UpdateHospitalAdmin extends Component {
                         <div className="form-group col-md-6">   
                         <br/>
                             <h2>Update Hospital Admin</h2> 
-                        {/* <h2>{this.state.data.name}</h2> */}
                         <br/>
-
                             <label >Hospital Admin Name:</label> 
                             <input 
                                 onChange={this.onChange}

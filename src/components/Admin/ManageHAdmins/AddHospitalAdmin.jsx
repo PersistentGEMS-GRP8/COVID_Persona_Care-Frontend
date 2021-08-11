@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import {postHospitalAdmin,  createHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
-import AdminNavbar from '../AdminNavbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AdminNavbar from '../AdminNavbar';
+import {postHospitalAdmin,  createHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
 import {getHospitalList} from "../../Actions/hospitalAPICalls";
 
 class AddHospitalAdmin extends Component {
@@ -17,15 +17,22 @@ class AddHospitalAdmin extends Component {
 
             username:' ',
             password: ' ',
-            role:'ROLE_HOSPITALADMIN '
+            role:'ROLE_HOSPITALADMIN ',
+
+            errors:[]
         };
 
       }
+
     onChange = event => {
-        console.log("onCHANGE");
         this.setState({ [event.target.id]: event.target.value });
 
     };
+
+    hasError(key) {
+        return this.state.errors.indexOf(key) !== -1;
+      }
+
     componentDidMount() {
                
         getHospitalList().then(res => {
@@ -46,6 +53,7 @@ class AddHospitalAdmin extends Component {
     }
 
     onSubmit = e => {
+       
         e.preventDefault();
         const item = {
             name:this.state.name,
@@ -60,6 +68,22 @@ class AddHospitalAdmin extends Component {
             role:this.state.role,
         };
 
+        var errors = [];
+        const expression = /\S+@\S+/;
+        var validEmail = expression.test(String(this.state.email).toLowerCase());
+        if (!validEmail) {
+          errors.push("email");
+        }
+    
+        this.setState({
+          errors: errors
+        });
+    
+        if (errors.length > 0) {
+          return false;
+
+        }else{
+
             postHospitalAdmin({item});
 
             //Add username & password to PersonaUser Table
@@ -70,23 +94,20 @@ class AddHospitalAdmin extends Component {
 
             this.props.history.push('/manageHadmins')
             window.location.reload(false);
-
-             };
+        }
+    };
 
     resetForm = () => { 
-        console.log(this.state.HospitalList);
-
-        console.log("Cancel");
         //this.formRef.reset();
         this.setState({name: "", email: "", contactNo: ""})
      };
-        
+
         render() {
 
         return (
             <div>
                 <AdminNavbar/> 
-                <form ref={ref => (this.formRef = ref)} onSubmit={this.onSubmit}>
+                <form class="needs-validation" novalidate  ref={ref => (this.formRef = ref)} onSubmit={this.onSubmit}>
                     <div className="form-row container" >
                         <div className="form-group col-md-6">
                         <br/>
@@ -97,10 +118,9 @@ class AddHospitalAdmin extends Component {
                                 id="hId" 
                                 className="form-control"
                                 onChange={this.onChange}
-                                value={this.state.hId}
-                               
+                                required 
                                 >
-                            <option selected>Choose...</option>
+                            <option selected disabled>Choose...</option>
                             { this.state.HospitalList.map(value => 
                                 <option 
                                  key={value.hId} value={value.hId}
@@ -109,51 +129,69 @@ class AddHospitalAdmin extends Component {
                                 </option>)
                              }
                             </select>
+                            <div class="invalid-feedback">
+                                Please choose a hosoital.
+                            </div>
                             
                             <label >Hospital Admin Name:</label> 
                             <input 
                                 onChange={this.onChange}
-                                value={this.state.name}
                                 id="name"
                                 type="text" 
                                 className="form-control" 
-                                placeholder="name"/>
+                                placeholder="name"
+                                required
+                               />
                        
                              <label >Email:</label>
                             <input 
                                 onChange={this.onChange}
-                                value={this.state.email}
                                 id="email"
                                 type="text" 
-                                className="form-control" 
-                                placeholder="email"/>
+                                className= {
+                                    this.hasError("email")
+                                      ? "form-control is-invalid"
+                                      : "form-control"
+                                  }
+                                placeholder="email"
+                                required/>
+                            <div class="invalid-feedback">
+                                Please provide a valid email.
+                            </div>
                       
                             <label >Contact Number:</label>
                             <input 
                                 onChange={this.onChange}
-                                value={this.state.contactNo}
                                 id="contactNo"
                                 type="text" 
-                                className="form-control" 
-                                placeholder="contactNo"/>
+                                className={
+                                    this.hasError("email")
+                                      ? "form-control is-invalid"
+                                      : "form-control"
+                                  }
+                                placeholder="contactNo"
+                                required/>
+                                <div class="invalid-feedback">
+                                ContactNo. should be between 10 to 12 characters
+                                </div>
 
                             <label >Username:</label>
                             <input 
                                 onChange={this.onChange}
-                                value={this.state.username}
                                 id="username"
                                 type="text" 
                                 className="form-control" 
-                                placeholder="username"/>
+                                placeholder="username"
+                                required/>
 
                             <label >Default Password:</label>
                             <input 
                                 onChange={this.onChange}
-                                value={this.state.password}
                                 id="password"
                                 type="text" 
                                 className="form-control" 
-                                placeholder="password"/>
+                                placeholder="password"
+                                required/>
                        
                     <br/>
                     <div className="btn-toolbar" role="toolbar">

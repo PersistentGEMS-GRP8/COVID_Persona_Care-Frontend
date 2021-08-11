@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {postHospital} from "../../Actions/hospitalAPICalls";
 import AdminNavbar from '../AdminNavbar';
+import {postHospital} from "../../Actions/hospitalAPICalls";
 
 class AddHospital extends Component {
     constructor(props) {
@@ -10,8 +10,8 @@ class AddHospital extends Component {
             location:" ",
             noOfBeds:" ",
         };
-
       }
+
     onChange = event => {
         console.log("onCHANGE");
         this.setState({ [event.target.id]: event.target.value });
@@ -31,57 +31,54 @@ class AddHospital extends Component {
             console.log("Add Hospital success");
             this.resetForm();
 
-            this.props.history.push('/adminDashboard')
-            window.location.reload(false);
+           this.props.history.push('/adminDashboard')
+           window.location.reload(false);
 
             };
             
-
     resetForm = () => { 
-        console.log("Cancel");
         //this.formRef.reset();
         this.setState({hName: "", location: "", noOfBeds: ""})
 
      };
-        
+
         render() {
 
         return (
             <div>
                 <AdminNavbar/> 
-
-                <form ref={ref => (this.formRef = ref)} onSubmit={this.onSubmit}>
+                <form class="needs-validation" novalidate ref={ref => (this.formRef = ref)} onSubmit={this.onSubmit}>
                     <div className="form-row container ">
-                        <div className="form-group col-md-6">
+                        <div className="form-group col-md-6 ">
                         <br/>
                             <h2>Register Hospital</h2>
                             <br/>
                             <label >Hospital Name:</label> 
                             <input 
                                 onChange={this.onChange}
-                                value={this.state.hName}
                                 id="hName"
                                 type="text" 
                                 className="form-control" 
-                                placeholder="name"/>
-                      
+                                placeholder="name"
+                                required/>        
+                                                
                              <label >Location:</label>
                             <input 
                                 onChange={this.onChange}
-                                value={this.state.location}
                                 id="location"
                                 type="text" 
                                 className="form-control" 
-                                placeholder="location"/>
+                                placeholder="location"
+                                required/>
                       
                             <label >No. of Beds:</label>
                             <input 
                                 onChange={this.onChange}
-                                value={this.state.noOfBeds}
                                 id="noOfBeds"
                                 type="text" 
                                 className="form-control" 
-                                placeholder="no.of beds"/>
+                                placeholder="no.of beds"
+                                required/>
                        
                     <br/>
                     <div className="btn-toolbar" role="toolbar">
@@ -100,4 +97,7 @@ class AddHospital extends Component {
     }
 }
 
+  
+
 export default AddHospital;
+

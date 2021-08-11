@@ -40,8 +40,7 @@ class HospitalList extends Component {
           );
         })}
         </div>
-
-        </div>
+      </div>
     );
   }
 }

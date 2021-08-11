@@ -2,11 +2,9 @@
 import React, { Component } from "react";
 import AdminNavbar from '../AdminNavbar'
 import HospitalAdminList from './HospitalAdminList'
-
 import {getHospitalAdminList} from "../../Actions/hospitalAdminAPICalls";
 import {deleteHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
 import {updateHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
-
 
 class AdminManageHAdmins extends Component {
     constructor(props) {
@@ -32,16 +30,12 @@ class AdminManageHAdmins extends Component {
     }
  
     removeHospitalAdmin = item => {
-
         const {HospitalAdminList} = this.state;
-        console.log(HospitalAdminList);
         this.setState({
             HospitalAdminList: HospitalAdminList.filter(i => {
                 return i !== item;
             })
         });
-        console.log("ITEM",item.id)
-
         deleteHospitalAdmin(item.id);
     };
 
@@ -52,14 +46,12 @@ class AdminManageHAdmins extends Component {
                 return i !== item;
             })
         });
-
         updateHospitalAdmin(item.id);
     };
 
   render() {
 
     return (
-
       <div className="home">
        <AdminNavbar/> 
        <br/>

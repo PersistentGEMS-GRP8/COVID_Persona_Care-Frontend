@@ -7,7 +7,6 @@ class HospitalAdminItem extends Component {
         name: "name",
         email: "email",
         contactNo:0,
-         
         }
   };
   render() {
