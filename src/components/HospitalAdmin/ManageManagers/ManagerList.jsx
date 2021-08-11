@@ -62,9 +62,9 @@ class ManagerList extends Component {
           <table className="table table-hover">
             <thead>
             <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th width="20%">Email</th>
+              <th width="15%">ID</th>
+              <th width="30%">Name</th>
+              <th width="25%">Email</th>
               <th width="20%">Contact No</th>
               <th width="10%">Actions</th>
             </tr>

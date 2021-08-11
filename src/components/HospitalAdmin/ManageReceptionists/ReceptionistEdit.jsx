@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import ManagerService from '../../../services/ManagerService';
+import ReceptionistService from '../../../services/ReceptionistService';
 import Navbar from '../../layout/navbar'
 
-class ManagerEdit extends Component {
+class ReceptionistEdit extends Component {
 
-  emptyManager = {
+  emptyReceptionist = {
     id:'',
     name: '',
     email: '',
@@ -16,7 +16,7 @@ class ManagerEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      manager: this.emptyManager
+        receptionist: this.emptyReceptionist
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,36 +24,36 @@ class ManagerEdit extends Component {
   }
 
   async componentDidMount() {   
-      const person = (await ManagerService.getManagerById(this.props.match.params.id)).data;
-      this.setState({manager: person});   
+      const person = (await ReceptionistService.getReceptionistById(this.props.match.params.id)).data;
+      this.setState({receptionist: person});   
   }
 
   handleChange(event) {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    let manager = {...this.state.manager};
-    manager[name] = value;
-    this.setState({manager});
+    let receptionist = {...this.state.receptionist};
+    receptionist[name] = value;
+    this.setState({receptionist});
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const {manager} = this.state;
-
-    ManagerService.updateManager(manager).then(res =>{
-      this.props.history.push('/managers');
+    const {receptionist} = this.state;
+    
+    ReceptionistService.updateReceptionist(receptionist).then(res =>{
+      this.props.history.push('/receptionists');
     });
    
   }
 
   cancel(){
-    this.props.history.push('/managers');
+    this.props.history.push('/receptionists');
   }
 
   render() {
-    const {manager} = this.state;
-    const title = <h2>{'Manager Details'}</h2>;
+    const {receptionist} = this.state;
+    const title = <h2>{'Receptionist Details'}</h2>;
 
     return <div>
       <Navbar/> 
@@ -65,21 +65,21 @@ class ManagerEdit extends Component {
           <div className="mb-3 row">
             <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" name="name" id="name" value={manager.name}
+              <input type="text" className="form-control" name="name" id="name" value={receptionist.name}
                     onChange={this.handleChange} autoComplete="name"/>
             </div>
           </div>
           <div className="mb-3 row">
             <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" name="email" id="email" value={manager.email}
+              <input type="text" className="form-control" name="email" id="email" value={receptionist.email}
                    onChange={this.handleChange} autoComplete="email"/>
             </div>
           </div>
           <div className="mb-3 row">
             <label htmlFor="contactNo" className="col-sm-2 col-form-label">Contact No</label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" name="contactNo" id="contactNo" value={manager.contactNo}
+              <input type="text" className="form-control" name="contactNo" id="contactNo" value={receptionist.contactNo}
                    onChange={this.handleChange} autoComplete="contactNo"/>
             </div>
           </div>
@@ -96,4 +96,4 @@ class ManagerEdit extends Component {
   }
 }
 
-export default withRouter(ManagerEdit);
+export default withRouter(ReceptionistEdit);

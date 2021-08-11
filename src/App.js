@@ -7,6 +7,9 @@ import Footer from './components/layout/footer'
 import ManagerList from './components/HospitalAdmin/ManageManagers/ManagerList';
 import ManagerEdit from './components/HospitalAdmin/ManageManagers/ManagerEdit';
 import ManagerAdd from './components/HospitalAdmin/ManageManagers/ManagerAdd';
+import ReceptionistList from './components/HospitalAdmin/ManageReceptionists/ReceptionistList';
+import ReceptionistAdd from './components/HospitalAdmin/ManageReceptionists/ReceptionistAdd';
+import ReceptionistEdit from './components/HospitalAdmin/ManageReceptionists/ReceptionistEdit';
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
           <Route path='/managers' component={ManagerList}/>
           <Route path='/manager/add' component={ManagerAdd}/>
           <Route path='/manager/:id' component={ManagerEdit}/>
+          <Route path='/receptionists' component={ReceptionistList}/>
+          <Route path='/receptionist/add' component={ReceptionistAdd}/>
+          <Route path='/receptionist/:id' component={ReceptionistEdit}/>
         </Switch>
       </Router>
       <Footer/>
