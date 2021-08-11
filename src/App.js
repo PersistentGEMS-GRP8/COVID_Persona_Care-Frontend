@@ -5,22 +5,34 @@ import { Container } from 'react-bootstrap';
 import Home from './components/Home';
 import Footer from './components/layout/footer';
 import Register from './pages/Register';
+import ManagerDashboard from './pages/ManagerDashboard';
+import RegisterDoctor from './pages/DoctorForm';
+import NotFound from './pages/NotFound';
+
+import { useAuth, AuthProvider } from './context/authContext';
 
 function App() {
   return (
-    <div>
-      <Router>
+    <Router>
+      <AuthProvider>
         <main>
-          <Container>
+          <Container fluid>
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/register' component={Register} />
+              <Route
+                exact
+                path='/manager/dashboard'
+                component={ManagerDashboard}
+              />
+              <Route exact path='/doctors/:id' component={RegisterDoctor} />
+              <Route component={NotFound} />
             </Switch>
           </Container>
         </main>
         <Footer />
-      </Router>
-    </div>
+      </AuthProvider>
+    </Router>
   );
 }
 
