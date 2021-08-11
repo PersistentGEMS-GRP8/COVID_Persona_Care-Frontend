@@ -24,7 +24,9 @@ instance.interceptors.request.use(
       request.url.includes('register') || request.url.includes('authenticate');
     // need to add token
     if (!unsecureEndPoint) {
-      request.headers['Authorization'] = `Bearer token`;
+      request.headers[
+        'Authorization'
+      ] = `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlzQWRtaW4iOnRydWUsImV4cCI6MTYyODY5ODg4NywiaWF0IjoxNjI4NjgwODg3fQ.LfnwMat_1xTlOpHzP5rl7Qd_wlUHM9LtBqIvF06ZybjFV6-iUj0LvW6UeExFoVG9gRpV65AzMJ5KVssTa4UgDw`;
     }
 
     return request;

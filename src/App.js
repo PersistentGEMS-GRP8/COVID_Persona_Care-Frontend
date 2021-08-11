@@ -10,7 +10,7 @@ import SearchHospital from './components/LandingPage/SearchHospital';
 import Footer from './components/layout/footer';
 import Register from './pages/Register';
 import ManagerDashboard from './pages/ManagerDashboard';
-import RegisterDoctor from './pages/DoctorForm';
+import DoctorForm from './pages/DoctorForm';
 import NotFound from './pages/NotFound';
 
 import { useAuth, AuthProvider } from './context/authContext';
@@ -45,7 +45,8 @@ function App() {
                 path='/manager/dashboard'
                 component={ManagerDashboard}
               />
-              <Route exact path='/doctors/:id' component={RegisterDoctor} />
+
+              <Route exact path='/doctors/:id' component={DoctorForm} />
               <Route path='/managers' component={ManagerList} />
               <Route path='/manager/add' component={ManagerAdd} />
               <Route path='/manager/:id' component={ManagerEdit} />
@@ -82,6 +83,7 @@ function App() {
                 path='/updateHospitalAdmin/:id'
                 component={UpdateHospitalAdmin}
               />
+
               <Route component={NotFound} />
             </Switch>
           </Container>
