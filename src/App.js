@@ -1,4 +1,3 @@
-
 import './App.css';
 import './css/layout.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -19,6 +18,13 @@ import ReceptionistList from './components/HospitalAdmin/ManageReceptionists/Rec
 import ReceptionistAdd from './components/HospitalAdmin/ManageReceptionists/ReceptionistAdd';
 import ReceptionistEdit from './components/HospitalAdmin/ManageReceptionists/ReceptionistEdit';
 
+import AdminDashboard from './components/Admin/AdminDashboard';
+import AddHospital from './components/Admin/ManageHospitals/AddHospital';
+import UpdateHospital from './components/Admin/ManageHospitals/UpdateHospital';
+import AdminManageHAdmins from './components/Admin/ManageHAdmins/AdminManageHAdmins';
+import AddHospitalAdmin from './components/Admin/ManageHAdmins/AddHospitalAdmin';
+import UpdateHospitalAdmin from './components/Admin/ManageHAdmins/UpdateHospitalAdmin';
+
 function App() {
   return (
     <div>
@@ -27,6 +33,7 @@ function App() {
           <Container>
           <Switch>       
           <Route exact path="/" component={Home} />
+        
           <Route exact path="/login" component={Login} />
           <Route exact path='/register' component={Register} />
           <Route path='/search/:hospital'  component={SearchHospital}/>
@@ -37,6 +44,21 @@ function App() {
           <Route path='/receptionists' component={ReceptionistList}/>
           <Route path='/receptionist/add' component={ReceptionistAdd}/>
           <Route path='/receptionist/:id' component={ReceptionistEdit}/>
+            
+           {/* Admin Dashboard Route */}
+          <Route exact path="/admindashboard" component={AdminDashboard} />
+
+          {/* Hospital routes */}
+          <Route exact path="/manageHospitals" component={AdminDashboard} />
+          <Route exact path="/addHospital" component={AddHospital} />
+          <Route exact path="/updateHospital/:id" component={UpdateHospital} />
+
+          {/* Hospital Admin routes */}
+
+          <Route exact path="/manageHadmins" component={AdminManageHAdmins} />
+          <Route exact path="/addHospitalAdmin" component={AddHospitalAdmin} />
+          <Route exact path="/updateHospitalAdmin/:id" component={UpdateHospitalAdmin} />
+
           </Switch>
          </Container>
         </main>

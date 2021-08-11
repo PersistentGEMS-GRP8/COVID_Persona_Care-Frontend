@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 class Footer extends Component {
   render() {
     return (
+       
       <footer className='fixed-bottom'>
         <Container fluid>
           <Row>
