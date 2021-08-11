@@ -4,5 +4,31 @@ light blue: #007FA3
 blue gray cards background: #dce7f3 */
 
 .button{
-    background-color: #007FA3
+    color: white;
+    background-color: hsla(193, 100%, 32%, 0.637);
+    border-radius: 2px;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+
   }
+
+.button-custom{
+  background-color: #007FA3 !important;
+  color: white !important;
+}
+
+.button-delete{
+  background-color: #654321 !important;
+  color: white !important;
+}
