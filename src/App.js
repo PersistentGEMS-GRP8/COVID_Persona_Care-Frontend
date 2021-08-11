@@ -1,4 +1,3 @@
-import './css/layout.css';
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Home from './components/LandingPage/Home'
 import 'bootstrap/dist/css/bootstrap.min.css';
