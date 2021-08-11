@@ -1,9 +1,12 @@
+import './App.css';
 import './css/layout.css';
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Home from './components/Home';
 import Footer from './components/layout/footer'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import ManagerList from './components/HospitalAdmin/ManageManagers/ManagerList';
+import ManagerEdit from './components/HospitalAdmin/ManageManagers/ManagerEdit';
+import ManagerAdd from './components/HospitalAdmin/ManageManagers/ManagerAdd';
 
 function App() {
   return (
@@ -11,6 +14,9 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path='/managers' component={ManagerList}/>
+          <Route path='/manager/add' component={ManagerAdd}/>
+          <Route path='/manager/:id' component={ManagerEdit}/>
         </Switch>
       </Router>
       <Footer/>
