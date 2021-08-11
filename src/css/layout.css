@@ -6,20 +6,16 @@
     line-height: 60px;
     background-color: #dce7f3;
     clear:both;
-
-
   }
   
 .navbar {
     background-color: #007FA3;
   }
 
-.navbar-brand{
-    color: #ffffff;
-    
-}
-
 body {
    padding-bottom: 70px;
    }
 
+.navbar-brand {
+  color: #ffffff;
+}

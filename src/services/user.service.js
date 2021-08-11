@@ -6,11 +6,8 @@ const API_URL = "http://localhost:8088/COVIDPersonaCare/";
 
 class UserService {
   getAdminBoard() {
-    return axios
-    .get(API_URL + 'admin', { headers: authHeader() });
+    return axios.get(API_URL + 'admin', { headers: authHeader() });
   }
-
-
 
 }
 
