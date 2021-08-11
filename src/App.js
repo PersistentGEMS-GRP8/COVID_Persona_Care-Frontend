@@ -40,16 +40,21 @@ function App() {
               <Route exact path='/' component={Home} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/register' component={Register} />
+
+              {/* Manager */}
               <Route
                 exact
                 path='/manager/dashboard'
                 component={ManagerDashboard}
               />
 
-              <Route exact path='/doctors/:id' component={DoctorForm} />
               <Route path='/managers' component={ManagerList} />
               <Route path='/manager/add' component={ManagerAdd} />
               <Route path='/manager/:id' component={ManagerEdit} />
+              <Route exact path='/doctors/:id' component={DoctorForm} />
+
+              {/* Receptionist */}
+
               <Route path='/receptionists' component={ReceptionistList} />
               <Route path='/receptionist/add' component={ReceptionistAdd} />
               <Route path='/receptionist/:id' component={ReceptionistEdit} />
