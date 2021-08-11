@@ -6,3 +6,13 @@ blue gray cards background: #dce7f3 */
 .button{
     background-color: #007FA3
   }
+
+.button-custom{
+  background-color: #007FA3 !important;
+  color: white !important;
+}
+
+.button-delete{
+  background-color: #654321 !important;
+  color: white !important;
+}
