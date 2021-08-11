@@ -1,9 +1,8 @@
 import './css/layout.css';
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import Home from './components/Home';
-import Footer from './components/layout/footer'
-
+import Home from './components/LandingPage/Home'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SearchHospital from './components/LandingPage/SearchHospital';
 
 function App() {
   return (
@@ -11,9 +10,9 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path='/search/:hospital'  component={SearchHospital}/>
         </Switch>
       </Router>
-      <Footer/>
     </div>
   );
 }
