@@ -93,6 +93,24 @@ export const deleteHospitalAdmin = (id) => {
     
     }
 
+    
+    //create a user
+    export const createHospitalAdmin = ({personaUser}) => {
+        console.log("HospitalAdmin",personaUser)
+        return axios
+            .post(HADMIN.POST_CREATEHADMIN, personaUser + { headers: authHeader() })
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(function (error) {
+                //handle error 
+                console.log(error);
+            })
+            .finally(function (error) {
+                console.log(error);
+            })
+
+}
 
     // export const updateHospital = (id) => {
     //     return axios

@@ -15,18 +15,11 @@ export const HADMIN = {
     GET_ALL: BASE_URL + '/hospitalAdmins/',
     POST_HADMIN: BASE_URL + '/hospitalAdmins/',
     GET_HADMIN: BASE_URL + '/hospitalAdmins/{id}',
+    POST_CREATEHADMIN:BASE_URL + '/register/',
     // UPDATE_HOSPITAL: BASE_URL + '/hospitals/',
 }
 
-export const AUTHENTICATE = {
-    POST_CREATETOKEN: BASE_URL + '/authenticate/',
 
-}
-
-export const USER = {
-    POST_CREATEUSER: BASE_URL + '/register/',
-
-}
 
 
 

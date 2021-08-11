@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import {postHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
+import {postHospitalAdmin,  createHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
 import AdminNavbar from '../AdminNavbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {getHospitalList} from "../../Actions/hospitalAPICalls";
-import { postUser } from "../../Actions/authAPICalls";
+// import { postUser } from "../../Actions/authAPICalls";
 
 
 class AddHospitalAdmin extends Component {
@@ -14,10 +14,12 @@ class AddHospitalAdmin extends Component {
             email:" ",
             contactNo:" ",
             hId:" ",
+
             HospitalList:[],
 
-            username:" ",
-            password:" "
+            username:' ',
+            password: ' ',
+            role:'ROLE_HOSPITALADMIN '
         };
 
       }
@@ -66,10 +68,10 @@ class AddHospitalAdmin extends Component {
             hId:this.state.hId
         };
 
-        const hAdminCredentials = {
+        const personaUser = {
             username:this.state.username,
             password:this.state.password,
-            role:"ROLE_HOSPITALADMIN",
+            role:this.state.role,
         };
 
             // console.log("BLhhh",hAdminCredentials);
@@ -79,7 +81,7 @@ class AddHospitalAdmin extends Component {
 
 
             //Add username & password to PersonaUser Table
-            postUser({hAdminCredentials});
+            createHospitalAdmin({personaUser});
             
             console.log("Add Hospital Admin success");
             this.resetForm();
