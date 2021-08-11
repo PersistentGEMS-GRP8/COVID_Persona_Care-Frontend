@@ -1,39 +1,33 @@
 import http from './httpService';
-import _ from 'lodash';
-
-const doctorsArray = [
-  {
-    id: 1,
-    name: 'Khosalan',
-    email: 'khosalan@test.com',
-    contactNo: '767854875',
-    specialization: 'MBBS',
-  },
-  {
-    id: 2,
-    name: 'Ann',
-    email: 'ann@test.com',
-    contactNo: '767854875',
-    specialization: 'MD',
-  },
-  {
-    id: 3,
-    name: 'Peter',
-    email: 'peter@test.com',
-    contactNo: '767854875',
-    specialization: 'MBBS',
-  },
-];
 
 export const getDoctors = () => {
-  return doctorsArray;
+  return http.get('/doctors', { params: { hosId: 1 } });
 };
 
 export const getDoctorById = (id) => {
-  const doctor = doctorsArray.find((doc) => doc.id == id);
-  return _.isUndefined(doctor) ? false : doctor;
+  return http.get(`/doctors/${id}`);
 };
 
-export const addDoctor = (doctor) => {
-  doctorsArray.push(doctor);
+export const getDoctorsByName = (name) => {
+  return http.get('/doctors', {
+    params: {
+      name,
+    },
+  });
+};
+
+export const addDoctor = (name, email, contactNo, specialization) => {
+  return http.post(`/doctors/${specialization}`, {
+    name,
+    email,
+    contactNo,
+  });
+};
+
+export const addDoctorToHospital = (doctorId) => {
+  return http.put(`/doctors/1/${doctorId}`);
+};
+
+export const deleteDoctorInHospital = (doctorId) => {
+  return http.delete(`/doctors/1/${doctorId}`);
 };

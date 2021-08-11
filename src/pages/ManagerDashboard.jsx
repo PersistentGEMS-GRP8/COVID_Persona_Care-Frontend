@@ -1,18 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Button, Toast } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 
-import { getDoctors } from '../services/doctorService';
+import { getDoctors, deleteDoctorInHospital } from '../services/doctorService';
 
-const ManagerDashboard = () => {
+const ManagerDashboard = (props) => {
   const [doctors, setDoctors] = useState([]);
 
   useEffect(() => {
-    setDoctors(getDoctors());
+    const getDoc = async () => {
+      const { data } = await getDoctors();
+      console.log(data);
+      setDoctors(data);
+    };
+
+    getDoc();
   }, []);
 
-  const handleDelete = (doctor) => {
-    setDoctors(doctors.filter((d) => d.id !== doctor.id));
+  const handleDelete = async (doctor) => {
+    try {
+      setDoctors(doctors.filter((d) => d.id !== doctor.id));
+      await deleteDoctorInHospital(doctor.id);
+    } catch (e) {
+      if (e.response && e.response.status === 401) {
+        alert('Please login to continue');
+        props.history.push('/login');
+      }
+      alert('Something went wrong');
+    }
   };
 
   return (
@@ -31,7 +46,7 @@ const ManagerDashboard = () => {
             <th>Contact No</th>
             <th>Specialization</th>
             <th />
-            <th />
+            {/* <th /> */}
           </tr>
         </thead>
         <tbody>
@@ -42,11 +57,11 @@ const ManagerDashboard = () => {
               <td>{doctor.email}</td>
               <td>{doctor.contactNo}</td>
               <td>{doctor.specialization}</td>
-              <td>
+              {/* <td>
                 <Link to={`/doctors/${doctor.id}`}>
                   <Button variant='warning'>Update</Button>
                 </Link>
-              </td>
+              </td> */}
               <td>
                 <Button variant='danger' onClick={() => handleDelete(doctor)}>
                   Delete
