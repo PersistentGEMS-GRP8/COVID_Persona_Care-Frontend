@@ -18,6 +18,8 @@ class AdminManageHAdmins extends Component {
 
         getHospitalAdminList().then(res => {
           let response = res;
+          if(response!=null){
+
             let {HospitalAdminList} = this.state;
             response.map((item, i) => {
                 HospitalAdminList.push(item)
@@ -26,6 +28,10 @@ class AdminManageHAdmins extends Component {
             this.setState({
                 HospitalAdminList
             });
+          }else{
+              console.log("RESPONSE NULL")
+          }
+            
         });
     }
  

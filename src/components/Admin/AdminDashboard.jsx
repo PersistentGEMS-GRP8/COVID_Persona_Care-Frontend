@@ -20,6 +20,8 @@ class AdminDashboard extends Component {
         getHospitalList().then(res => {
           let response = res;
 
+          if(response!=null){
+
             let {HospitalList} = this.state;
             response.map((item, i) => {
                 HospitalList.push(item)
@@ -30,6 +32,12 @@ class AdminDashboard extends Component {
             this.setState({
                 HospitalList
             });
+              
+          }else{
+              console.log("RESPONSE NULL")
+          }
+
+            
         });
     }
 

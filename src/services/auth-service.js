@@ -17,7 +17,7 @@ class AuthService {
           localStorage.setItem("id", response.data.id);
           localStorage.setItem("user", JSON.stringify(jwtDecode(response.data.token)));
         }
-
+        console.log("response.status", response.status)
         return response.status;
       }).catch(function(e){
         console.log(e);
