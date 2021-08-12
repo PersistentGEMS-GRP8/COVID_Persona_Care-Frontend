@@ -7,7 +7,6 @@ class HospitalAdminItem extends Component {
         name: "name",
         email: "email",
         contactNo:0,
-         
         }
   };
   render() {
@@ -34,7 +33,6 @@ class HospitalAdminItem extends Component {
             <td ><a href={'/updateHospitalAdmin/'+ hospitalAdminData.id} className="button" onClick={() => updateHospitalAdmin(hospitalAdminData)}> Update </a></td>
             <td> <a href={'#'} className="button"  onClick={() => removeHospitalAdmin(hospitalAdminData)}> Delete </a></td>
             </tr>
-         
         </tbody>
         </table>
           <br />
