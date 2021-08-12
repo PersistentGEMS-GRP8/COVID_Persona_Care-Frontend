@@ -86,7 +86,7 @@ const AuthProvider = ({ children }) => {
         return;
 
       case Roles.HOSPITAL_ADMIN:
-        history.replace('/manageHadmins');
+        history.replace('/managers');
 
       case Roles.HOSPITAL_MANAGER:
         history.replace('/manager/dashboard');
