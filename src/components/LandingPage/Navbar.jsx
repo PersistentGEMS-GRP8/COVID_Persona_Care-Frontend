@@ -53,7 +53,7 @@ class Navbar extends React.Component {
                                 </form>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="" aria-current="true">Log In</a>
+                                <a className="nav-link" href="/login" aria-current="true">Log In</a>
                             </li>
                         </ul>
                     </div>

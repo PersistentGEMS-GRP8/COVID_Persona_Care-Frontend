@@ -16,8 +16,10 @@ class UpdateHospital extends Component {
         const hId = this.props.match.params.id;
 
         getHospital(hId).then(res => {
-          console.log("resssssss",res);
-          this.setState({data:res}) 
+        let response = res.data;
+
+          console.log("resssssss",response);
+          this.setState({data:response}) 
        // console.log("COMPONENETDIDMOUNTCONSOLE",this.state);
 
         });
@@ -88,7 +90,7 @@ class UpdateHospital extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder={this.state.data.location}
-                                disabled/>
+                                />
                      
                             <label >No. of Beds:</label>
                             <input 

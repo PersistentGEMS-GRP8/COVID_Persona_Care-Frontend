@@ -36,7 +36,7 @@ class AddHospitalAdmin extends Component {
     componentDidMount() {
                
         getHospitalList().then(res => {
-            let response = res;
+            let response = res.data;
     
               let {HospitalList} = this.state;
               response.map((item, i) => {

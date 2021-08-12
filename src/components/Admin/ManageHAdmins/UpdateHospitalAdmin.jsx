@@ -15,9 +15,13 @@ class UpdateHospitalAdmin extends Component {
         
     componentDidMount() {
         const id = this.props.match.params.id;
+
         getHospitalAdmin(id).then(res => {
-          console.log("resssssss",res);
-          this.setState({data:res}) 
+           let response = res.data;
+
+          console.log("resssssss",response);
+          this.setState({data:response}) 
+
         });
     }
 
