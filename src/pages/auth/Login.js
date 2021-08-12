@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import authService from '../../services/auth-service';
 import { useAuth } from '../../context/authContext';
 import './Login.css';
 
@@ -31,8 +31,7 @@ const Login = () => {
       setPasswordError('Password is required!');
     }
     if (!usernameError && !passwordError) {
-      let a = await login(username, password);
-      console.log(a);
+      await login(username, password);
       if (!localStorage.getItem('id')) {
         setApiError('Invalid Username or Password!');
       }
@@ -80,7 +79,7 @@ const Login = () => {
               Sign in
             </button>
             <p className='forgot-password text-right'>
-              Not registered ?<a href='#'>sign up</a>
+              Not registered ?<Link to='/register'>sign up</Link>
             </p>
           </form>
         </div>

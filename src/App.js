@@ -12,7 +12,7 @@ import ManagerDashboard from './pages/ManagerDashboard';
 import DoctorForm from './pages/DoctorForm';
 import NotFound from './pages/NotFound';
 
-import { useAuth, AuthProvider } from './context/authContext';
+import { AuthProvider } from './context/authContext';
 import Roles from './constants/roles';
 
 import Login from './pages/auth/Login';
@@ -30,86 +30,90 @@ import AdminManageHAdmins from './components/Admin/ManageHAdmins/AdminManageHAdm
 import AddHospitalAdmin from './components/Admin/ManageHAdmins/AddHospitalAdmin';
 import UpdateHospitalAdmin from './components/Admin/ManageHAdmins/UpdateHospitalAdmin';
 
-import ProtectedRoute from './routes/ProtectedRoute';
+import { ProtectedRoute, AuthRoute } from './routes';
 
-function App() {
+function AppRouter() {
+  return (
+    <>
+      <main>
+        <Container fluid>
+          <Switch>
+            <Route exact path='/' component={Home} />
+
+            <AuthRoute exact path='/login' component={Login} />
+
+            <AuthRoute exact path='/register' component={Register} />
+
+            {/* Manager */}
+            <ProtectedRoute
+              exact
+              path='/manager/dashboard'
+              component={ManagerDashboard}
+              requiredRoles={[Roles.HOSPITAL_MANAGER]}
+            />
+
+            <Route path='/managers' component={ManagerList} />
+            <Route path='/manager/add' component={ManagerAdd} />
+            <Route path='/manager/:id' component={ManagerEdit} />
+            <ProtectedRoute
+              exact
+              path='/doctors/:id'
+              component={DoctorForm}
+              requiredRoles={[Roles.HOSPITAL_MANAGER]}
+            />
+
+            {/* Receptionist */}
+
+            <Route path='/receptionists' component={ReceptionistList} />
+            <Route path='/receptionist/add' component={ReceptionistAdd} />
+            <Route path='/receptionist/:id' component={ReceptionistEdit} />
+
+            {/* Admin Dashboard Route */}
+            <ProtectedRoute
+              exact
+              path='/admindashboard'
+              component={AdminDashboard}
+              requiredRoles={[Roles.ADMIN]}
+            />
+
+            {/* Hospital routes */}
+            <Route exact path='/manageHospitals' component={AdminDashboard} />
+            <Route exact path='/addHospital' component={AddHospital} />
+            <Route
+              exact
+              path='/updateHospital/:id'
+              component={UpdateHospital}
+            />
+
+            {/* Hospital Admin routes */}
+
+            <Route exact path='/manageHadmins' component={AdminManageHAdmins} />
+            <Route
+              exact
+              path='/addHospitalAdmin'
+              component={AddHospitalAdmin}
+            />
+            <Route
+              exact
+              path='/updateHospitalAdmin/:id'
+              component={UpdateHospitalAdmin}
+            />
+
+            <Route component={NotFound} />
+          </Switch>
+        </Container>
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+export default function App() {
   return (
     <Router>
       <AuthProvider>
-        <main>
-          <Container fluid>
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route exact path='/login' component={Login} />
-              <Route exact path='/register' component={Register} />
-
-              {/* Manager */}
-              <ProtectedRoute
-                exact
-                path='/manager/dashboard'
-                component={ManagerDashboard}
-                requiredRoles={[Roles.HOSPITAL_MANAGER]}
-              />
-
-              <Route path='/managers' component={ManagerList} />
-              <Route path='/manager/add' component={ManagerAdd} />
-              <Route path='/manager/:id' component={ManagerEdit} />
-              <ProtectedRoute
-                exact
-                path='/doctors/:id'
-                component={DoctorForm}
-                requiredRoles={[Roles.HOSPITAL_MANAGER]}
-              />
-
-              {/* Receptionist */}
-
-              <Route path='/receptionists' component={ReceptionistList} />
-              <Route path='/receptionist/add' component={ReceptionistAdd} />
-              <Route path='/receptionist/:id' component={ReceptionistEdit} />
-
-              {/* Admin Dashboard Route */}
-              <ProtectedRoute
-                exact
-                path='/admindashboard'
-                component={AdminDashboard}
-                requiredRoles={[Roles.ADMIN]}
-              />
-
-              {/* Hospital routes */}
-              <Route exact path='/manageHospitals' component={AdminDashboard} />
-              <Route exact path='/addHospital' component={AddHospital} />
-              <Route
-                exact
-                path='/updateHospital/:id'
-                component={UpdateHospital}
-              />
-
-              {/* Hospital Admin routes */}
-
-              <Route
-                exact
-                path='/manageHadmins'
-                component={AdminManageHAdmins}
-              />
-              <Route
-                exact
-                path='/addHospitalAdmin'
-                component={AddHospitalAdmin}
-              />
-              <Route
-                exact
-                path='/updateHospitalAdmin/:id'
-                component={UpdateHospitalAdmin}
-              />
-
-              <Route component={NotFound} />
-            </Switch>
-          </Container>
-        </main>
-        <Footer />
+        <AppRouter />
       </AuthProvider>
     </Router>
   );
 }
-
-export default App;
