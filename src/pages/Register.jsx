@@ -7,9 +7,12 @@ import _ from 'lodash';
 
 import TextInput from '../components/TextInput';
 import { register } from '../services/userService';
+import { useAuth } from '../context/authContext';
 
 const Register = () => {
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
+
+  const { signUp, error, loading } = useAuth();
 
   const initialValues = {
     name: '',
@@ -34,15 +37,16 @@ const Register = () => {
   });
 
   const submitHandler = async (values, { setSubmitting }) => {
-    setError(null);
+    // setError(null);
     setSubmitting(true);
-    try {
-      await register(values);
-      console.log(values);
-    } catch (err) {
-      if (err.response && err.response.status === 400)
-        setError(err.response.data);
-    }
+    await signUp(values.name, values.email, values.contactNo, values.password);
+    // try {
+    //   await register(values);
+    //   console.log(values);
+    // } catch (err) {
+    //   if (err.response && err.response.status === 400)
+    //     setError(err.response.data);
+    // }
     setSubmitting(false);
   };
 
@@ -107,7 +111,7 @@ const Register = () => {
                 </div>
                 <div className='mb-5'>
                   Already have an Account?{' '}
-                  <Link className='text-decoration-none' to='/'>
+                  <Link className='text-decoration-none' to='/login'>
                     <span className='link-primary'>Login now</span>
                   </Link>
                 </div>
