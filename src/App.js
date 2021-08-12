@@ -36,7 +36,7 @@ function AppRouter() {
   return (
     <>
       <main>
-        <Container fluid>
+        {/* <Container fluid> */}
           <Switch>
             <Route exact path='/' component={Home} />
 
@@ -101,7 +101,7 @@ function AppRouter() {
 
             <Route component={NotFound} />
           </Switch>
-        </Container>
+        {/* </Container> */}
       </main>
       <Footer />
     </>

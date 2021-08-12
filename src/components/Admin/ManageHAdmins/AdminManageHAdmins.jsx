@@ -17,9 +17,8 @@ class AdminManageHAdmins extends Component {
     componentDidMount() {
 
         getHospitalAdminList().then(res => {
-          let response = res;
-          if(response!=null){
-
+          if(res!=null){
+            let response = res.data;
             let {HospitalAdminList} = this.state;
             response.map((item, i) => {
                 HospitalAdminList.push(item)
