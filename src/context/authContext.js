@@ -114,7 +114,7 @@ const AuthProvider = ({ children }) => {
       // console.log(role);
     } catch (err) {
       if (err.response && err.response.status === 401) {
-        setError(err.response.data);
+        setError(err.response.data.error);
         console.log(err.response.data);
       }
     } finally {
