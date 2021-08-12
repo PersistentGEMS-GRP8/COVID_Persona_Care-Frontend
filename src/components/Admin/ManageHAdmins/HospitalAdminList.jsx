@@ -9,7 +9,6 @@ class HospitalAdminList extends Component {
   
   updateHospitalAdmin = item => {
     this.props.updateHospitalAdmin(item);
-
   };
 
   render() {
@@ -42,7 +41,7 @@ class HospitalAdminList extends Component {
           );
         })}
         </div>
-        </div>
+      </div>
     );
   }
 }

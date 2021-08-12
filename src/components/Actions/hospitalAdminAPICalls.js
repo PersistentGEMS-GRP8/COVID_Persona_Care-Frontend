@@ -94,11 +94,11 @@ export const deleteHospitalAdmin = (id) => {
     }
 
     
-    //create a user
+    //register a hospital admin
     export const createHospitalAdmin = ({personaUser}) => {
         console.log("HospitalAdmin",personaUser)
         return axios
-            .post(HADMIN.POST_CREATEHADMIN, personaUser + { headers: authHeader() })
+            .post(HADMIN.POST_CREATEHADMIN, personaUser , { headers: authHeader() })
             .then(res => {
                 console.log(res.data);
             })

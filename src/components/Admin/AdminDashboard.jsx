@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import AdminNavbar from './AdminNavbar'
 import HospitalList from '../Admin/ManageHospitals/HospitalList'
-
 import {getHospitalList} from "../Actions/hospitalAPICalls";
 import {deleteHospital} from "../Actions/hospitalAPICalls";
 import {updateHospital} from "../Actions/hospitalAPICalls";
@@ -27,10 +26,7 @@ class AdminDashboard extends Component {
 
                 return  HospitalList;
 
-
             });
-            console.log("HospitalList:",HospitalList);
-
             this.setState({
                 HospitalList
             });
@@ -39,10 +35,7 @@ class AdminDashboard extends Component {
 
  
     removeHospital = item => {
-
         const {HospitalList} = this.state;
-        console.log(HospitalList);
-
         this.setState({
             HospitalList: HospitalList.filter(i => {
                 return i !== item;
@@ -61,7 +54,6 @@ class AdminDashboard extends Component {
                 return i !== item;
             })
         });
-
         updateHospital(item.hId);
     };
 
@@ -78,10 +70,9 @@ class AdminDashboard extends Component {
                <a href={'/addHospital'} className="button" style={{float: "right"}}> Register Hospital </a>
             </div>
             <HospitalList  
-                    items={this.state.HospitalList}
-                    removeHospital={this.removeHospital}
-                    updateHospital={this.updateHospital}
-
+                items={this.state.HospitalList}
+                removeHospital={this.removeHospital}
+                updateHospital={this.updateHospital}
             />
             </div>
       </div>

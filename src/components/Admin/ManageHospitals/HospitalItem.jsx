@@ -7,7 +7,6 @@ class HospitalItem extends Component {
         hName: "hName",
         location: "location",
         noOfBeds:0,
-         
         }
   };
   render() {
