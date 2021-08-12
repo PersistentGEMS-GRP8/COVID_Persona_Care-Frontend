@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 import { BASE_URL } from '../constants/url';
+import { token } from '../context/authContext';
 
 const instance = axios.create({
   //   baseURL: BASE_URL,
@@ -24,9 +26,7 @@ instance.interceptors.request.use(
       request.url.includes('register') || request.url.includes('authenticate');
     // need to add token
     if (!unsecureEndPoint) {
-      request.headers[
-        'Authorization'
-      ] = `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlzQWRtaW4iOnRydWUsImV4cCI6MTYyODY5ODg4NywiaWF0IjoxNjI4NjgwODg3fQ.LfnwMat_1xTlOpHzP5rl7Qd_wlUHM9LtBqIvF06ZybjFV6-iUj0LvW6UeExFoVG9gRpV65AzMJ5KVssTa4UgDw`;
+      request.headers['Authorization'] = `Bearer ${token}`;
     }
 
     return request;

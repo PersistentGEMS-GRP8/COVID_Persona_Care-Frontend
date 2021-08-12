@@ -2,7 +2,6 @@ import './App.css';
 import './css/layout.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from './components/LandingPage/Home';
 import SearchHospital from './components/LandingPage/SearchHospital';
@@ -14,6 +13,7 @@ import DoctorForm from './pages/DoctorForm';
 import NotFound from './pages/NotFound';
 
 import { useAuth, AuthProvider } from './context/authContext';
+import Roles from './constants/roles';
 
 import Login from './pages/auth/Login';
 import ManagerList from './components/HospitalAdmin/ManageManagers/ManagerList';
@@ -30,6 +30,8 @@ import AdminManageHAdmins from './components/Admin/ManageHAdmins/AdminManageHAdm
 import AddHospitalAdmin from './components/Admin/ManageHAdmins/AddHospitalAdmin';
 import UpdateHospitalAdmin from './components/Admin/ManageHAdmins/UpdateHospitalAdmin';
 
+import ProtectedRoute from './routes/ProtectedRoute';
+
 function App() {
   return (
     <Router>
@@ -42,16 +44,22 @@ function App() {
               <Route exact path='/register' component={Register} />
 
               {/* Manager */}
-              <Route
+              <ProtectedRoute
                 exact
                 path='/manager/dashboard'
                 component={ManagerDashboard}
+                requiredRoles={[Roles.HOSPITAL_MANAGER]}
               />
 
               <Route path='/managers' component={ManagerList} />
               <Route path='/manager/add' component={ManagerAdd} />
               <Route path='/manager/:id' component={ManagerEdit} />
-              <Route exact path='/doctors/:id' component={DoctorForm} />
+              <ProtectedRoute
+                exact
+                path='/doctors/:id'
+                component={DoctorForm}
+                requiredRoles={[Roles.HOSPITAL_MANAGER]}
+              />
 
               {/* Receptionist */}
 
@@ -60,7 +68,12 @@ function App() {
               <Route path='/receptionist/:id' component={ReceptionistEdit} />
 
               {/* Admin Dashboard Route */}
-              <Route exact path='/admindashboard' component={AdminDashboard} />
+              <ProtectedRoute
+                exact
+                path='/admindashboard'
+                component={AdminDashboard}
+                requiredRoles={[Roles.ADMIN]}
+              />
 
               {/* Hospital routes */}
               <Route exact path='/manageHospitals' component={AdminDashboard} />
