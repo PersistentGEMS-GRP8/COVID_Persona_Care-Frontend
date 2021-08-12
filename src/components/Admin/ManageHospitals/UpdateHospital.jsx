@@ -18,7 +18,6 @@ class UpdateHospital extends Component {
         getHospital(hId).then(res => {
           console.log("resssssss",res);
           this.setState({data:res}) 
-
        // console.log("COMPONENETDIDMOUNTCONSOLE",this.state);
 
         });
@@ -27,7 +26,6 @@ class UpdateHospital extends Component {
    
     onChange = event => {
        this.setState({ [event.target.id]: event.target.value });
-
     };
 
     onSubmit = e => {

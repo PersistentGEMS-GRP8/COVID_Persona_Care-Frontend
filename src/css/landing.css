@@ -6,7 +6,7 @@ div {
 nav a:hover{
     border-bottom: 3px solid black;
 }
-.navbar{
+.navbar-light{
     font-family: BlinkMacSystemFont;
     background-color: #cce1f7;
     border-bottom: rgb(59, 59, 170);

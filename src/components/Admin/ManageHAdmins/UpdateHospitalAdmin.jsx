@@ -15,26 +15,20 @@ class UpdateHospitalAdmin extends Component {
         
     componentDidMount() {
         const id = this.props.match.params.id;
-
         getHospitalAdmin(id).then(res => {
           console.log("resssssss",res);
           this.setState({data:res}) 
-
-       console.log("COMPONENETDIDMOUNTCONSOLE",this.state);
-
         });
     }
 
    
     onChange = event => {
        this.setState({ [event.target.id]: event.target.value });
-
     };
 
     onSubmit = e => {
 
         const id= this.props.match.params.id;
-
         e.preventDefault();
         const item = {
             id:this.props.match.params.id,
@@ -71,9 +65,7 @@ class UpdateHospitalAdmin extends Component {
                         <div className="form-group col-md-6">   
                         <br/>
                             <h2>Update Hospital Admin</h2> 
-                        {/* <h2>{this.state.data.name}</h2> */}
                         <br/>
-
                             <label >Hospital Admin Name:</label> 
                             <input 
                                 onChange={this.onChange}
@@ -103,7 +95,6 @@ class UpdateHospitalAdmin extends Component {
                                 className="form-control" 
                                 placeholder={this.state.data.contactNo}
                                 />
-                        
                    <br/>
                    <div className="btn-toolbar" role="toolbar">
                        <div className="btn-group mr-2" role="group" aria-label="First group">

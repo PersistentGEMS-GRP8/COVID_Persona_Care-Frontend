@@ -30,7 +30,7 @@ function App() {
     <div>
       <Router>
          <main>
-          <Container>
+          {/* <Container> */}
           <Switch>       
           <Route exact path="/" component={Home} />
         
@@ -60,7 +60,7 @@ function App() {
           <Route exact path="/updateHospitalAdmin/:id" component={UpdateHospitalAdmin} />
 
           </Switch>
-         </Container>
+         {/* </Container> */}
         </main>
        <Footer />
       </Router>
