@@ -1,23 +1,40 @@
 import axios from 'axios';
 import {HOSPITAL} from '../../constants/url';
 import authHeader from '../../services/auth-header';
+import http from '../../services/httpService'
 
 
 //get all hospitals
-export const getHospitalList = () => {
-    return axios
-        .get(HOSPITAL.GET_ALL, { headers: authHeader() } )
+// export const getHospitalList = () => {
+//     return axios
+//         .get(HOSPITAL.GET_ALL, { headers: authHeader() } )
         
-        .then(res => {
-            return res.data;
-        })
-        .catch(function (error) {
-            //handle error 
-            console.log(error);
-        })
-        .finally(function (error) {
-            console.log(error);
-        })
+//         .then(res => {
+//             return res.data;
+//         })
+//         .catch(function (error) {
+//             //handle error 
+//             console.log(error);
+//         })
+//         .finally(function (error) {
+//             console.log(error);
+//         })
+// }
+
+export const getHospitalList = () => {
+    return http
+        .get(HOSPITAL.GET_ALL)
+        
+        // .then(res => {
+        //     return res.data;
+        // })
+        // .catch(function (error) {
+        //     //handle error 
+        //     console.log(error);
+        // })
+        // .finally(function (error) {
+        //     console.log(error);
+        // })
 }
 
 //get hospital

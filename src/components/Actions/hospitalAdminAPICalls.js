@@ -2,6 +2,7 @@ import axios from 'axios';
 import {HADMIN} from '../../constants/url';
 import authHeader from '../../services/auth-header';
 
+
 //get all hospital admins
 export const getHospitalAdminList = () => {
     return axios
