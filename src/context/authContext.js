@@ -78,6 +78,8 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const handleRoute = (role) => {
+    const { state } = location;
+    if (state) history.replace(state.from.pathname);
     switch (role) {
       case Roles.ADMIN:
         history.replace('/adminDashboard');
@@ -134,12 +136,20 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    localStorage.removeItem(TOKEN);
+    setUser({ role: '' });
+    setIsAuthenticated(false);
+    setToken(null);
+  };
+
   const memoedValue = useMemo(() => ({
     user,
     loading,
     error,
     login,
     signUp,
+    logout,
     token,
     isAuthenticated,
   }));

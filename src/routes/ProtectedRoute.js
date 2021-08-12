@@ -8,8 +8,14 @@ const ProtectedRoute = ({ component: Component, requiredRoles, ...rest }) => {
   const userHasRequiredRole = requiredRoles.includes(user.role);
 
   const render = (props) => {
+    // console.log(props);
     if (isAuthenticated && userHasRequiredRole) return <Component {...props} />;
-    if (!isAuthenticated) return <Redirect to='/login' />;
+    if (!isAuthenticated)
+      return (
+        <Redirect
+          to={{ pathname: '/login', state: { from: props.location } }}
+        />
+      );
     return <Redirect to='/' />;
   };
 
