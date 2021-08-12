@@ -1,45 +1,82 @@
 import React, { useState } from "react";
 import authService from "../../services/auth-service";
-import userService from "../../services/user.service";
+import './Login.css';
 
-function Login() {
+const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [usernameError, setUsernameError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [apiError, setApiError] = useState("");
 
-    function handleUsername (e) {
+    const handleUsername = e => {
+        setUsernameError("");
         setUsername(e.target.value);
     }   
 
-    function handlePassword (e) {
+    const handlePassword = e => {
+        setPasswordError("");
         setPassword(e.target.value);
     }  
 
-    function signIn(){
-        authService.login(username,password)
-    }
-
-    function admin(){
-        userService.getAdminBoard().then(response => {
-    
-            console.log(response.data)
-          });;
+    const signIn = () =>{
+        if(!username){
+            setUsernameError("Username is required!");
+        }
+        if(!password){
+            setPasswordError("Password is required!");
+        }
+        if(!usernameError && !passwordError){
+            let a = authService.login(username,password);
+            console.log(a)
+            if(!localStorage.getItem("id")){
+                setApiError("Invalid Username or Password!");
+            }
+        }   
     }
 
     return (
-      <div className="Comment">
-        <div className="form-group">
-
-            <label for="exampleInputEmail1">Username</label>
-            <input type="text" class="form-control"  placeholder="Enter username" onChange={handleUsername}/>
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div className="App">
+            <div className="outer">
+                <div className="inner">
+                    <form>
+                        <h4>Covid_Persona - Log in</h4>
+                        {apiError && <label className="error">{apiError}</label>}
+                        <div className="form-group">
+                            {usernameError ? 
+                            <label className="error">{usernameError}</label> :
+                            <label>Username</label>
+                            }
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                placeholder="Enter username" 
+                                onChange={handleUsername}
+                            />
+                        </div>
+                        <div className="form-group">
+                            {passwordError ? <label className="error">{passwordError}</label> :
+                            <label>Password</label>
+                            }
+                            <input 
+                                type="password" 
+                                className="form-control" 
+                                placeholder="Enter password" 
+                                onChange={handlePassword}
+                            />
+                        </div>
+                        <button 
+                            type="button" 
+                            className="btn btn-dark btn-lg btn-block" 
+                            onClick={signIn}
+                        >Sign in</button>
+                        <p className="forgot-password text-right">
+                            Not registered ?<a href="#">sign up</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div className="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control"  placeholder="Password" onChange={handlePassword}/>
-        </div>
-        <button type="submit" class="btn btn-primary" onClick={signIn}>Submit</button>
-        <button type="submit" class="btn btn-primary" onClick={admin}>Admin</button>
-      </div>
     );
   }
 
