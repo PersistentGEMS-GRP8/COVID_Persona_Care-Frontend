@@ -29,6 +29,7 @@ import UpdateHospital from './components/Admin/ManageHospitals/UpdateHospital';
 import AdminManageHAdmins from './components/Admin/ManageHAdmins/AdminManageHAdmins';
 import AddHospitalAdmin from './components/Admin/ManageHAdmins/AddHospitalAdmin';
 import UpdateHospitalAdmin from './components/Admin/ManageHAdmins/UpdateHospitalAdmin';
+import ManageBeds from './components/Manager/ManageBeds';
 
 import { ProtectedRoute, AuthRoute } from './routes';
 
@@ -39,7 +40,8 @@ function AppRouter() {
         {/* <Container fluid> */}
           <Switch>
             <Route exact path='/' component={Home} />
-
+            <Route path='/search/:hospital'  component={SearchHospital}/>
+            
             <AuthRoute exact path='/login' component={Login} />
 
             <AuthRoute exact path='/register' component={Register} />
@@ -55,6 +57,7 @@ function AppRouter() {
             <Route path='/managers' component={ManagerList} />
             <Route path='/manager/add' component={ManagerAdd} />
             <Route path='/manager/:id' component={ManagerEdit} />
+            <Route path='/manageBeds' component={ManageBeds}/>
             <ProtectedRoute
               exact
               path='/doctors/:id'
