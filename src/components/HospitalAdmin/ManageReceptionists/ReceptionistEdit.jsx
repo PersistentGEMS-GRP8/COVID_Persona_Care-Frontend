@@ -40,7 +40,7 @@ class ReceptionistEdit extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const {receptionist} = this.state;
-    
+    receptionist.type = 'receptionist';
     ReceptionistService.updateReceptionist(receptionist).then(res =>{
       this.props.history.push('/receptionists');
     });
