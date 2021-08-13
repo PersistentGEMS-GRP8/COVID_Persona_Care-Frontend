@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AdminNavbar from '../AdminNavbar';
-import {postHospitalAdmin,  createHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
+import {postHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
 import {getHospitalList} from "../../Actions/hospitalAPICalls";
 
 class AddHospitalAdmin extends Component {
@@ -12,6 +12,7 @@ class AddHospitalAdmin extends Component {
             email:" ",
             contactNo:" ",
             hId:" ",
+            type: "hospitalAdmin",
 
             HospitalList:[],
 
@@ -55,19 +56,23 @@ class AddHospitalAdmin extends Component {
     onSubmit = e => {
        
         e.preventDefault();
-        const item = {
-            name:this.state.name,
-            email:this.state.email,
-            contactNo:this.state.contactNo,
-            hId:this.state.hId
-        };
 
-        const personaUser = {
+        const item ={
+        personaUser:
+             {
             username:this.state.username,
-            password:this.state.password,
-            role:this.state.role,
-        };
-
+            password: this.state.password,
+            role: this.state.role
+        },
+        person: {
+            type: this.state.type,
+            name: this.state.name,
+            email: this.state.email,
+            contactNo: this.state.contactNo,
+            hId:this.state.hId
+        }
+    } 
+   
         var errors = [];
         const expression = /\S+@\S+/;
         var validEmail = expression.test(String(this.state.email).toLowerCase());
@@ -87,19 +92,18 @@ class AddHospitalAdmin extends Component {
             postHospitalAdmin({item});
 
             //Add username & password to PersonaUser Table
-            createHospitalAdmin({personaUser});
+            //createHospitalAdmin({personaUser});
             
             console.log("Add Hospital Admin success");
             this.resetForm();
 
-            this.props.history.push('/manageHadmins')
-            window.location.reload(false);
+            // this.props.history.push('/manageHadmins')
+            // window.location.reload(false);
         }
     };
 
     resetForm = () => { 
-        //this.formRef.reset();
-        this.setState({name: "", email: "", contactNo: ""})
+        this.formRef.reset();
      };
 
         render() {
