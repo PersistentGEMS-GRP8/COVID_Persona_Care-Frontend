@@ -7,3 +7,7 @@ export const getHospitalByName = (name) => {
 export const getHospitalById = (id) => {
   return http.get(`/hospitals/${id}`);
 };
+
+export const updateHospitalBeds = (hId,beds)=>{
+  return http.put(`/hospitals/manage_beds`,null,{params:{hId,beds}});
+}
