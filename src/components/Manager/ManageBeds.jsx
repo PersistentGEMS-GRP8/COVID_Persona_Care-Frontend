@@ -1,6 +1,7 @@
 import React from 'react';
 import * as hospitalService from '../../services/HospitalService';
-import Navbar from '../layout/navbar';
+import ManagerNavbar from '../Manager/ManagerNavbar';
+import Swal from 'sweetalert2';
 
 class ManageBeds extends React.Component {
     constructor(props) {
@@ -23,7 +24,13 @@ class ManageBeds extends React.Component {
     updateBeds = () => {
         const noOfBeds = this.state.quantity;
         hospitalService.updateHospitalBeds(12, noOfBeds).then(res => {
-            this.props.history.push('/manageBeds');
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Successfully Updated',
+                showConfirmButton: false,
+                timer: 1500
+              })
         });
     }
     incrementBeds = () => {
@@ -36,7 +43,7 @@ class ManageBeds extends React.Component {
     render() {
         return (
             <div>
-                <Navbar />
+                <ManagerNavbar />
                 <br></br>
                 <div class="container">
                     <div class="row">
