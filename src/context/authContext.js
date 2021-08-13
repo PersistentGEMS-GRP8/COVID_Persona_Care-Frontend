@@ -105,9 +105,8 @@ const AuthProvider = ({ children }) => {
       const token = data.token;
       const decode = jwtDecode(token);
       const role = getUserRole(decode);
-      // get user info api call
       setToken(token);
-      setUser({ ...user, role });
+      setUser({ role, ...data.person });
       setIsAuthenticated(true);
       handleRoute(role);
       localStorage.setItem(TOKEN, token);

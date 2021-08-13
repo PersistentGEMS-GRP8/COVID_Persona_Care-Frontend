@@ -32,11 +32,11 @@ const ManagerDashboard = (props) => {
 
   return (
     <>
-      <Link to='/doctors/new' className='text-decoration-none'>
-        <div className='d-flex flex-row-reverse my-2'>
+      <div className='d-flex flex-row-reverse my-2'>
+        <Link to='/doctors/new' className='text-decoration-none'>
           <Button variant='primary'>Register Doctor</Button>
-        </div>
-      </Link>
+        </Link>
+      </div>
       <Table bordered hover>
         <thead>
           <tr>
