@@ -41,10 +41,13 @@ export const postHospital = ({item}) => {
         .post('/hospitals/', item)
         .then(res => {
             console.log(res.data);
+
         })
         .catch(function (error) {
             //handle error 
             console.log(error);
+            alert('Hospital already exists');
+
         })
         .finally(function (error) {
             console.log(error);

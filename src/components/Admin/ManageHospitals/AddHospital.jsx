@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import AdminNavbar from '../AdminNavbar';
 import {postHospital} from "../../Actions/hospitalAPICalls";
 
+
 class AddHospital extends Component {
     constructor(props) {
         super(props);
@@ -26,19 +27,20 @@ class AddHospital extends Component {
             noOfBeds:this.state.noOfBeds };
             console.log(item);
 
+         
             postHospital({item});
             
             console.log("Add Hospital success");
             this.resetForm();
 
-           this.props.history.push('/adminDashboard')
-           window.location.reload(false);
+        //    this.props.history.push('/adminDashboard')
+        //    window.location.reload(false);
 
             };
             
     resetForm = () => { 
-        //this.formRef.reset();
-        this.setState({hName: "", location: "", noOfBeds: ""})
+        this.formRef.reset();
+        // this.setState({hName: " ", location: " ", noOfBeds: " "})
 
      };
 
