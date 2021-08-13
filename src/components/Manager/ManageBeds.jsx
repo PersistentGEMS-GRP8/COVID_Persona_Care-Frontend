@@ -1,5 +1,5 @@
 import React from 'react';
-import * as hospitalService from '../../services/hospitalService';
+import * as hospitalService from '../../services/HospitalService';
 import Navbar from '../layout/navbar';
 
 class ManageBeds extends React.Component {

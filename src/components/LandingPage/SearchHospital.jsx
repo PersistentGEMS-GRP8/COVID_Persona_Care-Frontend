@@ -2,7 +2,7 @@ import React from 'react';
 import '../../css/landing.css'
 import Navbar from './Navbar';
 import Footer from './Footer';
-import * as hospitalService from '../../services/hospitalService';
+import * as hospitalService from '../../services/HospitalService';
 
 class SearchHospital extends React.Component {
 
