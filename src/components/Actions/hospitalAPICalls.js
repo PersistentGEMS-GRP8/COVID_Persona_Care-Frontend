@@ -1,15 +1,11 @@
-import axios from 'axios';
-import {HOSPITAL} from '../../constants/url';
-import authHeader from '../../services/auth-header';
+import http from '../../services/httpService'
 
-
-//get all hospitals
 export const getHospitalList = () => {
-    return axios
-        .get(HOSPITAL.GET_ALL, { headers: authHeader() } )
+    return http
+        .get('/hospitals')
         
         .then(res => {
-            return res.data;
+            return res;
         })
         .catch(function (error) {
             //handle error 
@@ -22,12 +18,12 @@ export const getHospitalList = () => {
 
 //get hospital
 export const getHospital = (id) => {
-    return axios
-        .get(HOSPITAL.GET_ALL+id ,{ headers: authHeader() })
+    return http
+        .get('/hospitals/'+id )
         
         .then(res => {
-            console.log("RESDATA",res.data);
-            return res.data;
+            console.log("RESDATA",res);
+            return res;
         })
         .catch(function (error) {
             //handle error 
@@ -41,8 +37,8 @@ export const getHospital = (id) => {
 
 //post hospital
 export const postHospital = ({item}) => {
-    return axios
-        .post(HOSPITAL.POST_HOSPITAL, item, { headers: authHeader() })
+    return http
+        .post('/hospitals/', item)
         .then(res => {
             console.log(res.data);
         })
@@ -60,8 +56,8 @@ export const postHospital = ({item}) => {
 //delete hospital
 export const deleteHospital = (id) => {
     // console.log("IDDDD",id);
-    return axios
-        .delete(HOSPITAL.GET_ALL+ id , { headers: authHeader() })
+    return http
+        .delete('/hospitals/'+id)
         .then(res => {
             console.log(res.data);
         })
@@ -77,8 +73,8 @@ export const deleteHospital = (id) => {
 
      //update hospital
      export const updateHospital = (hId,{item}) => {
-        return axios
-            .put(HOSPITAL.GET_ALL+hId,item, { headers: authHeader() })
+        return http
+            .put('/hospitals/'+hId,item)
             .then(res => {
                 console.log(res.data);
             })
@@ -93,20 +89,5 @@ export const deleteHospital = (id) => {
     }
 
 
-    // export const updateHospital = (id) => {
-    //     return axios
-    //         .put(HOSPITAL.GET_ALL+ id)
-    //         .then(res => {
-    //             console.log(res.data);
-    //         })
-    //         .catch(function (error) {
-    //             //handle error 
-    //             console.log(error);
-    //         })
-    //         .finally(function (error) {
-    //             console.log(error);
-    //         })
-    
-    // }
-
+   
    

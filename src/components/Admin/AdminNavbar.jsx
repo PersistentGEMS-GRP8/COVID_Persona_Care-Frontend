@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/admin.css';
+import authService from "../../services/auth-service";
 
 class AdminNavbar extends Component {
   render() {
@@ -24,7 +25,7 @@ class AdminNavbar extends Component {
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <a className="dropdown-item" href="#">Update Credentials</a>
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="#">Logout</a>
+              <a className="dropdown-item" href="/" onClick={authService.logout}>Logout</a>
             </div>
             </li>
          </ul>
