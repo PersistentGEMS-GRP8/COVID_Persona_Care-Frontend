@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import ReceptionistService from '../../../services/ReceptionistService'
-import Navbar from '../../layout/navbar'
+import HospitalAdminNavbar from '../HospitalAdminNavbar';
 
 class ReceptionistAdd extends Component {
 
@@ -61,7 +61,7 @@ class ReceptionistAdd extends Component {
     const title = <h2>{'Receptionist Details'}</h2>;
 
     return <div>
-      <Navbar/> 
+      <HospitalAdminNavbar/> 
       <br/>
       <div className="container">
         {title}

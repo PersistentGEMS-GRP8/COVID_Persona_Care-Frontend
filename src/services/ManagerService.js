@@ -1,27 +1,25 @@
-import axios from 'axios';
-
-const MANAGER_API_BASE_URL = "http://localhost:8088/COVIDPersonaCare/managers";
+import http from './httpService';
 
 class ManagerService {
 
     getManagersByHId(hId){
-        return axios.get(MANAGER_API_BASE_URL + '/getByHId/' + hId);
+        return http.get('/managers/getByHId/' + hId);
     }
 
     createManager(manager){
-        return axios.post(MANAGER_API_BASE_URL + '/register', manager);
+        return http.post('/managers/register', manager);
     }
 
     getManagerById(managerId){
-        return axios.get(MANAGER_API_BASE_URL + '/' + managerId);
+        return http.get('/managers/' + managerId);
     }
 
     updateManager(manager){
-        return axios.put(MANAGER_API_BASE_URL, manager);
+        return http.put('/managers', manager);
     }
 
     deleteManager(managerId){
-        return axios.delete(MANAGER_API_BASE_URL + '/' + managerId);
+        return http.delete('/managers/' + managerId);
     }
 }
 

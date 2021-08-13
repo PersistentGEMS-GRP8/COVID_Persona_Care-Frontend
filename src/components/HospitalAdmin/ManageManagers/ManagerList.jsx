@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ManagerService from '../../../services/ManagerService';
-import Navbar from '../../layout/navbar'
-
+import HospitalAdminNavbar from '../HospitalAdminNavbar';
 
 class ManagerList extends Component {
 
@@ -53,7 +52,7 @@ class ManagerList extends Component {
 
     return (
       <div>
-        <Navbar/>
+        <HospitalAdminNavbar/>
         <div className="container">
         <br></br>
           <h3>Managers</h3>        
