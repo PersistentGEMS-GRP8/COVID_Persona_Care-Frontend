@@ -1,11 +1,13 @@
-import axios from 'axios';
+import http from './httpService';
 
-const Hospital_API_BASE_URL = "http://localhost:8088/COVIDPersonaCare/hospitals";
+export const getHospitalByName = (name) => {
+  return http.get('/hospitals/search', { params: { name } });
+};
 
-class HospitalService{
-    getHospitalByName(hospitalName){
-        return axios.get(Hospital_API_BASE_URL + '/search?name=' + hospitalName);
-    }
+export const getHospitalById = (id) => {
+  return http.get(`/hospitals/${id}`);
+};
+
+export const updateHospitalBeds = (hId,beds)=>{
+  return http.put(`/hospitals/manage_beds`,null,{params:{hId,beds}});
 }
-
-export default new HospitalService();

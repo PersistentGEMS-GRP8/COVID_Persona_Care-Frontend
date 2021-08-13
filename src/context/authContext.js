@@ -164,6 +164,8 @@ const AuthProvider = ({ children }) => {
 
 const useAuth = () => useContext(AuthContext);
 
-const token = localStorage.getItem(TOKEN);
+const getToken = () => {
+  return localStorage.getItem(TOKEN);
+};
 
-export { AuthProvider, useAuth, token };
+export { AuthProvider, useAuth, getToken };
