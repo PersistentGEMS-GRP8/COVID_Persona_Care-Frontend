@@ -20,13 +20,16 @@ class AdminManageHAdmins extends Component {
           if(res!=null){
             let response = res.data;
             let {HospitalAdminList} = this.state;
+
             response.map((item, i) => {
                 HospitalAdminList.push(item)
                 return  HospitalAdminList;
             });
+
             this.setState({
                 HospitalAdminList
             });
+
           }else{
               console.log("RESPONSE NULL")
           }
@@ -54,25 +57,22 @@ class AdminManageHAdmins extends Component {
         updateHospitalAdmin(item.id);
     };
 
-  render() {
+    render() {
 
-    return (
-      <div className="home">
-       <AdminNavbar/> 
-       <br/>
-       <div className="row container">
-       <p>Admin Dashboard Page - Manage Hospital Admins</p>
-       <div>
-         <a href={'/addHospitalAdmin'} className="button" style={{float: "right"}}>Register Hospital Admin</a>
-        </div>
-       <HospitalAdminList  
-            items={this.state.HospitalAdminList}
-            removeHospitalAdmin={this.removeHospitalAdmin}
-            updateHospitalAdmin={this.updateHospitalAdmin}
-       />
-       </div>
-      </div>
-    );
-  }
+        return (
+        <div className="home">
+            <AdminNavbar/><br/>
+            <div className="row container">
+                <p>Admin Dashboard Page - Manage Hospital Admins</p>
+            <div>
+                <a href={'/addHospitalAdmin'} className="button" style={{float: "right"}}>Register Hospital Admin</a>
+            </div>
+            <HospitalAdminList  
+                items={this.state.HospitalAdminList}
+                removeHospitalAdmin={this.removeHospitalAdmin}
+                updateHospitalAdmin={this.updateHospitalAdmin} />
+            </div>
+        </div> );
+    }
 }
 export default AdminManageHAdmins;
