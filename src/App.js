@@ -25,6 +25,11 @@ import AdminManageHAdmins from './components/Admin/ManageHAdmins/AdminManageHAdm
 import AddHospitalAdmin from './components/Admin/ManageHAdmins/AddHospitalAdmin';
 import UpdateHospitalAdmin from './components/Admin/ManageHAdmins/UpdateHospitalAdmin';
 
+import PatientAdd from './components/Receptionist/ManagePatients/PatientAdd';
+import PatientEdit from './components/Receptionist/ManagePatients/PatientEdit';
+import PatientVaccineForm from './components/Receptionist/ManagePatients/PatientVaccineForm';
+import ReceptionistDashboard from './components/Receptionist/ReceptionistDashboard';
+
 function App() {
   return (
     <div>
@@ -58,6 +63,14 @@ function App() {
           <Route exact path="/manageHadmins" component={AdminManageHAdmins} />
           <Route exact path="/addHospitalAdmin" component={AddHospitalAdmin} />
           <Route exact path="/updateHospitalAdmin/:id" component={UpdateHospitalAdmin} />
+
+          {/** Receptionist dashboard routes */}
+
+          <Route exact path="/patient/list" component={ReceptionistDashboard}/>
+          <Route exact path="/patient/add" component={PatientAdd}/>
+          <Route exact path="/patient/vaccine" component={PatientVaccineForm} />
+          <Route exact path="/patient/edit/:id" component={PatientEdit}/>
+          
 
           </Switch>
          </Container>
