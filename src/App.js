@@ -31,6 +31,11 @@ import AddHospitalAdmin from './components/Admin/ManageHAdmins/AddHospitalAdmin'
 import UpdateHospitalAdmin from './components/Admin/ManageHAdmins/UpdateHospitalAdmin';
 import ManageBeds from './components/Manager/ManageBeds';
 
+import PatientAdd from './components/Receptionist/ManagePatients/PatientAdd';
+import PatientEdit from './components/Receptionist/ManagePatients/PatientEdit';
+import PatientVaccineForm from './components/Receptionist/ManagePatients/PatientVaccineForm';
+import ReceptionistDashboard from './components/Receptionist/ReceptionistDashboard';
+
 import { ProtectedRoute, AuthRoute } from './routes';
 
 function AppRouter() {
@@ -78,6 +83,14 @@ function AppRouter() {
               component={AdminDashboard}
               requiredRoles={[Roles.ADMIN]}
             />
+
+          {/** Receptionist dashboard routes */}
+
+          <Route exact path="/patient/list" component={ReceptionistDashboard}/>
+          <Route exact path="/patient/add" component={PatientAdd}/>
+          <Route exact path="/patient/vaccine" component={PatientVaccineForm} />
+          <Route exact path="/patient/edit/:id" component={PatientEdit}/>
+          
 
             {/* Hospital routes */}
             <Route exact path='/manageHospitals' component={AdminDashboard} />
