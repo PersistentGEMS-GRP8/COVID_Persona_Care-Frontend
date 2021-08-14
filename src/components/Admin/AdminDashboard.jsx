@@ -6,7 +6,6 @@ import {getHospitalList} from "../Actions/hospitalAPICalls";
 import {deleteHospital} from "../Actions/hospitalAPICalls";
 import {updateHospital} from "../Actions/hospitalAPICalls";
 
-
 class AdminDashboard extends Component {
     constructor(props) {
         super(props);
@@ -23,10 +22,8 @@ class AdminDashboard extends Component {
             let response = res.data;
             let {HospitalList} = this.state;
             response.map((item, i) => {
-                HospitalList.push(item)
-
+                HospitalList.push(item);
                 return  HospitalList;
-
             });
             this.setState({
                 HospitalList
@@ -34,13 +31,10 @@ class AdminDashboard extends Component {
               
           }else{
               console.log("RESPONSE NULL")
-          }
-
-            
+          }    
         });
     }
 
- 
     removeHospital = item => {
         const {HospitalList} = this.state;
         this.setState({
@@ -54,7 +48,6 @@ class AdminDashboard extends Component {
     };
 
     updateHospital = item => {
-
         const {HospitalList} = this.state;
         this.setState({
             HospitalList: HospitalList.filter(i => {
@@ -65,29 +58,25 @@ class AdminDashboard extends Component {
     };
 
   render() {
-    console.log("Render")
-    // window.location.reload(false);
-
-
 
     return (
-
-      <div className="home">
-       <AdminNavbar/> 
-       <br/>
-       <div className="row container">
+    <div className="home">
+        <AdminNavbar/> 
+        <br/>
+        <div className="row container">
            <p>Admin Dashboard Page - Manage Hospitals</p>
-           <div>
-               <a href={'/addHospital'} className="button" style={{float: "right"}}> Register Hospital </a>
-            </div>
+        <div>
+            <a href={'/addHospital'} className="button" style={{float: "right"}}> Register Hospital </a>
+        </div>
             <HospitalList  
                 items={this.state.HospitalList}
                 removeHospital={this.removeHospital}
                 updateHospital={this.updateHospital}
             />
-            </div>
-      </div>
+        </div>
+    </div>
     );
   }
 }
+
 export default AdminDashboard;

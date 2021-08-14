@@ -23,16 +23,17 @@ class AddHospitalAdmin extends Component {
             errors:[]
         };
 
-      }
-
+    }
+    
+    //get input field changed
     onChange = event => {
         this.setState({ [event.target.id]: event.target.value });
-
     };
 
+    //check for errors
     hasError(key) {
         return this.state.errors.indexOf(key) !== -1;
-      }
+    }
 
     componentDidMount() {
                
@@ -42,7 +43,6 @@ class AddHospitalAdmin extends Component {
               let {HospitalList} = this.state;
               response.map((item, i) => {
                   HospitalList.push(item)
-    
                   return  HospitalList;
               });
               console.log("HospitalList:",HospitalList);
@@ -53,8 +53,7 @@ class AddHospitalAdmin extends Component {
             });
     }
 
-    onSubmit = e => {
-       
+    onSubmit = e => {  
         e.preventDefault();
 
         const item ={
@@ -102,11 +101,12 @@ class AddHospitalAdmin extends Component {
         }
     };
 
+    //resetting the form after submit + cancel
     resetForm = () => { 
         this.formRef.reset();
-     };
+    };
 
-        render() {
+    render() {
 
         return (
             <div>
@@ -144,10 +144,9 @@ class AddHospitalAdmin extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder="name"
-                                required
-                               />
+                                required/>
                        
-                             <label >Email:</label>
+                            <label >Email:</label>
                             <input 
                                 onChange={this.onChange}
                                 id="email"
@@ -175,7 +174,7 @@ class AddHospitalAdmin extends Component {
                                   }
                                 placeholder="contactNo"
                                 required/>
-                                <div class="invalid-feedback">
+                            <div class="invalid-feedback">
                                 ContactNo. should be between 10 to 12 characters
                                 </div>
 
@@ -196,18 +195,16 @@ class AddHospitalAdmin extends Component {
                                 className="form-control" 
                                 placeholder="password"
                                 required/>
-                       
-                    <br/>
-                    <div className="btn-toolbar" role="toolbar">
-                       <div className="btn-group mr-2" role="group" aria-label="First group">
-                       <button type="submit" className="button" >Submit</button> 
-
-                       </div>
-                        <div className="btn-group mr-2" role="group" aria-label="First group">
-                    <button onClick={this.resetForm} type="reset" className="button" >Cancel</button> 
-                    </div>
+                                <br/>                               
+                                <div className="btn-toolbar" role="toolbar">
+                                <div className="btn-group mr-2" role="group" aria-label="First group">
+                                    <button type="submit" className="button" >Submit</button> 
+                                </div>
+                                <div className="btn-group mr-2" role="group" aria-label="First group">
+                                    <button onClick={this.resetForm} type="reset" className="button" >Cancel</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </form>
             </div>

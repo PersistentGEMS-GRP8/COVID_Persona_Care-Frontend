@@ -17,7 +17,7 @@ class HospitalAdminList extends Component {
         <h4>HospitalAdmins List</h4>
         <div className="col-lg-12">
           <div className="col-lg-8">
-        <table className="table table-striped">
+            <table className="table table-striped">
             <thead>
                 <tr>
                 <th scope="col">Id</th>
@@ -27,7 +27,7 @@ class HospitalAdminList extends Component {
                 </tr>
             </thead>
             </table>
-            </div>
+          </div>
 
         {this.props.items.map((record, id) => {
           return (
