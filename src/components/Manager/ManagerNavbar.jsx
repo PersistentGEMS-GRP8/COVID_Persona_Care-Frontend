@@ -13,6 +13,7 @@ class ManagerNavbar extends Component {
          <div className="btn-group" style={{float:'left'}}>
           <a className="navbar-brand " href="/doctors/new" >Register Doctor</a>
           <a className="navbar-brand " href="/manageBeds" >Manage Beds</a>
+          <a className="navbar-brand " href="/manageVaccines" >Manage Vaccines</a>
          </div>
 
          <ul className="nav" >
@@ -23,7 +24,6 @@ class ManagerNavbar extends Component {
             MANAGER
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="#">Update Credentials</a>
               <div className="dropdown-divider"></div>
               <a className="dropdown-item" href="/" onClick={authService.logout}>Logout</a>
             </div>
