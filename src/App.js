@@ -54,13 +54,13 @@ function AppRouter() {
             requiredRoles={[Roles.HOSPITAL_MANAGER]}
           />
 
-          <Route path='/managers' component={ManagerList} />
-          <Route path='/manager/add' component={ManagerAdd} />
-          <Route path='/manager/:id' component={ManagerEdit} />
-          <Route path='/manageBeds' component={ManageBeds} />
+          <Route path='/managers' component={ManagerList} exact />
+          <Route path='/manager/add' component={ManagerAdd} exact />
+          <Route path='/manager/:id' component={ManagerEdit} exact />
+          <Route path='/manageBeds' component={ManageBeds} exact />
           <ProtectedRoute
             exact
-            path='/doctors/:id'
+            path='/manager/doctors/new'
             component={DoctorForm}
             requiredRoles={[Roles.HOSPITAL_MANAGER]}
           />

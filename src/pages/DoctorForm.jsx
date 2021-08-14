@@ -34,7 +34,7 @@ const DoctorForm = (props) => {
     setDoctors(data);
   };
 
-  const doctorId = props.match.params.id;
+  // const doctorId = props.match.params.id;
 
   useEffect(() => {
     const fetchSpecializations = async () => {
@@ -45,25 +45,25 @@ const DoctorForm = (props) => {
     fetchSpecializations();
   }, []);
 
-  useEffect(() => {
-    if (doctorId === 'new') return;
-    const fetch = async () => {
-      try {
-        const { data } = await doctorService.getDoctorById(doctorId);
-        setInitialValues({
-          name: data.name,
-          email: data.email,
-          contactNo: data.contactNo,
-          specialization: '',
-        });
-        setIsUpdate(true);
-      } catch (e) {
-        console.log(e);
-        props.history.replace('/not-found');
-      }
-    };
-    fetch();
-  }, []);
+  // useEffect(() => {
+  //   if (doctorId === 'new') return;
+  //   const fetch = async () => {
+  //     try {
+  //       const { data } = await doctorService.getDoctorById(doctorId);
+  //       setInitialValues({
+  //         name: data.name,
+  //         email: data.email,
+  //         contactNo: data.contactNo,
+  //         specialization: '',
+  //       });
+  //       setIsUpdate(true);
+  //     } catch (e) {
+  //       console.log(e);
+  //       props.history.replace('/not-found');
+  //     }
+  //   };
+  //   fetch();
+  // }, []);
 
   const validationSchema = Yup.object({
     name: Yup.string().min(3).required('Required'),

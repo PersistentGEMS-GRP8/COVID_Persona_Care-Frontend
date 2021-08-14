@@ -35,7 +35,7 @@ const ManagerDashboard = (props) => {
   return (
     <Container fluid>
       <div className='d-flex flex-row-reverse my-2'>
-        <Link to='/doctors/new' className='text-decoration-none p-2'>
+        <Link to='/manager/doctors/new' className='text-decoration-none p-2'>
           <Button variant='primary'>Register Doctor</Button>
         </Link>
         <Link to='/manageBeds' className='text-decoration-none p-2'>
