@@ -9,6 +9,7 @@ class HospitalItem extends Component {
         noOfBeds:0,
         }
   };
+
   render() {
     const { hospitalData, removeHospital, updateHospital} = this.props;
     return (
@@ -26,7 +27,6 @@ class HospitalItem extends Component {
         </thead> */}
         <tbody>
             <tr>
-
             <th scope="row">{hospitalData.hId}</th>
             <td>{hospitalData.hName}</td>
             <td> {hospitalData.location}</td>
@@ -34,10 +34,9 @@ class HospitalItem extends Component {
             <td ><a href={'/updateHospital/'+ hospitalData.hId} className="button" onClick={() => updateHospital(hospitalData)}> Update </a></td>
             <td> <a href={'#'} className="button"  onClick={() => removeHospital(hospitalData)}> Delete </a></td>
             </tr>
-         
         </tbody>
         </table>
-          <br />
+        <br />
         </div>
       </div>
     );
