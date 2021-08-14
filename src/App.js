@@ -32,6 +32,8 @@ import UpdateHospitalAdmin from './components/Admin/ManageHAdmins/UpdateHospital
 import ManageBeds from './components/Manager/ManageBeds';
 
 import { ProtectedRoute, AuthRoute } from './routes';
+import HospitalVaccineList from './components/Manager/HospitalVaccineList';
+import HospitalVaccineAdd from './components/Manager/HospitalVaccineAdd';
 
 function AppRouter() {
   return (
@@ -58,6 +60,8 @@ function AppRouter() {
             <Route path='/manager/add' component={ManagerAdd} />
             <Route path='/manager/:id' component={ManagerEdit} />
             <Route path='/manageBeds' component={ManageBeds}/>
+            <Route path='/manageVaccines' component={HospitalVaccineList}/>
+            <Route path='/addVaccines' component={HospitalVaccineAdd}/>
             <ProtectedRoute
               exact
               path='/doctors/:id'

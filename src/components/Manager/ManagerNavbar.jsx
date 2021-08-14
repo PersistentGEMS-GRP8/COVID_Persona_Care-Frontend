@@ -13,6 +13,7 @@ class ManagerNavbar extends Component {
          <div className="btn-group" style={{float:'left'}}>
           <a className="navbar-brand " href="/doctors/new" >Register Doctor</a>
           <a className="navbar-brand " href="/manageBeds" >Manage Beds</a>
+          <a className="navbar-brand " href="/manageVaccines" >Manage Vaccines</a>
          </div>
 
          <ul className="nav" >
