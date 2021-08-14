@@ -4,6 +4,10 @@ const PATIENT_API_BASE_URL = "http://localhost:8088/COVIDPersonaCare/patients";
 
 class PatientService {
 
+    getAllPatients(){
+        return axios.get(PATIENT_API_BASE_URL + '/');
+    }
+
     getPatientByHId(hId){
         return axios.get(PATIENT_API_BASE_URL + '/getByHId/' + hId);
     }
