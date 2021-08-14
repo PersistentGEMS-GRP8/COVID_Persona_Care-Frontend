@@ -3,15 +3,12 @@ import Item from "./HospitalItem";
 
 class HospitalList extends Component {
   
-
   removeHospital = item => {
     this.props.removeHospital(item);
-
   };
   
   updateHospital = item => {
     this.props.updateHospital(item);
-
   };
 
   render() {
@@ -27,7 +24,6 @@ class HospitalList extends Component {
             <th scope="col">Hospital Name</th>
             <th scope="col">Location</th>
             <th scope="col">No. of Beds Available</th>
-        
             </tr>
         </thead>
         </table>
@@ -44,8 +40,7 @@ class HospitalList extends Component {
           );
         })}
         </div>
-
-        </div>
+      </div>
     );
   }
 }

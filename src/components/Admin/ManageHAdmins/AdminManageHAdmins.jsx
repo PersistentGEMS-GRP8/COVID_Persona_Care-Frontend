@@ -2,11 +2,9 @@
 import React, { Component } from "react";
 import AdminNavbar from '../AdminNavbar'
 import HospitalAdminList from './HospitalAdminList'
-
 import {getHospitalAdminList} from "../../Actions/hospitalAdminAPICalls";
 import {deleteHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
 import {updateHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
-
 
 class AdminManageHAdmins extends Component {
     constructor(props) {
@@ -19,34 +17,30 @@ class AdminManageHAdmins extends Component {
     componentDidMount() {
 
         getHospitalAdminList().then(res => {
-          let response = res;
-
+          if(res!=null){
+            let response = res.data;
             let {HospitalAdminList} = this.state;
             response.map((item, i) => {
                 HospitalAdminList.push(item)
                 return  HospitalAdminList;
             });
-           // console.log("kkkkkkkkkkkkkkkkkkkk",HospitalAdminList);
-
             this.setState({
                 HospitalAdminList
             });
+          }else{
+              console.log("RESPONSE NULL")
+          }
+            
         });
     }
-
  
     removeHospitalAdmin = item => {
-
         const {HospitalAdminList} = this.state;
-        console.log(HospitalAdminList);
-
         this.setState({
             HospitalAdminList: HospitalAdminList.filter(i => {
                 return i !== item;
             })
         });
-        console.log("ITEM",item.id)
-
         deleteHospitalAdmin(item.id);
     };
 
@@ -57,14 +51,12 @@ class AdminManageHAdmins extends Component {
                 return i !== item;
             })
         });
-
         updateHospitalAdmin(item.id);
     };
 
   render() {
 
     return (
-
       <div className="home">
        <AdminNavbar/> 
        <br/>
@@ -77,10 +69,8 @@ class AdminManageHAdmins extends Component {
             items={this.state.HospitalAdminList}
             removeHospitalAdmin={this.removeHospitalAdmin}
             updateHospitalAdmin={this.updateHospitalAdmin}
-
        />
        </div>
-     
       </div>
     );
   }

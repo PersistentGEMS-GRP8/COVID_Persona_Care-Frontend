@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import ManagerService from '../../../services/ManagerService'
-import Navbar from '../../layout/navbar'
+import HospitalAdminNavbar from '../HospitalAdminNavbar';
 
 class ManagerAdd extends Component {
 
-  emptyPerson = {
-    manager:{
-      id:'',
+  emptyManager = {
+    personaUser:{
+      username: '',
+      password: '',
+      role: 'ROLE_MANAGER',
+    },
+    person:{
+      type:'manager',
       name: '',
       email: '',
       contactNo: '',
       hId:2
-    },
-    personaUser:{
-      id:'',
-      username: '',
-      password: '',
-      role: 'ROLE_MANAGER',
     }
+    
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      person: this.emptyPerson
+      manager: this.emptyManager
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,18 +35,19 @@ class ManagerAdd extends Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    let person = {...this.state.person};
-    person[name] = value;
-    person.manager[name] = value;
-    person.personaUser[name] = value;
-    this.setState({person});
+    let manager = {...this.state.manager};
+    manager[name] = value;
+    manager.person[name] = value;
+    manager.personaUser[name] = value;
+    this.setState({manager});
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const {person} = this.state;
-    console.log(person);
-    ManagerService.createManager(person).then(res =>{
+    const {manager} = this.state;
+
+    console.log(manager);
+    ManagerService.createManager(manager).then(res =>{
         this.props.history.push('/managers');
     });
     
@@ -57,11 +58,11 @@ class ManagerAdd extends Component {
   }
 
   render() {
-    const {person} = this.state;
+    const {manager} = this.state;
     const title = <h2>{'Manager Details'}</h2>;
 
     return <div>
-      <Navbar/> 
+      <HospitalAdminNavbar/> 
       <br/>
       <div className="container">
         {title}
@@ -70,35 +71,35 @@ class ManagerAdd extends Component {
           <div className="mb-3 row">
             <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" name="name" id="name" value={person.manager.name}
+              <input type="text" className="form-control" name="name" id="name" value={manager.person.name}
                     onChange={this.handleChange} autoComplete="name"/>
             </div>
           </div>
           <div className="mb-3 row">
             <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" name="email" id="email" value={person.manager.email}
+              <input type="text" className="form-control" name="email" id="email" value={manager.person.email}
                    onChange={this.handleChange} autoComplete="email"/>
             </div>
           </div>
           <div className="mb-3 row">
             <label htmlFor="contactNo" className="col-sm-2 col-form-label">Contact No</label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" name="contactNo" id="contactNo" value={person.manager.contactNo}
+              <input type="text" className="form-control" name="contactNo" id="contactNo" value={manager.person.contactNo}
                    onChange={this.handleChange} autoComplete="contactNo"/>
             </div>
           </div>
           <div className="mb-3 row">
             <label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" name="username" id="username" value={person.personaUser.username}
+              <input type="text" className="form-control" name="username" id="username" value={manager.personaUser.username}
                     onChange={this.handleChange} autoComplete="username"/>
             </div>
           </div>
           <div className="mb-3 row">
             <label htmlFor="password" className="col-sm-2 col-form-label">Default Password</label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" name="password" id="password" value={person.personaUser.password}
+              <input type="text" className="form-control" name="password" id="password" value={manager.personaUser.password}
                     onChange={this.handleChange} autoComplete="password"/>
             </div>
           </div>

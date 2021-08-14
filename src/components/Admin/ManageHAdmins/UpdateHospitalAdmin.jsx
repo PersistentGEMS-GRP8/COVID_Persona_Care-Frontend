@@ -17,10 +17,10 @@ class UpdateHospitalAdmin extends Component {
         const id = this.props.match.params.id;
 
         getHospitalAdmin(id).then(res => {
-          console.log("resssssss",res);
-          this.setState({data:res}) 
+           let response = res.data;
 
-       console.log("COMPONENETDIDMOUNTCONSOLE",this.state);
+          console.log("RESPONSE",response);
+          this.setState({data:response}) 
 
         });
     }
@@ -28,35 +28,35 @@ class UpdateHospitalAdmin extends Component {
    
     onChange = event => {
        this.setState({ [event.target.id]: event.target.value });
-
     };
 
     onSubmit = e => {
 
         const id= this.props.match.params.id;
-
         e.preventDefault();
         const item = {
             id:this.props.match.params.id,
             name:this.state.data.name,
-            email:this.state.data.email,
+            email:this.state.email,
             contactNo:this.state.contactNo,
-            hId:this.state.data.hId  };
+            hId:this.state.data.hId,
+            type:"hospitalAdmin"
+            };
 
             updateHospitalAdmin(id,{item});
             
             console.log("Update Hospital Admin success");
 
             //redirect to adminDashboard and refresh the page
-             this.props.history.push('/manageHadmins')
-             window.location.reload(false);
+            //  this.props.history.push('/manageHadmins')
+            //  window.location.reload(false);
 
              };
 
     resetForm = () => { 
         console.log("Cancel");
-        //this.formRef.reset();
-        this.setState({name: "", email: "", contactNo: ""})
+        this.formRef.reset();
+        // this.setState({name: "", email: "", contactNo: ""})
 
      };
         
@@ -71,9 +71,7 @@ class UpdateHospitalAdmin extends Component {
                         <div className="form-group col-md-6">   
                         <br/>
                             <h2>Update Hospital Admin</h2> 
-                        {/* <h2>{this.state.data.name}</h2> */}
                         <br/>
-
                             <label >Hospital Admin Name:</label> 
                             <input 
                                 onChange={this.onChange}
@@ -92,6 +90,7 @@ class UpdateHospitalAdmin extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder={this.state.data.email}
+                                required
                                 />
                      
                             <label >Contact Number:</label>
@@ -102,8 +101,8 @@ class UpdateHospitalAdmin extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder={this.state.data.contactNo}
+                                required
                                 />
-                        
                    <br/>
                    <div className="btn-toolbar" role="toolbar">
                        <div className="btn-group mr-2" role="group" aria-label="First group">

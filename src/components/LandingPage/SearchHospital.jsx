@@ -2,7 +2,7 @@ import React from 'react';
 import '../../css/landing.css'
 import Navbar from './Navbar';
 import Footer from './Footer';
-import HospitalService from '../../services/HospitalService';
+import * as hospitalService from '../../services/HospitalService';
 
 class SearchHospital extends React.Component {
 
@@ -11,7 +11,7 @@ class SearchHospital extends React.Component {
     }
 
     async componentDidMount() {
-        const hospital = (await HospitalService.getHospitalByName(this.props.match.params.hospital)).data;
+        const hospital = (await hospitalService.getHospitalByName(this.props.match.params.hospital)).data;
         this.setState({ hospital: hospital });
     }
 

@@ -16,9 +16,10 @@ class UpdateHospital extends Component {
         const hId = this.props.match.params.id;
 
         getHospital(hId).then(res => {
-          console.log("resssssss",res);
-          this.setState({data:res}) 
+        let response = res.data;
 
+          console.log("resssssss",response);
+          this.setState({data:response}) 
        // console.log("COMPONENETDIDMOUNTCONSOLE",this.state);
 
         });
@@ -27,7 +28,6 @@ class UpdateHospital extends Component {
    
     onChange = event => {
        this.setState({ [event.target.id]: event.target.value });
-
     };
 
     onSubmit = e => {
@@ -53,9 +53,9 @@ class UpdateHospital extends Component {
              };
 
     resetForm = () => { 
-        console.log("Cancel");
-        //this.formRef.reset();
-        this.setState({hName: "", location: "", noOfBeds: ""})
+        //console.log("Cancel");
+        this.formRef.reset();
+        // this.setState({hName: "", location: "", noOfBeds: ""})
 
      };
         
@@ -90,7 +90,8 @@ class UpdateHospital extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder={this.state.data.location}
-                                disabled/>
+                                required
+                                />
                      
                             <label >No. of Beds:</label>
                             <input 
@@ -99,7 +100,8 @@ class UpdateHospital extends Component {
                                 id="noOfBeds"
                                 type="text" 
                                 className="form-control" 
-                                placeholder={this.state.data.noOfBeds}/>
+                                placeholder={this.state.data.noOfBeds}
+                                required/>
                         
                    <br/>
                    <div className="btn-toolbar" role="toolbar">
