@@ -24,7 +24,6 @@ class ManagerNavbar extends Component {
             MANAGER
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="#">Update Credentials</a>
               <div className="dropdown-divider"></div>
               <a className="dropdown-item" href="/" onClick={authService.logout}>Logout</a>
             </div>

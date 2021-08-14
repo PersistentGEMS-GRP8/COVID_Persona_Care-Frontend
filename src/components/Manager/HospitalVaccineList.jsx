@@ -1,22 +1,24 @@
 import React from 'react';
 import * as VaccineService from '../../services/HospitalVaccineService';
+import { withRouter } from 'react-router-dom';
 import ManagerNavbar from './ManagerNavbar';
 
 class VaccineList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {vaccines: [],hId:12};
+        this.state = {vaccines: [],hId:1};
         this.removeVaccine = this.removeVaccine.bind(this);
         this.addVaccine = this.addVaccine.bind(this);
         this.editVaccine = this.editVaccine.bind(this);
       }
     
-      // componentDidMount() {
-      //   VaccineService.getVaccineInHospital(this.state.hId).then((res) => {
-      //     this.setState({vaccines:res.data});
-      //   });
-      // }
+      componentDidMount() {
+        VaccineService.getVaccinesInHospital(this.state.hId).then((res) => {
+          this.setState({vaccines:res.data},()=>console.log(this.state.vaccines));
+        });
+        
+      }
     
       removeVaccine(id) {
         VaccineService.deleteVaccineInHospital(id).then(() => {
@@ -25,11 +27,11 @@ class VaccineList extends React.Component {
         });
       }
       addVaccine(){
-        this.props.history.push('/addVaccines');
+        this.props.history.push('/manager/addVaccines');
       }
     
       editVaccine(id){
-        this.props.history.push(`/vaccine/${id}`);
+        this.props.history.push(`/manager/editVaccine/${id}`);
       }
     
       render() {
@@ -76,5 +78,5 @@ class VaccineList extends React.Component {
       }
     }
 
-    export default VaccineList;
+    export default withRouter(VaccineList);
 

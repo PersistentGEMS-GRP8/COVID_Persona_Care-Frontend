@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import * as vaccineService from '../../services/HospitalVaccineService';
 import ManagerNavbar from './ManagerNavbar';
 
@@ -7,19 +8,16 @@ class HospitalVaccineAdd extends React.Component {
         super(props);
         this.state = {
             vaccines: [],
-            newVaccine:{
                 count:0,
                 hospitalId:12,
                 vaccineId:0
-            }
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.cancel = this.cancel.bind(this);
+        this.resetForm = this.resetForm.bind(this);
     }
     async componentDidMount() {
         const vaccines = (await vaccineService.getVaccinesNames()).data;
-        console.log(vaccines)
         this.setState({
          vaccines:vaccines
         });
@@ -27,31 +25,28 @@ class HospitalVaccineAdd extends React.Component {
     }
 
     handleChange(event) {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-        let newVaccine = {...this.state.newVaccine};
-        newVaccine[name] = value;     
-        this.setState({newVaccine:newVaccine});
+        this.setState({ [event.target.name]: event.target.value });
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        const  newVaccine = this.state.newVaccine;
-        console.log(newVaccine);
-        vaccineService.addVaccineToHospital(newVaccine.count,newVaccine.hospitalId,newVaccine.vaccineId).then(res => {
-          //  this.props.history.push('/managers');
+        const newVaccine = {
+            count:this.state.count,
+            hospitalId:this.state.hospitalId,
+            vaccineId:this.state.vaccineId
+        };
+        vaccineService.addVaccineToHospital({newVaccine}).then(res => {
+            this.resetForm();
         });
 
     }
 
-    cancel() {
-        this.props.history.push('/managers');
-    }
+    resetForm = () => { 
+        this.formRef.reset();
+     };
 
     render() {
         const vaccines  = this.state.vaccines; 
-        const newVaccine = this.state.newVaccine;
         const title = <h2>{'Add Vaccine'}</h2>;
 
         return <div>
@@ -60,11 +55,11 @@ class HospitalVaccineAdd extends React.Component {
             <div className="container">
                 {title}
                 <br></br>
-                <form onSubmit={this.handleSubmit}>
+                <form class="needs-validation" novalidate  ref={ref => (this.formRef = ref)} onSubmit={this.handleSubmit}>
                     <div className="mb-3 row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
                         <div className="col-sm-10">
-                            <select type="text" className="form-control" name="vaccineId" id="vaccineId" value={newVaccine.vaccineId}
+                            <select type="text" className="form-control" name="vaccineId" id="vaccineId" value={this.state.vaccineId}
                                 onChange={this.handleChange}>
                                     <option>--Select Vaccine--</option>
                                   {vaccines.map(vaccine=>(<option value={vaccine.id}>{vaccine.name}</option>))}
@@ -74,14 +69,14 @@ class HospitalVaccineAdd extends React.Component {
                     <div className="mb-3 row">
                         <label htmlFor="email" className="col-sm-2 col-form-label">Count</label>
                         <div className="col-sm-10">
-                            <input type="number" className="form-control" name="count" id="count" value={newVaccine.count}
+                            <input type="number" className="form-control" name="count" id="count" value={this.state.count}
                                 onChange={this.handleChange}  />
                         </div>
                     </div>
                     <div className="mb-3 row">
                         <div className="col text-center">
                             <button className="btn button-custom me-2" type="submit">Save</button>
-                            <button className="btn btn-secondary ms-2" onClick={this.cancel}>Cancel</button>
+                            <button type="reset"  className="btn btn-secondary ms-2" onClick={this.resetForm}>Cancel</button>
                         </div>
                     </div>
                 </form>
@@ -89,4 +84,4 @@ class HospitalVaccineAdd extends React.Component {
         </div>
     }
 }
-export default HospitalVaccineAdd;
+export default withRouter(HospitalVaccineAdd);
