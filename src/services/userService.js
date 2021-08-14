@@ -8,4 +8,6 @@ const register = (user) => {
   });
 };
 
-export { register };
+const getCurrentUser = () => http.get('/profile');
+
+export { register, getCurrentUser };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Row, Col, ListGroup } from 'react-bootstrap';
+import { Container, Button, Row, Col, ListGroup, Alert } from 'react-bootstrap';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -7,6 +7,7 @@ import TextInput from '../components/TextInput';
 import * as doctorService from '../services/doctorService';
 import { getAllSpecialization } from '../services/specializationService';
 import SelectInput from '../components/SelectInput';
+import { useAuth } from '../context/authContext';
 
 const DoctorForm = (props) => {
   const initialFormValues = {
@@ -14,6 +15,7 @@ const DoctorForm = (props) => {
     email: '',
     contactNo: '',
     specialization: '1',
+    userName: '',
   };
 
   const [isUpdate, setIsUpdate] = useState(false);
@@ -22,11 +24,14 @@ const DoctorForm = (props) => {
   const [initialValues, setInitialValues] = useState(initialFormValues);
   const [doctors, setDoctors] = useState([]);
   const [specializations, setSpecializations] = useState([]);
+  const [error, setError] = useState(null);
+
+  const { user } = useAuth();
+  const hospitalId = user.hId;
 
   const fetchDoctorsByName = async (name) => {
     const { data } = await doctorService.getDoctorsByName(name);
     setDoctors(data);
-    console.log(data);
   };
 
   const doctorId = props.match.params.id;
@@ -76,22 +81,28 @@ const DoctorForm = (props) => {
         values.name,
         values.email,
         values.contactNo,
-        values.specialization
+        values.specialization,
+        values.userName
       );
-      await doctorService.addDoctorToHospital(data.id);
+      await doctorService.addDoctorToHospital(hospitalId, data);
       props.history.push('/manager/dashboard');
     } catch (e) {
+      if (e.response && e.response.status === 400) {
+        console.log(e.response);
+        setError(e.response.data.message);
+      }
       if (e.response && e.response.status === 401) {
         alert('Please login to continue');
         props.history.push('/login');
       }
+
       console.log(e);
     }
   };
 
   const addExistingDoctor = async () => {
     try {
-      await doctorService.addDoctorToHospital(exitingDoctorId);
+      await doctorService.addDoctorToHospital(hospitalId, exitingDoctorId);
       props.history.push('/manager/dashboard');
     } catch (e) {
       if (e.response && e.response.status === 401) {
@@ -102,12 +113,13 @@ const DoctorForm = (props) => {
     }
   };
 
-  const submitHandler = (values) => {
+  const submitHandler = (values, { setSubmitting }) => {
     if (isExitingDoctor) {
       addExistingDoctor();
     } else {
       addNewDoctor(values);
     }
+    setSubmitting(false);
   };
 
   const onClickExistingDoctor = (doctor) => {
@@ -127,6 +139,7 @@ const DoctorForm = (props) => {
       <Row className='d-flex justify-content-center'>
         <Col lg={7}>
           <h1 className='mb-3'>Doctor Form</h1>
+          {error && <Alert variant='danger'>{error}</Alert>}
           <Formik
             enableReinitialize={true}
             initialValues={initialValues}
@@ -177,6 +190,18 @@ const DoctorForm = (props) => {
                   disabled={isExitingDoctor && true}
                   required
                 />
+
+                {!isExitingDoctor && (
+                  <TextInput
+                    label='User name'
+                    type='text'
+                    placeholder='User name'
+                    name='userName'
+                    disabled={isExitingDoctor && true}
+                    required
+                  />
+                )}
+
                 <TextInput
                   label='Contact No'
                   type='text'

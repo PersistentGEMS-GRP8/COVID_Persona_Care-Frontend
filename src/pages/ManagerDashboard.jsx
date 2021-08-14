@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Button } from 'react-bootstrap';
+import { Container, Table, Button } from 'react-bootstrap';
 
 import { getDoctors, deleteDoctorInHospital } from '../services/doctorService';
+import { useAuth } from '../context/authContext';
 
 const ManagerDashboard = (props) => {
   const [doctors, setDoctors] = useState([]);
+  const { user } = useAuth();
+  const hospitalId = user.hId;
 
   useEffect(() => {
     const getDoc = async () => {
-      const { data } = await getDoctors();
-      console.log(data);
+      const { data } = await getDoctors(hospitalId);
       setDoctors(data);
     };
 
@@ -20,7 +22,7 @@ const ManagerDashboard = (props) => {
   const handleDelete = async (doctor) => {
     try {
       setDoctors(doctors.filter((d) => d.id !== doctor.id));
-      await deleteDoctorInHospital(doctor.id);
+      await deleteDoctorInHospital(hospitalId, doctor.id);
     } catch (e) {
       if (e.response && e.response.status === 401) {
         alert('Please login to continue');
@@ -31,7 +33,7 @@ const ManagerDashboard = (props) => {
   };
 
   return (
-    <>
+    <Container fluid>
       <div className='d-flex flex-row-reverse my-2'>
         <Link to='/doctors/new' className='text-decoration-none p-2'>
           <Button variant='primary'>Register Doctor</Button>
@@ -74,7 +76,7 @@ const ManagerDashboard = (props) => {
           ))}
         </tbody>
       </Table>
-    </>
+    </Container>
   );
 };
 

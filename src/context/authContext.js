@@ -47,13 +47,25 @@ const AuthProvider = ({ children }) => {
     return '';
   };
 
+  const getUserProfile = async () => {
+    try {
+      const { data } = await userService.getCurrentUser();
+      return data;
+    } catch (e) {
+      setLoading(false);
+    } finally {
+    }
+  };
+
   useEffect(() => {
     if (error) setError(null);
   }, [location.pathname]);
 
   useEffect(() => {
+    setLoading(true);
     const token = localStorage.getItem(TOKEN);
     if (!token) {
+      setLoading(false);
       setInitialLoad(false);
       return;
     }
@@ -64,16 +76,20 @@ const AuthProvider = ({ children }) => {
     if (!isTokenValid) {
       history.push('/login');
       setInitialLoad(false);
+      setLoading(false);
       return;
     }
 
     const role = getUserRole(decode);
-    // get user info api call
-    setToken(token);
-    setUser({ ...user, role });
-    setIsAuthenticated(true);
-    // handleRoute(role);
 
+    const fetchUser = async () => {
+      const userData = await getUserProfile();
+      setUser({ ...user, ...userData, role });
+      setToken(token);
+      setIsAuthenticated(true);
+      setLoading(false);
+    };
+    fetchUser();
     setInitialLoad(false);
   }, []);
 
@@ -137,10 +153,12 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem(TOKEN);
+    setLoading(true);
     setUser({ role: '' });
     setIsAuthenticated(false);
     setToken(null);
+    localStorage.removeItem(TOKEN);
+    setLoading(false);
   };
 
   const memoedValue = useMemo(() => ({
@@ -167,4 +185,4 @@ const getToken = () => {
   return localStorage.getItem(TOKEN);
 };
 
-export { AuthProvider, useAuth, getToken };
+export { AuthProvider, useAuth, getToken, AuthContext };
