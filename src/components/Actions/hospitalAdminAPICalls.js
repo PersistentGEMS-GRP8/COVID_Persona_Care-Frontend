@@ -43,6 +43,7 @@ export const postHospitalAdmin = ({item}) => {
 
         .then(res => {
             console.log("HOSPITAL ADMIN",res);
+            alert('Hospital Admin submitted successfully');
         })
         .catch(function (error) {
             console.log(error);

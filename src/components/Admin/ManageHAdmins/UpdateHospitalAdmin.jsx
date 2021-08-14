@@ -43,12 +43,14 @@ class UpdateHospitalAdmin extends Component {
             };
 
             updateHospitalAdmin(id,{item});
+
+            this.resetForm();
             
             console.log("Update Hospital Admin success");
 
             //redirect to adminDashboard and refresh the page
-            //  this.props.history.push('/manageHadmins')
-            //  window.location.reload(false);
+             this.props.history.push('/manageHadmins')
+             window.location.reload(false);
 
     };
 

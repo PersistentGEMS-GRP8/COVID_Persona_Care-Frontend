@@ -40,6 +40,7 @@ export const postHospital = ({item}) => {
 
         .then(res => {
             console.log(res.data);
+            alert('Hospital submitted successfully');
         })
         .catch(function (error) {
             console.log(error);

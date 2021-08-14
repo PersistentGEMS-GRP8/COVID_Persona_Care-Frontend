@@ -36,7 +36,10 @@ class AdminManageHAdmins extends Component {
             
         });
     }
- 
+
+    
+
+
     removeHospitalAdmin = item => {
         const {HospitalAdminList} = this.state;
         this.setState({
