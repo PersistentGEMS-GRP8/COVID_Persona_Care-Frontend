@@ -19,7 +19,7 @@ class UpdateHospitalAdmin extends Component {
         getHospitalAdmin(id).then(res => {
            let response = res.data;
 
-          console.log("resssssss",response);
+          console.log("RESPONSE",response);
           this.setState({data:response}) 
 
         });
@@ -37,24 +37,26 @@ class UpdateHospitalAdmin extends Component {
         const item = {
             id:this.props.match.params.id,
             name:this.state.data.name,
-            email:this.state.data.email,
+            email:this.state.email,
             contactNo:this.state.contactNo,
-            hId:this.state.data.hId  };
+            hId:this.state.data.hId,
+            type:"hospitalAdmin"
+            };
 
             updateHospitalAdmin(id,{item});
             
             console.log("Update Hospital Admin success");
 
             //redirect to adminDashboard and refresh the page
-             this.props.history.push('/manageHadmins')
-             window.location.reload(false);
+            //  this.props.history.push('/manageHadmins')
+            //  window.location.reload(false);
 
              };
 
     resetForm = () => { 
         console.log("Cancel");
-        //this.formRef.reset();
-        this.setState({name: "", email: "", contactNo: ""})
+        this.formRef.reset();
+        // this.setState({name: "", email: "", contactNo: ""})
 
      };
         
@@ -88,6 +90,7 @@ class UpdateHospitalAdmin extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder={this.state.data.email}
+                                required
                                 />
                      
                             <label >Contact Number:</label>
@@ -98,6 +101,7 @@ class UpdateHospitalAdmin extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder={this.state.data.contactNo}
+                                required
                                 />
                    <br/>
                    <div className="btn-toolbar" role="toolbar">

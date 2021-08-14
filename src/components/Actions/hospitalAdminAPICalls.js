@@ -7,13 +7,16 @@ export const getHospitalAdminList = () => {
         
         .then(res => {
             return res;
+            
         })
         .catch(function (error) {
             //handle error 
             console.log(error);
+
         })
         .finally(function (error) {
             console.log(error);
+
         })
 }
 
@@ -40,14 +43,20 @@ export const getHospitalAdmin = (id) => {
 
 //post hospital admin
 export const postHospitalAdmin = ({item}) => {
+    console.log("BBBBBBBBBBB",item)
+
+    
     return http
-        .post('/hospitalAdmins/', item)
+        .post('/register/', item)
+
         .then(res => {
-            console.log(res.data);
+
+            console.log("HOSPITAL ADMIN",res);
         })
         .catch(function (error) {
             //handle error 
             console.log(error);
+
         })
         .finally(function (error) {
             console.log(error);

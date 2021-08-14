@@ -53,9 +53,9 @@ class UpdateHospital extends Component {
              };
 
     resetForm = () => { 
-        console.log("Cancel");
-        //this.formRef.reset();
-        this.setState({hName: "", location: "", noOfBeds: ""})
+        //console.log("Cancel");
+        this.formRef.reset();
+        // this.setState({hName: "", location: "", noOfBeds: ""})
 
      };
         
@@ -90,6 +90,7 @@ class UpdateHospital extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder={this.state.data.location}
+                                required
                                 />
                      
                             <label >No. of Beds:</label>
@@ -99,7 +100,8 @@ class UpdateHospital extends Component {
                                 id="noOfBeds"
                                 type="text" 
                                 className="form-control" 
-                                placeholder={this.state.data.noOfBeds}/>
+                                placeholder={this.state.data.noOfBeds}
+                                required/>
                         
                    <br/>
                    <div className="btn-toolbar" role="toolbar">

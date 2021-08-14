@@ -18,6 +18,7 @@ class AdminDashboard extends Component {
     componentDidMount() {
 
        getHospitalList().then(res => {
+        this.setState({loading:false})
           if(res!=null){
             let response = res.data;
             let {HospitalList} = this.state;
@@ -64,6 +65,10 @@ class AdminDashboard extends Component {
     };
 
   render() {
+    console.log("Render")
+    // window.location.reload(false);
+
+
 
     return (
 
