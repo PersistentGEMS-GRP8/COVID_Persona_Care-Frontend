@@ -16,7 +16,7 @@ class HospitalAdminList extends Component {
       <div>
         <h4>HospitalAdmins List</h4>
         <div className="col-lg-12">
-          <div className="col-lg-8">
+          <div className="col-lg-9">
             <table className="table table-striped">
             <thead>
                 <tr>
