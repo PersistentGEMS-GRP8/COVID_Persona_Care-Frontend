@@ -36,10 +36,7 @@ class VaccineEdit extends React.Component {
             vaccineId: this.state.vaccine.vaccineId
         };
         vaccineService.editVaccineInHospital({ editedVaccine });
-
-    }
-
-   
+    } 
 
     render() {
         const vaccines = this.state.vaccines;

@@ -38,8 +38,8 @@ class VaccineList extends React.Component {
         const {vaccines} = this.state;
     
         const vaccineList = vaccines.map(vaccine => {
-          return <tr key={vaccine.id}>
-            <td>{vaccine.id}</td>
+          return <tr key={vaccine.vaccineId}>
+            <td>{vaccine.vaccineId}</td>
             <td>{vaccine.name}</td>
             <td>{vaccine.count}</td>
             <td>
