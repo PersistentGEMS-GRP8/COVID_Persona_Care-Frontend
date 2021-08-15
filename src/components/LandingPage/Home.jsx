@@ -12,7 +12,7 @@ class Home extends React.Component {
                 <br></br> <br></br>
                 <Carousel/>
                 <ServiceCards/>
-                <Footer/>
+                {/* <Footer/> */}
             </div>
         );
     }
