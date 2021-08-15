@@ -104,6 +104,10 @@ const AuthProvider = ({ children }) => {
     try {
       const { data } = await authService.login(username, password);
       const token = data.token;
+      const person = data.person;
+      if(person.type=='hospitalAdmin'|| person.type=='manager'){
+        localStorage.setItem('hospitalId', person.hId);
+      }  
       const decode = jwtDecode(token);
       const role = getUserRole(decode);
       // get user info api call
@@ -111,7 +115,7 @@ const AuthProvider = ({ children }) => {
       setUser({ ...user, role });
       setIsAuthenticated(true);
       handleRoute(role);
-      localStorage.setItem(TOKEN, token);
+      localStorage.setItem(TOKEN, token); 
       // console.log(role);
     } catch (err) {
       if (err.response && err.response.status === 401) {
@@ -139,6 +143,7 @@ const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem(TOKEN);
+    localStorage.removeItem('hospitalId');
     setUser({ role: '' });
     setIsAuthenticated(false);
     setToken(null);

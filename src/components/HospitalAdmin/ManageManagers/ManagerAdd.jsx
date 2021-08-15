@@ -16,7 +16,7 @@ class ManagerAdd extends Component {
       name: '',
       email: '',
       contactNo: '',
-      hId: 2
+      hId: localStorage.getItem('hospitalId')
     }
 
   }
