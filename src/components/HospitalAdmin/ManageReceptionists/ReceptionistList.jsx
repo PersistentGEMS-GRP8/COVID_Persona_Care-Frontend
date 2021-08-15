@@ -7,7 +7,7 @@ class ReceptionistList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {receptionists: [],hId:2};
+    this.state = {receptionists: [], hId:localStorage.getItem('hospitalId')};
     this.removeReceptionist = this.removeReceptionist.bind(this);
     this.addReceptionist = this.addReceptionist.bind(this);
     this.editReceptionist = this.editReceptionist.bind(this);

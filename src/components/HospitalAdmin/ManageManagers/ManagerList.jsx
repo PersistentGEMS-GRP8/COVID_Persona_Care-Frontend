@@ -6,7 +6,7 @@ class ManagerList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {managers: [],hId:2};
+    this.state = {managers: [], hId:localStorage.getItem('hospitalId')};
     this.removeManager = this.removeManager.bind(this);
     this.addManager = this.addManager.bind(this);
     this.editManager = this.editManager.bind(this);
