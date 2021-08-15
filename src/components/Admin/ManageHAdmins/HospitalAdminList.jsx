@@ -22,8 +22,9 @@ class HospitalAdminList extends Component {
                 <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
-                <th scope="col">E-mail</th>
+                <th scope="col">E-mail Address</th>
                 <th scope="col">Contact Number</th>
+                <th scope="col">Hospital Name</th>
                 </tr>
             </thead>
             </table>
