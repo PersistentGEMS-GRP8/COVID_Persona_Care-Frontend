@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import PatientService from '../../../services/PatientService';
 
 class PatientList extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            patients: [{id:0,name:"S",email:"a@b.com"},{id:1,name:"S",email:"a@b.com"}]
+            patients: [
+                {id:0,name:"S",email:"a@b.com",contact:"1233",vStatus:"YES"},
+                {id:1,name:"D",email:"a@b.com",contact:"1233",vStatus:"YES"}] 
         }
     }
 
@@ -17,9 +20,18 @@ class PatientList extends Component {
         console.log(id);
     }
 
+    componentDidMount() {
+        PatientService.getAllPatients().then((res) => {
+            this.setState({
+                patients: res.data
+            });
+        });
+    }
+
 
     render() {
         const patients = this.state.patients;
+        // add {patients}
 
         const patientList = patients.map(patient => {
             return <tr key={patient.id}>
