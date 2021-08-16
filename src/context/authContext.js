@@ -125,6 +125,10 @@ const AuthProvider = ({ children }) => {
     try {
       const { data } = await authService.login(username, password);
       const token = data.token;
+      const person = data.person;
+      if (person.type == 'hospitalAdmin' || person.type == 'manager') {
+        localStorage.setItem('hospitalId', person.hId);
+      }
       const decode = jwtDecode(token);
       const role = getUserRole(decode);
       setToken(token);
@@ -172,6 +176,8 @@ const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setLoading(true);
+    localStorage.removeItem(TOKEN);
+    localStorage.removeItem('hospitalId');
     setUser({ role: '' });
     setIsAuthenticated(false);
     setToken(null);

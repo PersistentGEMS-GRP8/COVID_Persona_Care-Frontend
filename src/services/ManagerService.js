@@ -7,7 +7,7 @@ class ManagerService {
     }
 
     createManager(manager){
-        return http.post('/managers/register', manager);
+        return http.post('/register', manager);
     }
 
     getManagerById(managerId){

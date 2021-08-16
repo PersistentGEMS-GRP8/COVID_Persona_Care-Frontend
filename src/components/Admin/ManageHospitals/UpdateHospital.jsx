@@ -10,7 +10,7 @@ class UpdateHospital extends Component {
         this.state={
             data:[]
         }
-      }
+    }
         
     componentDidMount() {
         const hId = this.props.match.params.id;
@@ -38,40 +38,32 @@ class UpdateHospital extends Component {
             hId:this.props.match.params.id,
             hName:this.state.data.hName,
             location:this.state.data.location,
-            noOfBeds:this.state.noOfBeds };
-            
-            console.log(item);
+            noOfBeds:this.state.noOfBeds 
+        };
 
-            updateHospital(hId,{item});
-            
-            console.log("Update Hospital success");
+        updateHospital(hId,{item});
+        
+        console.log("Update Hospital success");
 
-            //redirect to adminDashboard and refresh the page
-             this.props.history.push('/adminDashboard')
-             window.location.reload(false);
-
-             };
+        //redirect to adminDashboard and refresh the page
+        this.props.history.push('/adminDashboard')
+        window.location.reload(false);
+    };
 
     resetForm = () => { 
-        console.log("Cancel");
-        //this.formRef.reset();
-        this.setState({hName: "", location: "", noOfBeds: ""})
-
-     };
+        this.formRef.reset();
+    };
         
-        render() {
+    render() {
         return (
             <div>
                 <AdminNavbar/>
-
                 <form ref={ref => (this.formRef = ref)} onSubmit={this.onSubmit}>
                     <div className="form-row container">
                         <div className="form-group col-md-6">   
                         <br/>
                             <h2>Update Hospital</h2> 
-                        {/* <h2>{this.state.data.hName}</h2> */}
                         <br/>
-
                             <label >Hospital Name:</label> 
                             <input 
                                 onChange={this.onChange}
@@ -82,7 +74,7 @@ class UpdateHospital extends Component {
                                 placeholder={this.state.data.hName}
                                 disabled/>
                        
-                             <label >Location:</label>
+                            <label >Location:</label>
                             <input 
                                 onChange={this.onChange}
                                 value={this.state.location}
@@ -90,7 +82,7 @@ class UpdateHospital extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder={this.state.data.location}
-                                />
+                                required />
                      
                             <label >No. of Beds:</label>
                             <input 
@@ -99,20 +91,19 @@ class UpdateHospital extends Component {
                                 id="noOfBeds"
                                 type="text" 
                                 className="form-control" 
-                                placeholder={this.state.data.noOfBeds}/>
-                        
-                   <br/>
-                   <div className="btn-toolbar" role="toolbar">
-                       <div className="btn-group mr-2" role="group" aria-label="First group">
-                            <button type="submit" className="button" >Update</button> 
+                                placeholder={this.state.data.noOfBeds}
+                                required/>
+                        <br/>
+                        <div className="btn-toolbar" role="toolbar">
+                            <div className="btn-group mr-2" role="group" aria-label="First group">
+                                <button type="submit" className="button" >Update</button> 
+                            </div>
+                            <div className="btn-group mr-2" role="group" aria-label="First group">
+                                <button onClick={this.resetForm} type="reset" className="button" >Cancel</button>
+                            </div>
                         </div>
-                        <div className="btn-group mr-2" role="group" aria-label="First group">
-                            <button onClick={this.resetForm} type="reset" className="button" >Cancel</button>
                         </div>
                     </div>
-                    </div>
-                    </div>
-
                 </form>
             </div>
         );

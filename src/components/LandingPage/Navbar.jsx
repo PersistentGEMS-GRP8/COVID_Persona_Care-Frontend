@@ -44,9 +44,6 @@ class Navbar extends React.Component {
                                 <a className="nav-link" href="#cards">Services</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#contactUs" aria-current="true">Contact Us</a>
-                            </li>
-                            <li className="nav-item">
                                 <form className="d-flex">
                                     <input type="text" name="hospital"  value={this.state.hospital} onChange={this.handleChange} placeholder="Search Hospital" className="form-control" /> &nbsp;
                                     <button type="button" className="btn btn-default" onClick={ () => this.handleSearch(hospital)}><i className="fa fa-search" aria-hidden="true"></i></button>

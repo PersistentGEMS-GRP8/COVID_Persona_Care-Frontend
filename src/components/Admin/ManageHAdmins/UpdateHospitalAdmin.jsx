@@ -11,7 +11,7 @@ class UpdateHospitalAdmin extends Component {
         this.state={
             data:[]
         }
-      }
+    }
         
     componentDidMount() {
         const id = this.props.match.params.id;
@@ -19,29 +19,32 @@ class UpdateHospitalAdmin extends Component {
         getHospitalAdmin(id).then(res => {
            let response = res.data;
 
-          console.log("resssssss",response);
+          console.log("RESPONSE",response);
           this.setState({data:response}) 
 
         });
     }
 
-   
     onChange = event => {
        this.setState({ [event.target.id]: event.target.value });
     };
 
     onSubmit = e => {
-
         const id= this.props.match.params.id;
         e.preventDefault();
         const item = {
             id:this.props.match.params.id,
             name:this.state.data.name,
-            email:this.state.data.email,
+            email:this.state.email,
             contactNo:this.state.contactNo,
-            hId:this.state.data.hId  };
+            hId:this.state.data.hId,
+            userId:this.state.data.userId,
+            type:"hospitalAdmin"
+            };
 
             updateHospitalAdmin(id,{item});
+
+            this.resetForm();
             
             console.log("Update Hospital Admin success");
 
@@ -49,16 +52,14 @@ class UpdateHospitalAdmin extends Component {
              this.props.history.push('/manageHadmins')
              window.location.reload(false);
 
-             };
+    };
 
     resetForm = () => { 
         console.log("Cancel");
-        //this.formRef.reset();
-        this.setState({name: "", email: "", contactNo: ""})
-
-     };
+        this.formRef.reset();
+    };
         
-        render() {
+    render() {
 
         return (
             <div>
@@ -80,7 +81,7 @@ class UpdateHospitalAdmin extends Component {
                                 placeholder={this.state.data.name}
                                 disabled/>
                        
-                             <label >Email:</label>
+                            <label >Email:</label>
                             <input 
                                 onChange={this.onChange}
                                 value={this.state.email}
@@ -88,7 +89,7 @@ class UpdateHospitalAdmin extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder={this.state.data.email}
-                                />
+                                required/>
                      
                             <label >Contact Number:</label>
                             <input 
@@ -98,19 +99,18 @@ class UpdateHospitalAdmin extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder={this.state.data.contactNo}
-                                />
-                   <br/>
-                   <div className="btn-toolbar" role="toolbar">
-                       <div className="btn-group mr-2" role="group" aria-label="First group">
-                            <button type="submit" className="button" >Update</button> 
+                                required/>
+                        <br/>
+                        <div className="btn-toolbar" role="toolbar">
+                            <div className="btn-group mr-2" role="group" aria-label="First group">
+                                <button type="submit" className="button" >Update</button> 
+                            </div>
+                            <div className="btn-group mr-2" role="group" aria-label="First group">
+                                <button onClick={this.resetForm} type="reset" className="button" >Cancel</button>
+                            </div>
                         </div>
-                        <div className="btn-group mr-2" role="group" aria-label="First group">
-                            <button onClick={this.resetForm} type="reset" className="button" >Cancel</button>
                         </div>
                     </div>
-                    </div>
-                    </div>
-
                 </form>
             </div>
         );

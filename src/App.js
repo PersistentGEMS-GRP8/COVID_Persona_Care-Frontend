@@ -36,6 +36,15 @@ import DoctorNavbar from './components/navbar/DoctorNavbar';
 import { ProtectedRoute, AuthRoute } from './routes';
 import DoctorDashboard from './pages/Doctor/DoctorDashboard';
 import DoctorUpdate from './pages/Doctor/DoctorUpdate';
+import PatientAdd from './components/Receptionist/ManagePatients/PatientAdd';
+import PatientEdit from './components/Receptionist/ManagePatients/PatientEdit';
+import PatientVaccineForm from './components/Receptionist/ManagePatients/PatientVaccineForm';
+import ReceptionistDashboard from './components/Receptionist/ReceptionistDashboard';
+
+import HospitalVaccineList from './components/Manager/HospitalVaccineList';
+import HospitalVaccineAdd from './components/Manager/HospitalVaccineAdd';
+import HospitalVaccineEdit from './components/Manager/HospitalVaccineEdit';
+import ManagerNavbar from './components/Manager/ManagerNavbar';
 
 function AppRouter() {
   const { user } = useAuth();
@@ -43,8 +52,10 @@ function AppRouter() {
   return (
     <>
       {role === Roles.DOCTOR && <DoctorNavbar />}
+      {role === Roles.HOSPITAL_MANAGER && <ManagerNavbar />}
       <main>
         {/* <Container fluid> */}
+
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/search/:hospital' component={SearchHospital} />
@@ -72,11 +83,23 @@ function AppRouter() {
             requiredRoles={[Roles.HOSPITAL_MANAGER]}
           />
 
+          <Route path='/manager/addVaccines' component={HospitalVaccineAdd} />
+          <Route
+            path='/manager/editVaccine/:id'
+            component={HospitalVaccineEdit}
+          />
+
+          <Route path='/manageVaccines' component={HospitalVaccineList} />
           {/* Receptionist */}
 
           <Route path='/receptionists' component={ReceptionistList} />
           <Route path='/receptionist/add' component={ReceptionistAdd} />
           <Route path='/receptionist/:id' component={ReceptionistEdit} />
+
+          <Route exact path='/patient/list' component={ReceptionistDashboard} />
+          <Route exact path='/patient/add' component={PatientAdd} />
+          <Route exact path='/patient/vaccine' component={PatientVaccineForm} />
+          <Route exact path='/patient/edit/:id' component={PatientEdit} />
 
           {/* Admin Dashboard Route */}
           <ProtectedRoute
@@ -118,6 +141,7 @@ function AppRouter() {
 
           <Route component={NotFound} />
         </Switch>
+
         {/* </Container> */}
       </main>
       <Footer />

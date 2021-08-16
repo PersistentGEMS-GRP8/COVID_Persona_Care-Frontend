@@ -1,19 +1,21 @@
 import React from 'react';
 import * as hospitalService from '../../services/HospitalService';
-import Navbar from '../layout/navbar';
+import ManagerNavbar from '../Manager/ManagerNavbar';
+
 
 class ManageBeds extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             quantity: 0,
+            hospitalId:localStorage.getItem('hospitalId'),
             hospital: {
             }
         }
     }
 
     async componentDidMount() {
-        const hospital = (await hospitalService.getHospitalById(12)).data;
+        const hospital = (await hospitalService.getHospitalById(this.state.hospitalId)).data;
         this.setState({
             quantity: hospital.noOfBeds,
             hospital: hospital
@@ -22,9 +24,7 @@ class ManageBeds extends React.Component {
 
     updateBeds = () => {
         const noOfBeds = this.state.quantity;
-        hospitalService.updateHospitalBeds(12, noOfBeds).then(res => {
-            this.props.history.push('/manageBeds');
-        });
+        hospitalService.updateHospitalBeds(this.state.hospitalId, noOfBeds);
     }
     incrementBeds = () => {
         this.setState({ quantity: this.state.quantity + 1 });
@@ -36,7 +36,7 @@ class ManageBeds extends React.Component {
     render() {
         return (
             <div>
-                <Navbar />
+                {/* <ManagerNavbar /> */}
                 <br></br>
                 <div class="container">
                     <div class="row">

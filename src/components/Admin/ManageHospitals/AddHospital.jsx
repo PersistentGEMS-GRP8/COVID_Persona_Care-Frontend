@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import AdminNavbar from '../AdminNavbar';
 import {postHospital} from "../../Actions/hospitalAPICalls";
 
+
 class AddHospital extends Component {
     constructor(props) {
         super(props);
@@ -10,12 +11,11 @@ class AddHospital extends Component {
             location:" ",
             noOfBeds:" ",
         };
-      }
+    }
 
     onChange = event => {
         console.log("onCHANGE");
         this.setState({ [event.target.id]: event.target.value });
-
     };
 
     onSubmit = e => {
@@ -26,24 +26,22 @@ class AddHospital extends Component {
             noOfBeds:this.state.noOfBeds };
             console.log(item);
 
+         
             postHospital({item});
             
             console.log("Add Hospital success");
             this.resetForm();
 
-           this.props.history.push('/adminDashboard')
-           window.location.reload(false);
+        //    this.props.history.push('/adminDashboard')
+        //    window.location.reload(false);
 
-            };
+    };
             
     resetForm = () => { 
-        //this.formRef.reset();
-        this.setState({hName: "", location: "", noOfBeds: ""})
+        this.formRef.reset();
+    };
 
-     };
-
-        render() {
-
+    render() {
         return (
             <div>
                 <AdminNavbar/> 
@@ -62,7 +60,7 @@ class AddHospital extends Component {
                                 placeholder="name"
                                 required/>        
                                                 
-                             <label >Location:</label>
+                            <label >Location:</label>
                             <input 
                                 onChange={this.onChange}
                                 id="location"
@@ -79,25 +77,22 @@ class AddHospital extends Component {
                                 className="form-control" 
                                 placeholder="no.of beds"
                                 required/>
-                       
-                    <br/>
-                    <div className="btn-toolbar" role="toolbar">
-                       <div class="btn-group mr-2" role="group" aria-label="First group">
-                            <button type="submit" className="button" >Submit</button> 
+                        <br/>
+                        <div className="btn-toolbar" role="toolbar">
+                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                                <button type="submit" className="button" >Submit</button> 
+                            </div>
+                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                                <button onClick={this.resetForm} type="reset" className="button" >Cancel</button> 
+                            </div>
                         </div>
-                        <div class="btn-group mr-2" role="group" aria-label="First group">
-                            <button onClick={this.resetForm} type="reset" className="button" >Cancel</button> 
                         </div>
-                        </div>
-                    </div>
                     </div>
                 </form>
             </div>
         );
     }
 }
-
-  
 
 export default AddHospital;
 

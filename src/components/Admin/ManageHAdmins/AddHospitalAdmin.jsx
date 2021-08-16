@@ -1,8 +1,12 @@
 import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AdminNavbar from '../AdminNavbar';
-import {postHospitalAdmin,  createHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
+import {postHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
 import {getHospitalList} from "../../Actions/hospitalAPICalls";
+import {getHospitalAdminList} from "../../Actions/hospitalAdminAPICalls";
+import { forEach } from "lodash";
+import HospitalAdminList from "./HospitalAdminList";
+
 
 class AddHospitalAdmin extends Component {
     constructor(props) {
@@ -12,8 +16,10 @@ class AddHospitalAdmin extends Component {
             email:" ",
             contactNo:" ",
             hId:" ",
+            type: "hospitalAdmin",
 
             HospitalList:[],
+            HospitalAdminHIdList:[],
 
             username:' ',
             password: ' ',
@@ -22,16 +28,17 @@ class AddHospitalAdmin extends Component {
             errors:[]
         };
 
-      }
-
+    }
+    
+    //get input field changed
     onChange = event => {
         this.setState({ [event.target.id]: event.target.value });
-
     };
 
+    //check for errors
     hasError(key) {
         return this.state.errors.indexOf(key) !== -1;
-      }
+    }
 
     componentDidMount() {
                
@@ -41,7 +48,6 @@ class AddHospitalAdmin extends Component {
               let {HospitalList} = this.state;
               response.map((item, i) => {
                   HospitalList.push(item)
-    
                   return  HospitalList;
               });
               console.log("HospitalList:",HospitalList);
@@ -50,24 +56,51 @@ class AddHospitalAdmin extends Component {
                   HospitalList
               });
             });
+
+            getHospitalAdminList().then(res => {
+                if(res!=null){
+                  let response = res.data;
+                  let {HospitalAdminHIdList} = this.state;
+      
+                  response.map((item, i) => {
+                      HospitalAdminHIdList.push(item.hId)
+                      return  HospitalAdminHIdList;
+                  });
+      
+                  this.setState({
+                      HospitalAdminHIdList
+                  });
+      
+                }else{
+                    console.log("RESPONSE NULL")
+                }
+
+
+             
+        });
+
     }
 
-    onSubmit = e => {
-       
+
+    onSubmit = e => {  
         e.preventDefault();
-        const item = {
-            name:this.state.name,
-            email:this.state.email,
-            contactNo:this.state.contactNo,
-            hId:this.state.hId
-        };
 
-        const personaUser = {
+        const item ={
+        personaUser:
+             {
             username:this.state.username,
-            password:this.state.password,
-            role:this.state.role,
-        };
-
+            password: this.state.password,
+            role: this.state.role
+        },
+        person: {
+            type: this.state.type,
+            name: this.state.name,
+            email: this.state.email,
+            contactNo: this.state.contactNo,
+            hId:this.state.hId
+        }
+    } 
+   
         var errors = [];
         const expression = /\S+@\S+/;
         var validEmail = expression.test(String(this.state.email).toLowerCase());
@@ -87,22 +120,22 @@ class AddHospitalAdmin extends Component {
             postHospitalAdmin({item});
 
             //Add username & password to PersonaUser Table
-            createHospitalAdmin({personaUser});
+            //createHospitalAdmin({personaUser});
             
             console.log("Add Hospital Admin success");
             this.resetForm();
 
-            this.props.history.push('/manageHadmins')
-            window.location.reload(false);
+            // this.props.history.push('/manageHadmins')
+            // window.location.reload(false);
         }
     };
 
+    //resetting the form after submit + cancel
     resetForm = () => { 
-        //this.formRef.reset();
-        this.setState({name: "", email: "", contactNo: ""})
-     };
+        this.formRef.reset();
+    };
 
-        render() {
+    render() {
 
         return (
             <div>
@@ -121,11 +154,16 @@ class AddHospitalAdmin extends Component {
                                 required 
                                 >
                             <option selected disabled>Choose...</option>
-                            { this.state.HospitalList.map(value => 
-                                <option 
-                                 key={value.hId} value={value.hId}
-                                >
+                            {/* { this.state.HospitalList.map(value => 
+                                <option key={value.hId} value={value.hId}  >
                                     {value.hName}
+                                </option>)
+                             } */}
+
+                            {this.state.HospitalList.map(value => 
+                                <option key={value.hId} value={value.hId}  >
+                                    {this.state.HospitalAdminHIdList.some(a=>(a==value.hId))?
+                                    '':value.hName}
                                 </option>)
                              }
                             </select>
@@ -140,10 +178,9 @@ class AddHospitalAdmin extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder="name"
-                                required
-                               />
+                                required/>
                        
-                             <label >Email:</label>
+                            <label >Email:</label>
                             <input 
                                 onChange={this.onChange}
                                 id="email"
@@ -171,7 +208,7 @@ class AddHospitalAdmin extends Component {
                                   }
                                 placeholder="contactNo"
                                 required/>
-                                <div class="invalid-feedback">
+                            <div class="invalid-feedback">
                                 ContactNo. should be between 10 to 12 characters
                                 </div>
 
@@ -192,18 +229,16 @@ class AddHospitalAdmin extends Component {
                                 className="form-control" 
                                 placeholder="password"
                                 required/>
-                       
-                    <br/>
-                    <div className="btn-toolbar" role="toolbar">
-                       <div className="btn-group mr-2" role="group" aria-label="First group">
-                       <button type="submit" className="button" >Submit</button> 
-
-                       </div>
-                        <div className="btn-group mr-2" role="group" aria-label="First group">
-                    <button onClick={this.resetForm} type="reset" className="button" >Cancel</button> 
-                    </div>
+                                <br/>                               
+                                <div className="btn-toolbar" role="toolbar">
+                                <div className="btn-group mr-2" role="group" aria-label="First group">
+                                    <button type="submit" className="button" >Submit</button> 
+                                </div>
+                                <div className="btn-group mr-2" role="group" aria-label="First group">
+                                    <button onClick={this.resetForm} type="reset" className="button" >Cancel</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </form>
             </div>

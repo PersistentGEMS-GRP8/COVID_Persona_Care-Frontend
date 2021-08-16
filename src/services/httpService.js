@@ -4,8 +4,8 @@ import { BASE_URL } from '../constants/url';
 import { getToken } from '../context/authContext';
 
 const instance = axios.create({
-  //   baseURL: BASE_URL,
-  proxy: true,
+  //  baseURL: BASE_URL,
+   proxy: true,
 });
 
 instance.interceptors.response.use(null, (err) => {

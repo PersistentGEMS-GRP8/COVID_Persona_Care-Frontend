@@ -7,7 +7,7 @@ class ReceptionistService {
     }
 
     createReceptionist(receptionist){
-        return http.post('/receptionists/register', receptionist);
+        return http.post('/register', receptionist);
     }
 
     getReceptionistById(receptionistId){

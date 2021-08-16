@@ -8,6 +8,7 @@ import {
   deleteDoctorInHospital,
 } from '../services/doctorService';
 import { useAuth } from '../context/authContext';
+import ManagerNavbar from '../components/Manager/ManagerNavbar';
 
 const ManagerDashboard = (props) => {
   const [doctors, setDoctors] = useState([]);
@@ -44,17 +45,8 @@ const ManagerDashboard = (props) => {
 
   return (
     <Container fluid>
-      <div className='d-flex flex-row-reverse my-2'>
-        <Link to='/manager/doctors/new' className='text-decoration-none p-2'>
-          <Button variant='primary'>Register Doctor</Button>
-        </Link>
-        <Link to='/manageBeds' className='text-decoration-none p-2'>
-          <Button variant='primary'>Manage Beds</Button>
-        </Link>
-      </div>
-
       <Form>
-        <Form.Group className='mb-3' controlId='doctor'>
+        <Form.Group className='my-3' controlId='doctor'>
           <Form.Label>Search Doctor</Form.Label>
           <Form.Control
             type='text'
