@@ -8,13 +8,14 @@ class ManageBeds extends React.Component {
         super(props);
         this.state = {
             quantity: 0,
+            hospitalId:localStorage.getItem('hospitalId'),
             hospital: {
             }
         }
     }
 
     async componentDidMount() {
-        const hospital = (await hospitalService.getHospitalById(1)).data;
+        const hospital = (await hospitalService.getHospitalById(this.state.hospitalId)).data;
         this.setState({
             quantity: hospital.noOfBeds,
             hospital: hospital
@@ -23,7 +24,7 @@ class ManageBeds extends React.Component {
 
     updateBeds = () => {
         const noOfBeds = this.state.quantity;
-        hospitalService.updateHospitalBeds(1, noOfBeds);
+        hospitalService.updateHospitalBeds(this.state.hospitalId, noOfBeds);
     }
     incrementBeds = () => {
         this.setState({ quantity: this.state.quantity + 1 });
