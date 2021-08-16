@@ -12,7 +12,7 @@ import ManagerDashboard from './pages/ManagerDashboard';
 import DoctorForm from './pages/DoctorForm';
 import NotFound from './pages/NotFound';
 
-import { AuthProvider } from './context/authContext';
+import { useAuth, AuthProvider } from './context/authContext';
 import Roles from './constants/roles';
 
 import Login from './pages/auth/Login';
@@ -31,99 +31,117 @@ import AddHospitalAdmin from './components/Admin/ManageHAdmins/AddHospitalAdmin'
 import UpdateHospitalAdmin from './components/Admin/ManageHAdmins/UpdateHospitalAdmin';
 import ManageBeds from './components/Manager/ManageBeds';
 
+import DoctorNavbar from './components/navbar/DoctorNavbar';
+
+import { ProtectedRoute, AuthRoute } from './routes';
+import DoctorDashboard from './pages/Doctor/DoctorDashboard';
+import DoctorUpdate from './pages/Doctor/DoctorUpdate';
 import PatientAdd from './components/Receptionist/ManagePatients/PatientAdd';
 import PatientEdit from './components/Receptionist/ManagePatients/PatientEdit';
 import PatientVaccineForm from './components/Receptionist/ManagePatients/PatientVaccineForm';
 import ReceptionistDashboard from './components/Receptionist/ReceptionistDashboard';
 
-import { ProtectedRoute, AuthRoute } from './routes';
 import HospitalVaccineList from './components/Manager/HospitalVaccineList';
 import HospitalVaccineAdd from './components/Manager/HospitalVaccineAdd';
 import HospitalVaccineEdit from './components/Manager/HospitalVaccineEdit';
+import ManagerNavbar from './components/Manager/ManagerNavbar';
 
 function AppRouter() {
+  const { user } = useAuth();
+  const role = user.role;
   return (
     <>
+      {role === Roles.DOCTOR && <DoctorNavbar />}
+      {role === Roles.HOSPITAL_MANAGER && <ManagerNavbar />}
       <main>
         {/* <Container fluid> */}
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route path='/search/:hospital'  component={SearchHospital}/>
-            
-            <AuthRoute exact path='/login' component={Login} />
 
-            <AuthRoute exact path='/register' component={Register} />
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path='/search/:hospital' component={SearchHospital} />
 
-            {/* Manager */}
-            <ProtectedRoute
-              exact
-              path='/manager/dashboard'
-              component={ManagerDashboard}
-              requiredRoles={[Roles.HOSPITAL_MANAGER]}
-            />
+          <AuthRoute exact path='/login' component={Login} />
 
-            <Route path='/managers' component={ManagerList} />
-            <Route path='/manager/add' component={ManagerAdd} />
-            <Route path='/manager/addVaccines' component={HospitalVaccineAdd}/>
-            <Route path='/manager/editVaccine/:id' component={HospitalVaccineEdit}/>
-            <Route path='/manager/:id' component={ManagerEdit} />
-            <Route path='/manageBeds' component={ManageBeds}/>
-            <Route path='/manageVaccines' component={HospitalVaccineList}/>
-           
-            <ProtectedRoute
-              exact
-              path='/doctors/:id'
-              component={DoctorForm}
-              requiredRoles={[Roles.HOSPITAL_MANAGER]}
-            />
+          <AuthRoute exact path='/register' component={Register} />
 
-            {/* Receptionist */}
+          {/* Manager */}
+          <ProtectedRoute
+            exact
+            path='/manager/dashboard'
+            component={ManagerDashboard}
+            requiredRoles={[Roles.HOSPITAL_MANAGER]}
+          />
 
-            <Route path='/receptionists' component={ReceptionistList} />
-            <Route path='/receptionist/add' component={ReceptionistAdd} />
-            <Route path='/receptionist/:id' component={ReceptionistEdit} />
+          <Route path='/managers' component={ManagerList} exact />
+          <Route path='/manager/add' component={ManagerAdd} exact />
+          <Route path='/manager/:id' component={ManagerEdit} exact />
+          <Route path='/manageBeds' component={ManageBeds} exact />
+          <ProtectedRoute
+            exact
+            path='/manager/doctors/new'
+            component={DoctorForm}
+            requiredRoles={[Roles.HOSPITAL_MANAGER]}
+          />
 
-            {/* Admin Dashboard Route */}
-            <ProtectedRoute
-              exact
-              path='/admindashboard'
-              component={AdminDashboard}
-              requiredRoles={[Roles.ADMIN]}
-            />
+          <Route path='/manager/addVaccines' component={HospitalVaccineAdd} />
+          <Route
+            path='/manager/editVaccine/:id'
+            component={HospitalVaccineEdit}
+          />
 
-          {/** Receptionist dashboard routes */}
+          <Route path='/manageVaccines' component={HospitalVaccineList} />
+          {/* Receptionist */}
 
-          <Route exact path="/patient/list" component={ReceptionistDashboard}/>
-          <Route exact path="/patient/add" component={PatientAdd}/>
-          <Route exact path="/patient/vaccine" component={PatientVaccineForm} />
-          <Route exact path="/patient/edit/:id" component={PatientEdit}/>
-          
+          <Route path='/receptionists' component={ReceptionistList} />
+          <Route path='/receptionist/add' component={ReceptionistAdd} />
+          <Route path='/receptionist/:id' component={ReceptionistEdit} />
 
-            {/* Hospital routes */}
-            <Route exact path='/manageHospitals' component={AdminDashboard} />
-            <Route exact path='/addHospital' component={AddHospital} />
-            <Route
-              exact
-              path='/updateHospital/:id'
-              component={UpdateHospital}
-            />
+          <Route exact path='/patient/list' component={ReceptionistDashboard} />
+          <Route exact path='/patient/add' component={PatientAdd} />
+          <Route exact path='/patient/vaccine' component={PatientVaccineForm} />
+          <Route exact path='/patient/edit/:id' component={PatientEdit} />
 
-            {/* Hospital Admin routes */}
+          {/* Admin Dashboard Route */}
+          <ProtectedRoute
+            exact
+            path='/admindashboard'
+            component={AdminDashboard}
+            requiredRoles={[Roles.ADMIN]}
+          />
 
-            <Route exact path='/manageHadmins' component={AdminManageHAdmins} />
-            <Route
-              exact
-              path='/addHospitalAdmin'
-              component={AddHospitalAdmin}
-            />
-            <Route
-              exact
-              path='/updateHospitalAdmin/:id'
-              component={UpdateHospitalAdmin}
-            />
+          {/* Hospital routes */}
+          <Route exact path='/manageHospitals' component={AdminDashboard} />
+          <Route exact path='/addHospital' component={AddHospital} />
+          <Route exact path='/updateHospital/:id' component={UpdateHospital} />
 
-            <Route component={NotFound} />
-          </Switch>
+          {/* Hospital Admin routes */}
+
+          <Route exact path='/manageHadmins' component={AdminManageHAdmins} />
+          <Route exact path='/addHospitalAdmin' component={AddHospitalAdmin} />
+          <Route
+            exact
+            path='/updateHospitalAdmin/:id'
+            component={UpdateHospitalAdmin}
+          />
+
+          {/* Doctor routes */}
+          <ProtectedRoute
+            exact
+            path='/doctor/dashboard'
+            component={DoctorDashboard}
+            requiredRoles={[Roles.DOCTOR]}
+          />
+
+          <ProtectedRoute
+            exact
+            path='/doctor/update'
+            component={DoctorUpdate}
+            requiredRoles={[Roles.DOCTOR]}
+          />
+
+          <Route component={NotFound} />
+        </Switch>
+
         {/* </Container> */}
       </main>
       <Footer />

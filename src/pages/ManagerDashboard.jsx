@@ -1,26 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Button } from 'react-bootstrap';
-import ManagerNavbar from '../components/Manager/ManagerNavbar'
-import { getDoctors, deleteDoctorInHospital } from '../services/doctorService';
+import { Container, Table, Button, Form } from 'react-bootstrap';
+
+import {
+  getDoctors,
+  getDoctorsByHospitalAndName,
+  deleteDoctorInHospital,
+} from '../services/doctorService';
+import { useAuth } from '../context/authContext';
+import ManagerNavbar from '../components/Manager/ManagerNavbar';
 
 const ManagerDashboard = (props) => {
   const [doctors, setDoctors] = useState([]);
+  const [search, setSearch] = useState('');
+  const { user } = useAuth();
+  const hospitalId = user.hId;
 
   useEffect(() => {
     const getDoc = async () => {
-      const { data } = await getDoctors();
-      console.log(data);
-      setDoctors(data);
+      if (search) {
+        const { data } = await getDoctorsByHospitalAndName(hospitalId, search);
+        setDoctors(data);
+      } else {
+        const { data } = await getDoctors(hospitalId);
+        setDoctors(data);
+      }
     };
 
     getDoc();
-  }, []);
+  }, [search]);
 
   const handleDelete = async (doctor) => {
     try {
       setDoctors(doctors.filter((d) => d.id !== doctor.id));
-      await deleteDoctorInHospital(doctor.id);
+      await deleteDoctorInHospital(hospitalId, doctor.id);
     } catch (e) {
       if (e.response && e.response.status === 401) {
         alert('Please login to continue');
@@ -31,16 +44,18 @@ const ManagerDashboard = (props) => {
   };
 
   return (
-    <>
-    {/* <div className='d-flex flex-row-reverse my-2'>
-      <Link to='/doctors/new' className='text-decoration-none p-2'>       
-          <Button variant='primary'>Register Doctor</Button>
-      </Link>
-      <Link to='/manageBeds' className='text-decoration-none p-2'>
-          <Button variant='primary'>Manage Beds</Button>
-      </Link>
-      </div> */}
-      <ManagerNavbar/>
+    <Container fluid>
+      <Form>
+        <Form.Group className='my-3' controlId='doctor'>
+          <Form.Label>Search Doctor</Form.Label>
+          <Form.Control
+            type='text'
+            placeholder='Search doctor'
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </Form.Group>
+      </Form>
+
       <Table bordered hover>
         <thead>
           <tr>
@@ -75,7 +90,7 @@ const ManagerDashboard = (props) => {
           ))}
         </tbody>
       </Table>
-    </>
+    </Container>
   );
 };
 

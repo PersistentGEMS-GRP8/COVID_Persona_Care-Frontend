@@ -16,6 +16,7 @@ const Register = () => {
 
   const initialValues = {
     name: '',
+    userName: '',
     email: '',
     contactNo: '',
     password: '',
@@ -23,6 +24,7 @@ const Register = () => {
   };
   const validationSchema = Yup.object({
     name: Yup.string().min(3).required('Required'),
+    userName: Yup.string().min(3).required('Required'),
     email: Yup.string().email('Invalid Email Address').required('Required'),
     contactNo: Yup.string()
       .min(10, 'Must be atleast 10 character')
@@ -37,16 +39,15 @@ const Register = () => {
   });
 
   const submitHandler = async (values, { setSubmitting }) => {
-    // setError(null);
     setSubmitting(true);
-    await signUp(values.name, values.email, values.contactNo, values.password);
-    // try {
-    //   await register(values);
-    //   console.log(values);
-    // } catch (err) {
-    //   if (err.response && err.response.status === 400)
-    //     setError(err.response.data);
-    // }
+    await signUp(
+      values.name,
+      values.userName,
+      values.email,
+      values.contactNo,
+      values.password
+    );
+
     setSubmitting(false);
   };
 
@@ -69,6 +70,13 @@ const Register = () => {
                   type='text'
                   placeholder='Name'
                   name='name'
+                  required
+                />
+                <TextInput
+                  label='Username'
+                  type='text'
+                  placeholder='User name'
+                  name='userName'
                   required
                 />
                 <TextInput

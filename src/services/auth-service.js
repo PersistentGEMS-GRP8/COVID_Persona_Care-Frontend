@@ -18,10 +18,9 @@ class AuthService {
     // });
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('hospitalId');
-  }
+  // logout() {
+  //   localStorage.removeItem('token');
+  // }
 
   getCurrentToken() {
     return JSON.parse(localStorage.getItem('token'));

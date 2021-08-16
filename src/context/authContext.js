@@ -43,8 +43,19 @@ const AuthProvider = ({ children }) => {
     if (decodedToken.isAdmin) return Roles.ADMIN;
     if (decodedToken.isHospitalAdmin) return Roles.HOSPITAL_ADMIN;
     if (decodedToken.isManager) return Roles.HOSPITAL_MANAGER;
+    if (decodedToken.isDoctor) return Roles.DOCTOR;
 
     return '';
+  };
+
+  const getUserProfile = async () => {
+    try {
+      const { data } = await userService.getCurrentUser();
+      return data;
+    } catch (e) {
+      setLoading(false);
+    } finally {
+    }
   };
 
   useEffect(() => {
@@ -52,8 +63,10 @@ const AuthProvider = ({ children }) => {
   }, [location.pathname]);
 
   useEffect(() => {
+    setLoading(true);
     const token = localStorage.getItem(TOKEN);
     if (!token) {
+      setLoading(false);
       setInitialLoad(false);
       return;
     }
@@ -64,16 +77,20 @@ const AuthProvider = ({ children }) => {
     if (!isTokenValid) {
       history.push('/login');
       setInitialLoad(false);
+      setLoading(false);
       return;
     }
 
     const role = getUserRole(decode);
-    // get user info api call
-    setToken(token);
-    setUser({ ...user, role });
-    setIsAuthenticated(true);
-    // handleRoute(role);
 
+    const fetchUser = async () => {
+      const userData = await getUserProfile();
+      setUser({ ...user, ...userData, role });
+      setToken(token);
+      setIsAuthenticated(true);
+      setLoading(false);
+    };
+    fetchUser();
     setInitialLoad(false);
   }, []);
 
@@ -93,6 +110,10 @@ const AuthProvider = ({ children }) => {
         history.replace('/manager/dashboard');
         return;
 
+      case Roles.DOCTOR:
+        history.replace('/doctor/dashboard');
+        return;
+
       default:
         history.replace('/');
     }
@@ -105,17 +126,16 @@ const AuthProvider = ({ children }) => {
       const { data } = await authService.login(username, password);
       const token = data.token;
       const person = data.person;
-      if(person.type=='hospitalAdmin'|| person.type=='manager'){
+      if (person.type == 'hospitalAdmin' || person.type == 'manager') {
         localStorage.setItem('hospitalId', person.hId);
-      }  
+      }
       const decode = jwtDecode(token);
       const role = getUserRole(decode);
-      // get user info api call
       setToken(token);
-      setUser({ ...user, role });
+      setUser({ role, ...data.person });
       setIsAuthenticated(true);
       handleRoute(role);
-      localStorage.setItem(TOKEN, token); 
+      localStorage.setItem(TOKEN, token);
       // console.log(role);
     } catch (err) {
       if (err.response && err.response.status === 401) {
@@ -127,26 +147,42 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const signUp = async (name, email, contactNo, password) => {
+  const signUp = async (name, username, email, contactNo, password) => {
     setLoading(true);
-    const userData = { name, email, contactNo, password };
+    const userData = {
+      personaUser: {
+        username,
+        password,
+        role: 'ROLE_PATIENT',
+      },
+      person: {
+        type: 'patient',
+        name,
+        email,
+        contactNo,
+      },
+    };
     try {
       const { data } = await userService.register(userData);
-      history.replace('/manager/dashboard');
+      // history.replace('/manager/dashboard');
     } catch (err) {
-      if (err.response && err.response.status === 400)
-        setError(err.response.data);
+      if (err.response && err.response.status === 400) {
+        setError(err.response.data.message);
+      }
     } finally {
       setLoading(false);
     }
   };
 
   const logout = () => {
+    setLoading(true);
     localStorage.removeItem(TOKEN);
     localStorage.removeItem('hospitalId');
     setUser({ role: '' });
     setIsAuthenticated(false);
     setToken(null);
+    localStorage.removeItem(TOKEN);
+    setLoading(false);
   };
 
   const memoedValue = useMemo(() => ({
@@ -173,4 +209,4 @@ const getToken = () => {
   return localStorage.getItem(TOKEN);
 };
 
-export { AuthProvider, useAuth, getToken };
+export { AuthProvider, useAuth, getToken, AuthContext };

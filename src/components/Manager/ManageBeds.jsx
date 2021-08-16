@@ -36,7 +36,7 @@ class ManageBeds extends React.Component {
     render() {
         return (
             <div>
-                <ManagerNavbar />
+                {/* <ManagerNavbar /> */}
                 <br></br>
                 <div class="container">
                     <div class="row">
