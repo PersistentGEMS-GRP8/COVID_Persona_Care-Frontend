@@ -45,6 +45,7 @@ import HospitalVaccineList from './components/Manager/HospitalVaccineList';
 import HospitalVaccineAdd from './components/Manager/HospitalVaccineAdd';
 import HospitalVaccineEdit from './components/Manager/HospitalVaccineEdit';
 import ManagerNavbar from './components/Manager/ManagerNavbar';
+import Specialization from './components/Admin/ManageSpecialization/Specialization';
 
 function AppRouter() {
   const { user } = useAuth();
@@ -106,6 +107,13 @@ function AppRouter() {
             exact
             path='/admindashboard'
             component={AdminDashboard}
+            requiredRoles={[Roles.ADMIN]}
+          />
+
+          <ProtectedRoute
+            exact
+            path='/specialization'
+            component={Specialization}
             requiredRoles={[Roles.ADMIN]}
           />
 
