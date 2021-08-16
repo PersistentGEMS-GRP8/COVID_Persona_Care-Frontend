@@ -7,7 +7,7 @@ class VaccineEdit extends React.Component {
         super(props);
         this.state = {
             vaccine: {},
-            hospitalId: 1
+            hospitalId: localStorage.getItem('hospitalId')
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);

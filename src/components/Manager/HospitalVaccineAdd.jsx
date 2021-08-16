@@ -9,7 +9,7 @@ class HospitalVaccineAdd extends React.Component {
         this.state = {
             vaccines: [],
                 count:0,
-                hospitalId:1,
+                hospitalId:localStorage.getItem('hospitalId'),
                 vaccineId:0
         };
         this.handleChange = this.handleChange.bind(this);

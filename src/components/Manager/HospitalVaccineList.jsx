@@ -7,7 +7,7 @@ class VaccineList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {vaccines: [],hId:1};
+        this.state = {vaccines: [],hId:localStorage.getItem('hospitalId'),};
         this.removeVaccine = this.removeVaccine.bind(this);
         this.addVaccine = this.addVaccine.bind(this);
         this.editVaccine = this.editVaccine.bind(this);
