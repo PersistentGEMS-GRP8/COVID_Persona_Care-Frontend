@@ -82,14 +82,15 @@ function AppRouter() {
             component={DoctorForm}
             requiredRoles={[Roles.HOSPITAL_MANAGER]}
           />
-
-          <Route path='/addHospitalVaccines' component={HospitalVaccineAdd} />
-          <Route
-            path='/editHospitalVaccine/:id'
-            component={HospitalVaccineEdit}
+          <ProtectedRoute
+            exact path='/addHospitalVaccines' component={HospitalVaccineAdd}
+            requiredRoles={[Roles.HOSPITAL_MANAGER]} />
+          <ProtectedRoute
+            exact path='/editHospitalVaccine/:id'
+            component={HospitalVaccineEdit} requiredRoles={[Roles.HOSPITAL_MANAGER]}
           />
-
-          <Route path='/manageVaccines' component={HospitalVaccineList} />
+          <ProtectedRoute
+            exact path='/manageVaccines' component={HospitalVaccineList} requiredRoles={[Roles.HOSPITAL_MANAGER]} />
           {/* Receptionist */}
 
           <Route path='/receptionists' component={ReceptionistList} />
