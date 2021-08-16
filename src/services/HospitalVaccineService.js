@@ -40,7 +40,9 @@ export const editVaccineInHospital =({editedVaccine})=>{
         showConfirmButton: false,
         timer: 1500
     })
-});    
+}).catch(function (error) {
+  console.log(error);
+})   
 }
 
 export const deleteVaccineInHospital = (id) => {

@@ -13,12 +13,12 @@ class HospitalVaccineAdd extends React.Component {
             count: 0,
             vaccineId: 0,
             isOpen: false,
-            name: ''
+            name: '',
+            errors: [],
+            errorMsgs: {
+                countError: ''
+            }
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.submitModalForm = this.submitModalForm.bind(this);
-        this.handleModalForm = this.handleModalForm.bind(this);
 
     }
     async componentDidMount() {
@@ -29,7 +29,7 @@ class HospitalVaccineAdd extends React.Component {
 
     }
 
-    handleChange(event) {
+    handleChange=(event)=> {
         if (event.target.value != "other") {
             this.setState({ [event.target.name]: event.target.value });
         } else {
@@ -37,37 +37,76 @@ class HospitalVaccineAdd extends React.Component {
         }
     }
 
-    handleModalForm(event) {
+    handleModalForm=(event)=> {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    submitModalForm() {
+    submitModalForm=()=> {
         vaccineService.addNewVaccineName(this.state.name).then(res => {
             this.closeModal();
         })
 
     }
-    handleSubmit(event) {
+    hasError(key) {
+        return this.state.errors.indexOf(key) !== -1;
+    }
+
+    validate =()=> {
+        const { count, errorMsgs } = this.state;
+        var errors = [];
+
+        if (count < 0) {
+            errors.push("count");
+            errorMsgs.countError = 'Vaccine count should be greater than or equal zero'
+        }
+
+        this.setState({
+            errors: errors,
+            errorMsgs: errorMsgs
+        });
+
+        if (errors.length > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    handleSubmit=(event)=> {
         event.preventDefault();
+        var msgs = { countError: '' }
         const newVaccine = {
             count: this.state.count,
             hospitalId: this.state.hospitalId,
             vaccineId: this.state.vaccineId
         };
-        vaccineService.addVaccineToHospital({ newVaccine }).then(res => {
-            this.resetForm();
-        });
+        this.setState({
+            errors: [],
+            errorMsgs: msgs
+        }, () => {
+            if (this.validate()) {
+                vaccineService.addVaccineToHospital({ newVaccine }).then(res => {
+                    this.resetForm();
+                }).catch(function (error) {
+                }.bind(this));
+            }
+        })
 
     }
 
     resetForm = () => {
-        this.formRef.reset();
+        document.getElementById("create-course-form").reset();
+        this.setState({
+            count: 0
+          });
     };
 
     closeModal = () => this.setState({ isOpen: false });
 
     render() {
-        const vaccines = this.state.vaccines;
+        const { vaccines, errorMsgs } = this.state;
+
         const title = <h2>{'Add Vaccine'}</h2>;
 
         return <div>
@@ -76,7 +115,7 @@ class HospitalVaccineAdd extends React.Component {
             <div className="container">
                 {title}
                 <br></br>
-                <form class="needs-validation" novalidate ref={ref => (this.formRef = ref)} onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} id="create-course-form">
                     <div className="mb-3 row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
                         <div className="col-sm-10">
@@ -89,10 +128,13 @@ class HospitalVaccineAdd extends React.Component {
                         </div>
                     </div>
                     <div className="mb-3 row">
-                        <label htmlFor="email" className="col-sm-2 col-form-label">Count</label>
+                        <label htmlFor="count" className="col-sm-2 col-form-label">Count</label>
                         <div className="col-sm-10">
-                            <input type="number" className="form-control" name="count" id="count" value={this.state.count}
+                            <input type="number" className="form-control" name="count" id="count" className={this.hasError("count") ? "form-control is-invalid" : "form-control"} value={this.state.count}
                                 onChange={this.handleChange} />
+                            <div class="invalid-feedback">
+                                {errorMsgs.countError}
+                            </div>
                         </div>
                     </div>
                     <div className="mb-3 row">
