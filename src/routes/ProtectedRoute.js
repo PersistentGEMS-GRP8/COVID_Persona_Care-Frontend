@@ -1,4 +1,3 @@
-import Role from '../constants/roles';
 import { Route, Redirect } from 'react-router-dom';
 
 import { useAuth } from '../context/authContext';
@@ -6,9 +5,8 @@ import { useAuth } from '../context/authContext';
 const ProtectedRoute = ({ component: Component, requiredRoles, ...rest }) => {
   const { isAuthenticated, loading, user } = useAuth();
   const userHasRequiredRole = requiredRoles.includes(user.role);
-
   const render = (props) => {
-    // console.log(props);
+    if (loading) return 'Loading';
     if (isAuthenticated && userHasRequiredRole) return <Component {...props} />;
     if (!isAuthenticated)
       return (

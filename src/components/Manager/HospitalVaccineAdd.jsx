@@ -142,7 +142,7 @@ class HospitalVaccineAdd extends React.Component {
         const title = <h2>{'Add Vaccine'}</h2>;
 
         return <div>
-            <ManagerNavbar />
+            {/* <ManagerNavbar /> */}
             <br />
             <div className="container">
                 {title}

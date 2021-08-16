@@ -53,7 +53,7 @@ class VaccineList extends React.Component {
     
         return (
           <div>
-            <ManagerNavbar/>
+            {/* <ManagerNavbar/> */}
             <div className="container">
             <br></br>
               <h3>Vaccine</h3>        
