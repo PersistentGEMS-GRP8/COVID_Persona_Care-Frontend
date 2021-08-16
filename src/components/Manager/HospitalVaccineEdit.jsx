@@ -1,6 +1,5 @@
 import React from 'react';
 import * as vaccineService from '../../services/HospitalVaccineService';
-import ManagerNavbar from './ManagerNavbar';
 import { withRouter } from 'react-router-dom';
 
 class VaccineEdit extends React.Component {
@@ -86,7 +85,6 @@ class VaccineEdit extends React.Component {
         const title = <h2>{'Edit Vaccine'}</h2>;
 
         return <div>
-            <ManagerNavbar />
             <br />
             <div className="container">
                 {title}

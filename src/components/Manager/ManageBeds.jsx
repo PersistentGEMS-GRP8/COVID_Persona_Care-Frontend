@@ -1,6 +1,5 @@
 import React from 'react';
 import * as hospitalService from '../../services/HospitalService';
-import ManagerNavbar from '../Manager/ManagerNavbar';
 
 
 class ManageBeds extends React.Component {
@@ -36,7 +35,6 @@ class ManageBeds extends React.Component {
     render() {
         return (
             <div>
-                {/* <ManagerNavbar /> */}
                 <br></br>
                 <div class="container">
                     <div class="row">

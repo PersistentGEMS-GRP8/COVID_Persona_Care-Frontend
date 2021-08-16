@@ -83,9 +83,9 @@ function AppRouter() {
             requiredRoles={[Roles.HOSPITAL_MANAGER]}
           />
 
-          <Route path='/manager/addVaccines' component={HospitalVaccineAdd} />
+          <Route path='/addHospitalVaccines' component={HospitalVaccineAdd} />
           <Route
-            path='/manager/editVaccine/:id'
+            path='/editHospitalVaccine/:id'
             component={HospitalVaccineEdit}
           />
 
