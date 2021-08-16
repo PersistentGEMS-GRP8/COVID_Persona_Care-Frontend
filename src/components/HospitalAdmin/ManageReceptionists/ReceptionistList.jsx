@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReceptionistService from '../../../services/ReceptionistService';
-import Navbar from '../../layout/navbar'
+import HospitalAdminNavbar from '../HospitalAdminNavbar';
 
 
 class ReceptionistList extends Component {
@@ -53,7 +53,7 @@ class ReceptionistList extends Component {
 
     return (
       <div>
-        <Navbar/>
+        <HospitalAdminNavbar/>
         <div className="container">
         <br></br>
           <h3>Receptionists</h3>        

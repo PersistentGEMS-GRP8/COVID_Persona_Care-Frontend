@@ -1,21 +1,22 @@
-import axios from 'axios';
-import {HADMIN} from '../../constants/url';
-import authHeader from '../../services/auth-header';
+import http from '../../services/httpService'
 
 //get all hospital admins
 export const getHospitalAdminList = () => {
-    return axios
-        .get(HADMIN.GET_ALL , { headers: authHeader() })
+    return http
+        .get('/hospitalAdmins/')
         
         .then(res => {
-            return res.data;
+            return res;
+            
         })
         .catch(function (error) {
             //handle error 
             console.log(error);
+
         })
         .finally(function (error) {
             console.log(error);
+
         })
 }
 
@@ -23,12 +24,12 @@ export const getHospitalAdminList = () => {
 export const getHospitalAdmin = (id) => {
         console.log("IDDDD",id);
 
-    return axios
-        .get(HADMIN.GET_ALL+id , { headers: authHeader() })
+    return http
+        .get('/hospitalAdmins/'+id )
         
         .then(res => {
             console.log("RESDATA",res.data);
-            return res.data;
+            return res;
         })
         .catch(function (error) {
             //handle error 
@@ -42,14 +43,20 @@ export const getHospitalAdmin = (id) => {
 
 //post hospital admin
 export const postHospitalAdmin = ({item}) => {
-    return axios
-        .post(HADMIN.POST_HADMIN, item, { headers: authHeader() })
+    console.log("BBBBBBBBBBB",item)
+
+    
+    return http
+        .post('/register/', item)
+
         .then(res => {
-            console.log(res.data);
+
+            console.log("HOSPITAL ADMIN",res);
         })
         .catch(function (error) {
             //handle error 
             console.log(error);
+
         })
         .finally(function (error) {
             console.log(error);
@@ -61,8 +68,8 @@ export const postHospitalAdmin = ({item}) => {
 //delete hospital admin
 export const deleteHospitalAdmin = (id) => {
     // console.log("IDDDD",id);
-    return axios
-        .delete(HADMIN.GET_ALL+ id , { headers: authHeader() })
+    return http
+        .delete('/hospitalAdmins/'+ id )
         .then(res => {
             console.log(res.data);
         })
@@ -78,8 +85,8 @@ export const deleteHospitalAdmin = (id) => {
 
      //update hospital admin
      export const updateHospitalAdmin = (id,{item}) => {
-        return axios
-            .put(HADMIN.GET_ALL+id,item, { headers: authHeader() })
+        return http
+            .put('/hospitalAdmins/'+ id,item)
             .then(res => {
                 console.log(res.data);
             })
@@ -93,14 +100,13 @@ export const deleteHospitalAdmin = (id) => {
     
     }
 
-    
-    //create a user
+    //register a hospital admin
     export const createHospitalAdmin = ({personaUser}) => {
         console.log("HospitalAdmin",personaUser)
-        return axios
-            .post(HADMIN.POST_CREATEHADMIN, personaUser + { headers: authHeader() })
+        return http
+            .post('/register/', personaUser )
             .then(res => {
-                console.log(res.data);
+                console.log(res);
             })
             .catch(function (error) {
                 //handle error 
@@ -112,20 +118,3 @@ export const deleteHospitalAdmin = (id) => {
 
 }
 
-    // export const updateHospital = (id) => {
-    //     return axios
-    //         .put(HOSPITAL.GET_ALL+ id)
-    //         .then(res => {
-    //             console.log(res.data);
-    //         })
-    //         .catch(function (error) {
-    //             //handle error 
-    //             console.log(error);
-    //         })
-    //         .finally(function (error) {
-    //             console.log(error);
-    //         })
-    
-    // }
-
-   

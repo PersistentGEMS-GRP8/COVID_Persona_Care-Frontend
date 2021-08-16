@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import ManagerService from '../../../services/ManagerService';
-import Navbar from '../../layout/navbar'
+import HospitalAdminNavbar from '../HospitalAdminNavbar';
 
 class ManagerEdit extends Component {
 
@@ -10,7 +10,7 @@ class ManagerEdit extends Component {
     name: '',
     email: '',
     contactNo: '',
-    hId:''
+    hId:'',
   };
 
   constructor(props) {
@@ -25,6 +25,7 @@ class ManagerEdit extends Component {
 
   async componentDidMount() {   
       const person = (await ManagerService.getManagerById(this.props.match.params.id)).data;
+      console.log(person);
       this.setState({manager: person});   
   }
 
@@ -40,7 +41,8 @@ class ManagerEdit extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const {manager} = this.state;
-
+    manager.type='manager';
+    console.log(manager);
     ManagerService.updateManager(manager).then(res =>{
       this.props.history.push('/managers');
     });
@@ -56,7 +58,7 @@ class ManagerEdit extends Component {
     const title = <h2>{'Manager Details'}</h2>;
 
     return <div>
-      <Navbar/> 
+      <HospitalAdminNavbar/> 
       <br/>
       <div className="container">
         {title}
