@@ -1,14 +1,44 @@
 import React, { Component } from "react";
+import {getHospitalList} from "../../Actions/hospitalAPICalls";
+
 
 class HospitalAdminItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        HospitalList: [],
+    };
+}
   static defaultProps = {
     hospitalAdminData:
         {id: 1,
         name: "name",
         email: "email",
         contactNo:0,
+        hId:1
         }
   };
+
+  componentDidMount() {
+
+    getHospitalList().then(res => {
+     this.setState({loading:false})
+       if(res!=null){
+         let response = res.data;
+         let {HospitalList} = this.state;
+         response.map((item, i) => {
+             HospitalList.push(item);
+             return  HospitalList;
+         });
+         this.setState({
+             HospitalList
+         });
+           
+       }else{
+           console.log("RESPONSE NULL")
+       }    
+     });
+ }
   
   render() {
     const { hospitalAdminData, removeHospitalAdmin, updateHospitalAdmin} = this.props;
@@ -30,6 +60,11 @@ class HospitalAdminItem extends Component {
               <td>{hospitalAdminData.name}</td>
               <td> {hospitalAdminData.email}</td>
               <td> {hospitalAdminData.contactNo}</td>
+              <td> { this.state.HospitalList.map(hospital => 
+                  <p key={hospitalAdminData.hId} value={hospitalAdminData.hId}>
+                    {hospitalAdminData.hId==hospital.hId?<p>{hospital.hName}</p>:" "}
+                  </p>)
+                   }</td>
               <td ><a href={'/updateHospitalAdmin/'+ hospitalAdminData.id} className="button" onClick={() => updateHospitalAdmin(hospitalAdminData)}> Update </a></td>
               <td> <a href={'#'} className="button"  onClick={() => removeHospitalAdmin(hospitalAdminData)}> Delete </a></td>
             </tr>

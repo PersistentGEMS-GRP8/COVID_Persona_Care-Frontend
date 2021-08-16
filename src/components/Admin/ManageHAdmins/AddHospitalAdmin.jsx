@@ -3,6 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AdminNavbar from '../AdminNavbar';
 import {postHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
 import {getHospitalList} from "../../Actions/hospitalAPICalls";
+import {getHospitalAdminList} from "../../Actions/hospitalAdminAPICalls";
+import { forEach } from "lodash";
+import HospitalAdminList from "./HospitalAdminList";
+
 
 class AddHospitalAdmin extends Component {
     constructor(props) {
@@ -15,6 +19,7 @@ class AddHospitalAdmin extends Component {
             type: "hospitalAdmin",
 
             HospitalList:[],
+            HospitalAdminHIdList:[],
 
             username:' ',
             password: ' ',
@@ -51,7 +56,31 @@ class AddHospitalAdmin extends Component {
                   HospitalList
               });
             });
+
+            getHospitalAdminList().then(res => {
+                if(res!=null){
+                  let response = res.data;
+                  let {HospitalAdminHIdList} = this.state;
+      
+                  response.map((item, i) => {
+                      HospitalAdminHIdList.push(item.hId)
+                      return  HospitalAdminHIdList;
+                  });
+      
+                  this.setState({
+                      HospitalAdminHIdList
+                  });
+      
+                }else{
+                    console.log("RESPONSE NULL")
+                }
+
+
+             
+        });
+
     }
+
 
     onSubmit = e => {  
         e.preventDefault();
@@ -125,11 +154,16 @@ class AddHospitalAdmin extends Component {
                                 required 
                                 >
                             <option selected disabled>Choose...</option>
-                            { this.state.HospitalList.map(value => 
-                                <option 
-                                 key={value.hId} value={value.hId}
-                                >
+                            {/* { this.state.HospitalList.map(value => 
+                                <option key={value.hId} value={value.hId}  >
                                     {value.hName}
+                                </option>)
+                             } */}
+
+                            {this.state.HospitalList.map(value => 
+                                <option key={value.hId} value={value.hId}  >
+                                    {this.state.HospitalAdminHIdList.some(a=>(a==value.hId))?
+                                    '':value.hName}
                                 </option>)
                              }
                             </select>
