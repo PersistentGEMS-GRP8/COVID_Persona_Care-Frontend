@@ -1,7 +1,6 @@
 import React from 'react';
 import * as VaccineService from '../../services/HospitalVaccineService';
 import { withRouter } from 'react-router-dom';
-import ManagerNavbar from './ManagerNavbar';
 
 class VaccineList extends React.Component {
 
@@ -27,11 +26,11 @@ class VaccineList extends React.Component {
         });
       }
       addVaccine(){
-        this.props.history.push('/manager/addVaccines');
+        this.props.history.push('/addHospitalVaccines');
       }
     
       editVaccine(id){
-        this.props.history.push(`/manager/editVaccine/${id}`);
+        this.props.history.push(`/editHospitalVaccine/${id}`);
       }
     
       render() {

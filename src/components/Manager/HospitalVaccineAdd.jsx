@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import * as vaccineService from '../../services/HospitalVaccineService';
-import ManagerNavbar from './ManagerNavbar';
 import { Modal, Button } from "react-bootstrap";
 
 class HospitalVaccineAdd extends React.Component {
@@ -142,7 +141,6 @@ class HospitalVaccineAdd extends React.Component {
         const title = <h2>{'Add Vaccine'}</h2>;
 
         return <div>
-            {/* <ManagerNavbar /> */}
             <br />
             <div className="container">
                 {title}
