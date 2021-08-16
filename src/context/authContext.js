@@ -43,6 +43,7 @@ const AuthProvider = ({ children }) => {
     if (decodedToken.isAdmin) return Roles.ADMIN;
     if (decodedToken.isHospitalAdmin) return Roles.HOSPITAL_ADMIN;
     if (decodedToken.isManager) return Roles.HOSPITAL_MANAGER;
+    if (decodedToken.isDoctor) return Roles.DOCTOR;
 
     return '';
   };
@@ -109,6 +110,10 @@ const AuthProvider = ({ children }) => {
         history.replace('/manager/dashboard');
         return;
 
+      case Roles.DOCTOR:
+        history.replace('/doctor/dashboard');
+        return;
+
       default:
         history.replace('/');
     }
@@ -138,15 +143,28 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const signUp = async (name, email, contactNo, password) => {
+  const signUp = async (name, username, email, contactNo, password) => {
     setLoading(true);
-    const userData = { name, email, contactNo, password };
+    const userData = {
+      personaUser: {
+        username,
+        password,
+        role: 'ROLE_PATIENT',
+      },
+      person: {
+        type: 'patient',
+        name,
+        email,
+        contactNo,
+      },
+    };
     try {
       const { data } = await userService.register(userData);
-      history.replace('/manager/dashboard');
+      // history.replace('/manager/dashboard');
     } catch (err) {
-      if (err.response && err.response.status === 400)
-        setError(err.response.data);
+      if (err.response && err.response.status === 400) {
+        setError(err.response.data.message);
+      }
     } finally {
       setLoading(false);
     }

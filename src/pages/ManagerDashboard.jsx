@@ -1,23 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Table, Button } from 'react-bootstrap';
+import { Container, Table, Button, Form } from 'react-bootstrap';
 
-import { getDoctors, deleteDoctorInHospital } from '../services/doctorService';
+import {
+  getDoctors,
+  getDoctorsByHospitalAndName,
+  deleteDoctorInHospital,
+} from '../services/doctorService';
 import { useAuth } from '../context/authContext';
 
 const ManagerDashboard = (props) => {
   const [doctors, setDoctors] = useState([]);
+  const [search, setSearch] = useState('');
   const { user } = useAuth();
   const hospitalId = user.hId;
 
   useEffect(() => {
     const getDoc = async () => {
-      const { data } = await getDoctors(hospitalId);
-      setDoctors(data);
+      if (search) {
+        const { data } = await getDoctorsByHospitalAndName(hospitalId, search);
+        setDoctors(data);
+      } else {
+        const { data } = await getDoctors(hospitalId);
+        setDoctors(data);
+      }
     };
 
     getDoc();
-  }, []);
+  }, [search]);
 
   const handleDelete = async (doctor) => {
     try {
@@ -42,6 +52,18 @@ const ManagerDashboard = (props) => {
           <Button variant='primary'>Manage Beds</Button>
         </Link>
       </div>
+
+      <Form>
+        <Form.Group className='mb-3' controlId='doctor'>
+          <Form.Label>Search Doctor</Form.Label>
+          <Form.Control
+            type='text'
+            placeholder='Search doctor'
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </Form.Group>
+      </Form>
+
       <Table bordered hover>
         <thead>
           <tr>

@@ -72,6 +72,7 @@ const DoctorForm = (props) => {
       .min(10, 'Must be atleast 10 character')
       .max(12, 'Must be less than 12 characters')
       .required('Required'),
+    userName: !isExitingDoctor && Yup.string().min(3).required('Required'),
     specialization: Yup.string().required('Required'),
   });
 
@@ -114,6 +115,7 @@ const DoctorForm = (props) => {
   };
 
   const submitHandler = (values, { setSubmitting }) => {
+    console.log('Sub');
     if (isExitingDoctor) {
       addExistingDoctor();
     } else {
@@ -228,7 +230,7 @@ const DoctorForm = (props) => {
                   {isExitingDoctor && (
                     <Button
                       variant='danger'
-                      type='submit'
+                      type='reset'
                       disabled={isSubmitting}
                       className='w-100 m-2'
                       onClick={() => {

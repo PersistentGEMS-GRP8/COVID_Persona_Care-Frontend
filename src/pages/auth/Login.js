@@ -36,7 +36,7 @@ const Login = () => {
   };
 
   return (
-    <div class='login-body'>
+    <div className='login-body'>
       <div className='App'>
         <div className='outer'>
           <div className='inner'>

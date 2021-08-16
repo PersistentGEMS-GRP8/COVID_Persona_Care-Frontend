@@ -12,7 +12,7 @@ import ManagerDashboard from './pages/ManagerDashboard';
 import DoctorForm from './pages/DoctorForm';
 import NotFound from './pages/NotFound';
 
-import { AuthProvider } from './context/authContext';
+import { useAuth, AuthProvider } from './context/authContext';
 import Roles from './constants/roles';
 
 import Login from './pages/auth/Login';
@@ -31,11 +31,18 @@ import AddHospitalAdmin from './components/Admin/ManageHAdmins/AddHospitalAdmin'
 import UpdateHospitalAdmin from './components/Admin/ManageHAdmins/UpdateHospitalAdmin';
 import ManageBeds from './components/Manager/ManageBeds';
 
+import DoctorNavbar from './components/navbar/DoctorNavbar';
+
 import { ProtectedRoute, AuthRoute } from './routes';
+import DoctorDashboard from './pages/Doctor/DoctorDashboard';
+import DoctorUpdate from './pages/Doctor/DoctorUpdate';
 
 function AppRouter() {
+  const { user } = useAuth();
+  const role = user.role;
   return (
     <>
+      {role === Roles.DOCTOR && <DoctorNavbar />}
       <main>
         {/* <Container fluid> */}
         <Switch>
@@ -92,6 +99,21 @@ function AppRouter() {
             exact
             path='/updateHospitalAdmin/:id'
             component={UpdateHospitalAdmin}
+          />
+
+          {/* Doctor routes */}
+          <ProtectedRoute
+            exact
+            path='/doctor/dashboard'
+            component={DoctorDashboard}
+            requiredRoles={[Roles.DOCTOR]}
+          />
+
+          <ProtectedRoute
+            exact
+            path='/doctor/update'
+            component={DoctorUpdate}
+            requiredRoles={[Roles.DOCTOR]}
           />
 
           <Route component={NotFound} />

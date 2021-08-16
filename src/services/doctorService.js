@@ -4,6 +4,10 @@ export const getDoctors = (hosId) => {
   return http.get('/doctors', { params: { hosId } });
 };
 
+export const getDoctorsByHospitalAndName = (hosId, name) => {
+  return http.get('/doctors', { params: { hosId, name } });
+};
+
 export const getDoctorById = (id) => {
   return http.get(`/doctors/${id}`);
 };
@@ -29,4 +33,14 @@ export const addDoctorToHospital = (hospitalId, doctorId) => {
 
 export const deleteDoctorInHospital = (hospitalId, doctorId) => {
   return http.delete(`/doctors/${hospitalId}/${doctorId}`);
+};
+
+export const updateDoctor = (id, name, email, contactNo) => {
+  return http.put('/doctors', {
+    type: 'doctor',
+    id,
+    name,
+    email,
+    contactNo,
+  });
 };
