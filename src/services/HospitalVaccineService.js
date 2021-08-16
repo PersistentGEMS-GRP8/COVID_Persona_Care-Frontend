@@ -5,6 +5,10 @@ export const getVaccinesNames = () => {
   return http.get(`/vaccines`);
 };
 
+export const addNewVaccineName = (name) => {
+  return http.post(`/vaccines`,{name});
+};
+
 export const addVaccineToHospital =({newVaccine})=>{
   return http.post(`/vaccinesInHospital`,newVaccine ).then(res => {
     Swal.fire({
