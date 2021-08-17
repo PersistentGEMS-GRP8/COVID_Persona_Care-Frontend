@@ -46,6 +46,9 @@ import HospitalVaccineAdd from './components/Manager/HospitalVaccineAdd';
 import HospitalVaccineEdit from './components/Manager/HospitalVaccineEdit';
 import ManagerNavbar from './components/Manager/ManagerNavbar';
 import Specialization from './components/Admin/ManageSpecialization/Specialization';
+import PatientVaccineStatus from './pages/Patient/PatientVaccineStatus';
+import PatientHome from './pages/Patient/PatientHome';
+import PatientNavbar from './components/navbar/PatientNavbar';
 
 function AppRouter() {
   const { user } = useAuth();
@@ -54,6 +57,7 @@ function AppRouter() {
     <>
       {role === Roles.DOCTOR && <DoctorNavbar />}
       {role === Roles.HOSPITAL_MANAGER && <ManagerNavbar />}
+      {role === Roles.PATIENT && <PatientNavbar />}
       <main>
         {/* <Container fluid> */}
 
@@ -84,7 +88,11 @@ function AppRouter() {
             requiredRoles={[Roles.HOSPITAL_MANAGER]}
           />
 
-          <Route path='/manager/addVaccines' component={HospitalVaccineAdd} />
+          <Route
+            path='/manager/addVaccines'
+            component={HospitalVaccineAdd}
+            exact
+          />
           <Route
             path='/manager/editVaccine/:id'
             component={HospitalVaccineEdit}
@@ -145,6 +153,21 @@ function AppRouter() {
             path='/doctor/update'
             component={DoctorUpdate}
             requiredRoles={[Roles.DOCTOR]}
+          />
+
+          {/* Patient route */}
+          <ProtectedRoute
+            path='/patient/home'
+            component={PatientHome}
+            requiredRoles={[Roles.PATIENT]}
+            exact
+          />
+
+          <ProtectedRoute
+            path='/patient/vaccine/status'
+            component={PatientVaccineStatus}
+            requiredRoles={[Roles.PATIENT]}
+            exact
           />
 
           <Route component={NotFound} />
