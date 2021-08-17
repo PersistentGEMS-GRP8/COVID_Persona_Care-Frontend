@@ -4,9 +4,6 @@ import AdminNavbar from '../AdminNavbar';
 import {postHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
 import {getHospitalList} from "../../Actions/hospitalAPICalls";
 import {getHospitalAdminList} from "../../Actions/hospitalAdminAPICalls";
-import { forEach } from "lodash";
-import HospitalAdminList from "./HospitalAdminList";
-
 
 class AddHospitalAdmin extends Component {
     constructor(props) {
@@ -74,9 +71,6 @@ class AddHospitalAdmin extends Component {
                 }else{
                     console.log("RESPONSE NULL")
                 }
-
-
-             
         });
 
     }
