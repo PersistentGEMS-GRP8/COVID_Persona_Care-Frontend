@@ -27,6 +27,7 @@ class HospitalAdminList extends Component {
                 <th scope="col">Hospital Name</th>
                 </tr>
             </thead>
+            <tbody></tbody>
             </table>
           </div>
 
