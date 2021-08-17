@@ -26,7 +26,7 @@ class HospitalAdminNavbar extends Component {
             HOSPITAL ADMIN
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="#">Update Credentials</a>
+              {/* <a className="dropdown-item" href="#">Update Credentials</a> */}
               <div className="dropdown-divider"></div>
               <a className="dropdown-item" href="/" onClick={logout}>Logout</a>
             </div>
