@@ -16,6 +16,7 @@ import {
   deleteSpecialization,
   updateSpecialization,
 } from '../../../services/specializationService';
+import AdminNavbar from '../AdminNavbar';
 
 const Specialization = (props) => {
   const [specializations, setSpecializations] = useState([]);
@@ -105,100 +106,103 @@ const Specialization = (props) => {
   };
 
   return (
-    <Container>
-      {error && (
-        <Alert className='my-3' variant='danger'>
-          {error}
-        </Alert>
-      )}
-      {success && (
-        <Alert className='my-3' variant='success'>
-          Successfully added
-        </Alert>
-      )}
-      <Form onSubmit={submitHandler}>
-        <Form.Group className='my-3' controlId='specialization'>
-          <Form.Label>Search / Add Specialization</Form.Label>
-          <Row>
-            <Col>
+    <>
+      <AdminNavbar />
+      <Container>
+        {error && (
+          <Alert className='my-3' variant='danger'>
+            {error}
+          </Alert>
+        )}
+        {success && (
+          <Alert className='my-3' variant='success'>
+            Successfully added
+          </Alert>
+        )}
+        <Form onSubmit={submitHandler}>
+          <Form.Group className='my-3' controlId='specialization'>
+            <Form.Label>Search / Add Specialization</Form.Label>
+            <Row>
+              <Col>
+                <Form.Control
+                  type='text'
+                  placeholder='Specialization'
+                  onChange={onChangeHandler}
+                  value={name}
+                />
+              </Col>
+              <Col>
+                <Button type='submit' disabled={!name}>
+                  Add
+                </Button>
+              </Col>
+            </Row>
+          </Form.Group>
+        </Form>
+
+        <Modal show={show} onHide={() => setShow(!show)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Update Specialization</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group className='my-3' controlId='updatespecialization'>
               <Form.Control
                 type='text'
                 placeholder='Specialization'
-                onChange={onChangeHandler}
-                value={name}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setUpdate({
+                    ...update,
+                    name: e.target.value,
+                  });
+                }}
+                value={update.name}
               />
-            </Col>
-            <Col>
-              <Button type='submit' disabled={!name}>
-                Add
-              </Button>
-            </Col>
-          </Row>
-        </Form.Group>
-      </Form>
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={() => setShow(!show)}>
+              Close
+            </Button>
+            <Button variant='primary' onClick={updateHandler}>
+              Update
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
-      <Modal show={show} onHide={() => setShow(!show)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Update Specialization</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form.Group className='my-3' controlId='updatespecialization'>
-            <Form.Control
-              type='text'
-              placeholder='Specialization'
-              onChange={(e) => {
-                e.preventDefault();
-                setUpdate({
-                  ...update,
-                  name: e.target.value,
-                });
-              }}
-              value={update.name}
-            />
-          </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant='secondary' onClick={() => setShow(!show)}>
-            Close
-          </Button>
-          <Button variant='primary' onClick={updateHandler}>
-            Update
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      <Table bordered hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Doctor Count</th>
-            <th />
-            <th />
-          </tr>
-        </thead>
-
-        <tbody>
-          {specializations.map((s) => (
-            <tr key={s.id}>
-              <td>{s.id}</td>
-              <td>{s.name}</td>
-              <td>{s.docCount}</td>
-              <td>
-                <Button variant='warning' onClick={() => showUpdateModal(s)}>
-                  Update
-                </Button>
-              </td>
-              <td>
-                <Button variant='danger' onClick={() => deleteHandler(s.id)}>
-                  Delete
-                </Button>
-              </td>
+        <Table bordered hover>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Doctor Count</th>
+              <th />
+              <th />
             </tr>
-          ))}
-        </tbody>
-      </Table>
-    </Container>
+          </thead>
+
+          <tbody>
+            {specializations.map((s) => (
+              <tr key={s.id}>
+                <td>{s.id}</td>
+                <td>{s.name}</td>
+                <td>{s.docCount}</td>
+                <td>
+                  <Button variant='warning' onClick={() => showUpdateModal(s)}>
+                    Update
+                  </Button>
+                </td>
+                <td>
+                  <Button variant='danger' onClick={() => deleteHandler(s.id)}>
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Container>
+    </>
   );
 };
 
