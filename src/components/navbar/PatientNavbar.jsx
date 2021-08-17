@@ -8,7 +8,7 @@ const PatientNavbar = () => {
   const { user, logout } = useAuth();
   return (
     <Navbar expand='lg' className='navbar-primary'>
-      <Container>
+      <Container fluid>
         <LinkContainer className='text-decoration-none' to='/patient/home'>
           <Navbar.Brand>Home</Navbar.Brand>
         </LinkContainer>
