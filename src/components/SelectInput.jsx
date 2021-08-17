@@ -5,7 +5,7 @@ import { useField } from 'formik';
 const SelectInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <>
+    <div className='mb-3'>
       <label className='my-1' htmlFor={props.id || props.name}>
         {label}
       </label>
@@ -13,7 +13,7 @@ const SelectInput = ({ label, ...props }) => {
       {meta.touched && meta.error && (
         <p className='text-danger'>{meta.error}</p>
       )}
-    </>
+    </div>
   );
 };
 

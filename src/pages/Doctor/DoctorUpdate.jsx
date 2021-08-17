@@ -61,7 +61,7 @@ const DoctorUpdate = (props) => {
     <Container className='my-4'>
       <Row className='d-flex justify-content-center'>
         <Col lg={7}>
-          <h1 className='mb-3'>Doctor Form</h1>
+          <h1 className='mb-3'>Update Form</h1>
           {error && <Alert variant='danger'>{error}</Alert>}
           <Formik
             enableReinitialize={true}
