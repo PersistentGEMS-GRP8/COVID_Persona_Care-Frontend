@@ -70,10 +70,10 @@ export const deleteHospital = (id) => {
     }
 
 //update hospital
-export const updateHospital = (hId,{item}) => {
+export const updateHospital = (hId,item) => {
     return http
         .put('/hospitals/'+hId,item)
-        
+
         .then(res => {
             console.log(res.data);
         })

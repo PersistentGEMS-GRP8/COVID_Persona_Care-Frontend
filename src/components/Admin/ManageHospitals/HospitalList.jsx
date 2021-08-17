@@ -26,6 +26,7 @@ class HospitalList extends Component {
                 <th scope="col">No. of Beds Available</th>
                 </tr>
             </thead>
+            <tbody></tbody>
             </table>
           </div>
           {this.props.items.map((record, hId) => {

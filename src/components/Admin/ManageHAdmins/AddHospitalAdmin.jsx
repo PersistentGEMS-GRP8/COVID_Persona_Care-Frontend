@@ -124,9 +124,6 @@ class AddHospitalAdmin extends Component {
         }else{
 
             postHospitalAdmin(item);
-
-            //Add username & password to PersonaUser Table
-            //createHospitalAdmin({personaUser});
             
             console.log("Add Hospital Admin success");
             this.resetForm();

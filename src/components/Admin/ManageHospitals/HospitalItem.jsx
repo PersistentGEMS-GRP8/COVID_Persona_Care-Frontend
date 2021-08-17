@@ -15,16 +15,15 @@ class HospitalItem extends Component {
     return (
       <div > 
         <div  className="col-lg-12 card" key={hospitalData.hId}>
-
         <table className="table table-striped">
-        {/* <thead>
-            <tr>
+        <thead>
+            {/* <tr>
             <th scope="col">HospitalId</th>
             <th scope="col">Hospital Name</th>
             <th scope="col">Location</th>
             <th scope="col">No. of Beds Available</th>
-            </tr>
-        </thead> */}
+            </tr> */}
+        </thead>
         <tbody>
             <tr>
             <th scope="row">{hospitalData.hId}</th>
