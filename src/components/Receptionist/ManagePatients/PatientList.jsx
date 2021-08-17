@@ -14,6 +14,7 @@ class PatientList extends Component {
 
     editPatient(id) {
         console.log(id);
+        this.props.history.push(`/patient/edit/${id}`);
     }
 
     removePatient(id){

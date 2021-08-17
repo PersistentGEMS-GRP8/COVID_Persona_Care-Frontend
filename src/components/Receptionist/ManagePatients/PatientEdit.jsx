@@ -1,11 +1,30 @@
 import React, { Component } from 'react';
+import PatientService from '../../../services/PatientService';
 import Navbar from '../../layout/navbar';
 
 export default class PatientEdit extends Component {
 
+    
+
     constructor(props) {
         super(props);
+
+        this.state = {
+            patient: {
+                id: '',
+                name: '',
+                email: '',
+                contact: ''
+            }
+        }
+
         this.cancel = this.cancel.bind(this);
+    }
+    
+    async componentDidMount() {
+        const person = (await PatientService.getPatientById(this.props.match.params.id)).data;
+        console.log(person);
+        this.setState({patient: person});
     }
 
     cancel(){
