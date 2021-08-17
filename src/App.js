@@ -49,6 +49,8 @@ import Specialization from './components/Admin/ManageSpecialization/Specializati
 import PatientVaccineStatus from './pages/Patient/PatientVaccineStatus';
 import PatientHome from './pages/Patient/PatientHome';
 import PatientNavbar from './components/navbar/PatientNavbar';
+import AdminManage from './components/Admin/AdminManage';
+import AddAdmin from './components/Admin/AddAdmin';
 
 function AppRouter() {
   const { user } = useAuth();
@@ -122,6 +124,20 @@ function AppRouter() {
             exact
             path='/specialization'
             component={Specialization}
+            requiredRoles={[Roles.ADMIN]}
+          />
+
+          <ProtectedRoute
+            exact
+            path='/admin/manage'
+            component={AdminManage}
+            requiredRoles={[Roles.ADMIN]}
+          />
+
+          <ProtectedRoute
+            exact
+            path='/admin/new'
+            component={AddAdmin}
             requiredRoles={[Roles.ADMIN]}
           />
 
