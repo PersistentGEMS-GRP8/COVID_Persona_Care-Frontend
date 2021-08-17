@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/admin.css';
-import authService from "../../services/auth-service";
+// import authService from "../../services/auth-service";
 import {AuthContext} from '../../context/authContext'
 
 class HospitalAdminNavbar extends Component {
