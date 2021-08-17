@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/admin.css';
-import authService from "../../services/auth-service";
+// import authService from "../../services/auth-service";
+import {AuthContext} from '../../context/authContext'
 
 class HospitalAdminNavbar extends Component {
+  static contextType = AuthContext;
   render() {
+    const { logout } = this.context;
     return (
 
       <div className="navbar navbar-fixed">
@@ -23,9 +26,9 @@ class HospitalAdminNavbar extends Component {
             HOSPITAL ADMIN
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="#">Update Credentials</a>
+              {/* <a className="dropdown-item" href="#">Update Credentials</a> */}
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="/" onClick={authService.logout}>Logout</a>
+              <a className="dropdown-item" href="/" onClick={logout}>Logout</a>
             </div>
             </li>
          </ul>

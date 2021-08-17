@@ -1,11 +1,42 @@
 import React, { Component } from 'react';
 import Navbar from '../../layout/navbar';
+import PatientVaccineService from '../../../services/PatientVaccineService';
 
 export default class PatientVaccineForm extends Component {
 
+    emptyVaccination = {
+        certificateNo: '',
+        vaccineName: '',
+        date: '',
+        numberOfVaccine: ''  
+    }
+
     constructor(props) {
         super(props);
+        this.state = {
+            vaccination:this.emptyVaccination
+        }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.cancel = this.cancel.bind(this);
+    }
+
+    handleChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        let vaccination = { ...this.state.vaccination };
+        vaccination[name] = value;
+        this.setState({ vaccination });
+    }
+
+    async handleSubmit(event) {
+        event.preventDefault();
+        const {vaccination} = this.state;
+        console.log(vaccination)
+        PatientVaccineService.createPatientVaccination(vaccination).then(res => {
+            this.props.history.push('/patient/list');
+        });      
     }
 
     cancel(){
@@ -13,6 +44,7 @@ export default class PatientVaccineForm extends Component {
     }
 
     render() {
+        
         return (
             <div>
                 <Navbar/> 
@@ -20,30 +52,30 @@ export default class PatientVaccineForm extends Component {
                 <div className="container">
                     <h2>Patient Vaccination Details</h2>
                     <br></br>
-                    <form>
+                    <form onSubmit={this.handleSubmit}>
                         <div className="mb-3 row">
                             <label className="col-sm-2 col-form-label">Certificate Number</label>
                             <div className="col-sm-10">
-                                <input className="form-control" name="certNum" id="certNum" placeholder="ABC123456"/>
+                                <input className="form-control" name="certificateNo" id="certificateNo" placeholder="ABC123456" onChange={this.handleChange} required/>
                             </div>
                             
                         </div>
                         <div className="mb-3 row">
                             <label className="col-sm-2 col-form-label">Vaccine Name</label>
                             <div className="col-sm-10">
-                                <input className="form-control" name="vName" id="vName" placeholder="SinoPharm / Pfizer"/>
+                                <input className="form-control" name="vaccineName" id="vaccineName" placeholder="SinoPharm / Pfizer" onChange={this.handleChange} required/>
                             </div>
                         </div>
                         <div className="mb-3 row">
                             <label className="col-sm-2 col-form-label">Date</label>
                             <div className="col-sm-10">
-                                <input className="form-control" name="date" id="date" placeholder="DD/MM/YYYY"/>
+                                <input className="form-control" name="date" id="date" placeholder="DD/MM/YYYY" onChange={this.handleChange} required/>
                             </div>
                         </div>
                         <div className="mb-3 row">
                             <label className="col-sm-2 col-form-label">No of Vaccination doses</label>
                             <div className="col-sm-10">
-                                <input className="form-control" name="vNum" id="vNum" placeholder="1 / 2"/>
+                                <input className="form-control" name="numberOfVaccine" id="numberOfVaccine" placeholder="1 / 2" onChange={this.handleChange} required/>
                             </div>
                         </div>
                         <br></br>

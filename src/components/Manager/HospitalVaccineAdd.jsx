@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import * as vaccineService from '../../services/HospitalVaccineService';
-import ManagerNavbar from './ManagerNavbar';
 import { Modal, Button } from "react-bootstrap";
 
 class HospitalVaccineAdd extends React.Component {
@@ -16,7 +15,8 @@ class HospitalVaccineAdd extends React.Component {
             name: '',
             errors: [],
             errorMsgs: {
-                countError: ''
+                countError: '',
+                nameError: ''
             }
         };
 
@@ -29,7 +29,7 @@ class HospitalVaccineAdd extends React.Component {
 
     }
 
-    handleChange=(event)=> {
+    handleChange = (event) => {
         if (event.target.value != "other") {
             this.setState({ [event.target.name]: event.target.value });
         } else {
@@ -37,13 +37,44 @@ class HospitalVaccineAdd extends React.Component {
         }
     }
 
-    handleModalForm=(event)=> {
+    handleModalForm = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    submitModalForm=()=> {
-        vaccineService.addNewVaccineName(this.state.name).then(res => {
-            this.closeModal();
+    validateModalForm = () => {
+        const { name, errorMsgs } = this.state;
+        var errors = [];
+
+        if (name === '') {
+            errors.push("name");
+            errorMsgs.nameError = 'Please Provide a name'
+        }
+
+        this.setState({
+            errors: errors,
+            errorMsgs: errorMsgs
+        });
+
+        if (errors.length > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    submitModalForm = (event) => {
+        event.preventDefault();
+        var msgs = { nameError: '' }
+        this.setState({
+            errors: [],
+            errorMsgs: msgs
+        }, () => {
+            if (this.validateModalForm()) {
+                vaccineService.addNewVaccineName(this.state.name).then(res => {
+                    this.closeModal();
+                }).catch(function (error) {
+                    console.log(this.state.errorMsgs)
+                }.bind(this));
+            }
         })
 
     }
@@ -51,7 +82,7 @@ class HospitalVaccineAdd extends React.Component {
         return this.state.errors.indexOf(key) !== -1;
     }
 
-    validate =()=> {
+    validate = () => {
         const { count, errorMsgs } = this.state;
         var errors = [];
 
@@ -73,7 +104,7 @@ class HospitalVaccineAdd extends React.Component {
     }
 
 
-    handleSubmit=(event)=> {
+    handleSubmit = (event) => {
         event.preventDefault();
         var msgs = { countError: '' }
         const newVaccine = {
@@ -96,13 +127,13 @@ class HospitalVaccineAdd extends React.Component {
     }
 
     resetForm = () => {
-        document.getElementById("create-course-form").reset();
+        document.getElementById("create-form").reset();
         this.setState({
             count: 0
-          });
+        });
     };
 
-    closeModal = () => this.setState({ isOpen: false });
+    closeModal = () => this.setState({ isOpen: false ,name:''});
 
     render() {
         const { vaccines, errorMsgs } = this.state;
@@ -110,12 +141,11 @@ class HospitalVaccineAdd extends React.Component {
         const title = <h2>{'Add Vaccine'}</h2>;
 
         return <div>
-            {/* <ManagerNavbar /> */}
             <br />
             <div className="container">
                 {title}
                 <br></br>
-                <form onSubmit={this.handleSubmit} id="create-course-form">
+                <form onSubmit={this.handleSubmit} id="create-form">
                     <div className="mb-3 row">
                         <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
                         <div className="col-sm-10">
@@ -152,23 +182,32 @@ class HospitalVaccineAdd extends React.Component {
                         <Modal.Title>Add New Vaccine Name</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <form>
-                            <div className="mb-3 row">
-                                <label htmlFor="email" className="col-sm-2 col-form-label">Name</label>
+                        <form onSubmit={this.submitModalForm}>
+                            <div className="mb-3 row" >
+                                <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
                                 <div className="col-sm-10">
-                                    <input type="text" className="form-control" name="name" id="name" value={this.state.name}
+                                    <input type="text" className="form-control" name="name" id="name" value={this.state.name} className={this.hasError("name") ? "form-control is-invalid" : "form-control"} 
                                         onChange={this.handleModalForm} />
+                                    <div class="invalid-feedback">
+                                        {errorMsgs.nameError}
+                                    </div>
                                 </div>
                             </div>
+                            <div className="mb-3 row">
+                        <div className="col text-center">
+                            <button className="btn button-custom me-2" type="submit">Save</button>
+                            <button type="reset" className="btn btn-secondary ms-2" onClick={this.resetForm}>Cancel</button>
+                        </div>
+                    </div>
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="primary " onClick={this.submitModalForm}>
+                        {/* <Button variant="primary " onSubmit={this.submitModalForm}>
                             Save
                         </Button>
                         <Button variant="secondary" onClick={this.closeModal}>
                             Close
-                        </Button>
+                        </Button> */}
                     </Modal.Footer>
                 </Modal>
             </div>
