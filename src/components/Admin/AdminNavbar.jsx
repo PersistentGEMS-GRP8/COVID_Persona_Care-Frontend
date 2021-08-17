@@ -26,7 +26,7 @@ class AdminNavbar extends Component {
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <a className="dropdown-item" href="/admin/manage">Manage</a>
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="/" onClick={logout}>Logout</a>
+              <a className="dropdown-item" onClick={logout}>Logout</a>
             </div>
             </li>
          </ul>
