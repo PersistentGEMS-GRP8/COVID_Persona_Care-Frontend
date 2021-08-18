@@ -1,15 +1,18 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 
 class Footer extends Component {
   render() {
     return (
-        <footer class="footer">
-        <div class="container">
-          <span class="text-muted">COVID-19 Persona Care System</span>
-          <span class="text-muted">©2021</span>
-
-        </div>
-        </footer>
+      <footer className='fixed-bottom'>
+        <Container fluid>
+          <Row>
+            <Col className='text-center footer'>
+              COVID-19 Persona Care System &copy; 2021
+            </Col>
+          </Row>
+        </Container>
+      </footer>
     );
   }
 }

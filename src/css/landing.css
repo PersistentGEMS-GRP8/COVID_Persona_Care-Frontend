@@ -1,0 +1,74 @@
+div {
+    display: block;
+}
+
+/* Navbar Styles */
+nav a:hover{
+    border-bottom: 3px solid black;
+}
+.navbar-light{
+    font-family: BlinkMacSystemFont;
+    background-color: #cce1f7;
+    border-bottom: rgb(59, 59, 170);
+   
+}
+
+/* Card Styles */
+.ahg-quick-box-wrap {
+    padding: 60px 0;
+}
+
+.bg-gray-lighter {
+    background-color: #455166 ;
+    
+}
+.card-box :hover{
+    border-color: rgb(63, 34, 228);
+}
+
+/* footer styles */
+#footer {
+    background: #054f7d;
+    color: #ffff;
+}
+
+.footer-bottom {
+    background: #054f7d;
+    padding: 10px 0;
+}
+
+#footer .copyrights {
+    margin: 10px 0;
+    text-align: center;
+}
+#footer .copyrights p.developed-by, #footer .copyrights
+p.developed-by a {
+    line-height: 1.5;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+}
+
+.main-topic{
+    font-family: antonio;
+    text-align: center;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #0666a0;
+    padding-bottom: 15px;
+    font-size: 32px;
+    position: relative;
+    
+}
+
+/* Search hospital data section */
+.search-hospital {
+    background: #f1f2f2;
+    padding: 3rem 0;
+}
+/* 
+Available beds */
+
+.search-val {
+    text-transform: capitalize;
+}
