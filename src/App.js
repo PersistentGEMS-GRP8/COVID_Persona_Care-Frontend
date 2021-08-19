@@ -131,9 +131,24 @@ function AppRouter() {
 
           {/* Receptionist */}
 
-          <Route path='/receptionists' component={ReceptionistList} />
-          <Route path='/receptionist/add' component={ReceptionistAdd} />
-          <Route path='/receptionist/:id' component={ReceptionistEdit} />
+          <ProtectedRoute
+            path='/receptionists'
+            component={ReceptionistList}
+            requiredRoles={[Roles.HOSPITAL_ADMIN]}
+            exact
+          />
+          <ProtectedRoute
+            path='/receptionist/add'
+            component={ReceptionistAdd}
+            requiredRoles={[Roles.HOSPITAL_ADMIN]}
+            exact
+          />
+          <ProtectedRoute
+            path='/receptionist/:id'
+            component={ReceptionistEdit}
+            requiredRoles={[Roles.HOSPITAL_ADMIN]}
+            exact
+          />
 
           <Route exact path='/patient/list' component={ReceptionistDashboard} />
           <Route exact path='/patient/add' component={PatientAdd} />
