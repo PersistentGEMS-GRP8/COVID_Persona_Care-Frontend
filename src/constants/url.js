@@ -1,2 +1,4 @@
-const BASE_URL = 'https://covid-persona.herokuapp.com/api/';
+// BaseURL
+const PORT_NUMBER = '8088';
+const BASE_URL = 'http://localhost:' + PORT_NUMBER+'/COVIDPersonaCare';
 

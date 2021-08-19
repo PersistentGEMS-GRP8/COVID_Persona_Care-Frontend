@@ -2,7 +2,7 @@ import axios from 'axios';
 import authHeader from './auth-header';
 
 
-const API_URL = "https://covid-persona.herokuapp.com/api/";
+const API_URL = "http://localhost:8088/COVIDPersonaCare/";
 
 class UserService {
   getAdminBoard() {
