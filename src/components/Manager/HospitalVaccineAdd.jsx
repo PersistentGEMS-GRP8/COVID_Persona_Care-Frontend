@@ -71,6 +71,7 @@ class HospitalVaccineAdd extends React.Component {
             if (this.validateModalForm()) {
                 vaccineService.addNewVaccineName(this.state.name).then(res => {
                     this.closeModal();
+                    this.componentDidMount();
                 }).catch(function (error) {
                     console.log(this.state.errorMsgs)
                 }.bind(this));
