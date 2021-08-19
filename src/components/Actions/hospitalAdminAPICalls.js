@@ -86,21 +86,4 @@ export const updateHospitalAdmin = (id,{item}) => {
         })
     }
 
-//register a hospital admin --> unused API call
-
-// export const createHospitalAdmin = ({personaUser}) => {
-//     console.log("HospitalAdmin",personaUser)
-//     return http
-//         .post('/register/', personaUser )
-//         .then(res => {
-//             console.log(res);
-//         })
-//         .catch(function (error) {
-//             //handle error 
-//             console.log(error);
-//         })
-//         .finally(function (error) {
-//             console.log(error);
-//         })
-// }
 

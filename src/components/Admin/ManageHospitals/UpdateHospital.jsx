@@ -37,11 +37,11 @@ class UpdateHospital extends Component {
         const item = {
             hId:this.props.match.params.id,
             hName:this.state.data.hName,
-            location:this.state.data.location,
+            location:this.state.location,
             noOfBeds:this.state.noOfBeds 
         };
 
-        updateHospital(hId,{item});
+        updateHospital(hId,item);
         
         console.log("Update Hospital success");
 
