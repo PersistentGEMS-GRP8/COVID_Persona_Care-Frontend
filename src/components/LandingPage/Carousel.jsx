@@ -24,7 +24,7 @@ class Carousel extends React.Component {
                         </div>
                     </div>
                     <div className="carousel-item">
-                        <img src={'assets/images/banner2.jpg'} className="img-fluid" className="d-block w-100" alt="2" />
+                        <img src={'assets/images/banner3.jpg'} className="img-fluid" className="d-block w-100" alt="2" />
                         <div className="carousel-caption d-none d-md-block">
                         </div>
                     </div>
