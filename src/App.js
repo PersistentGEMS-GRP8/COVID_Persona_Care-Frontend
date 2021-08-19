@@ -1,7 +1,6 @@
 import './App.css';
 import './css/layout.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 
 import Home from './components/LandingPage/Home';
 import SearchHospital from './components/LandingPage/SearchHospital';
@@ -78,11 +77,6 @@ function AppRouter() {
             component={ManagerDashboard}
             requiredRoles={[Roles.HOSPITAL_MANAGER]}
           />
-
-          <Route path='/managers' component={ManagerList} exact />
-          <Route path='/manager/add' component={ManagerAdd} exact />
-          <Route path='/manager/:id' component={ManagerEdit} exact />
-          <Route path='/manageBeds' component={ManageBeds} exact />
           <ProtectedRoute
             exact
             path='/manager/doctors/new'
@@ -107,6 +101,34 @@ function AppRouter() {
             component={HospitalVaccineList}
             requiredRoles={[Roles.HOSPITAL_MANAGER]}
           />
+          <ProtectedRoute
+            path='/manageBeds'
+            component={ManageBeds}
+            requiredRoles={[Roles.HOSPITAL_MANAGER]}
+            exact
+          />
+
+          {/* Hospital Admin routes */}
+
+          <ProtectedRoute
+            path='/managers'
+            component={ManagerList}
+            requiredRoles={[Roles.HOSPITAL_ADMIN]}
+            exact
+          />
+          <ProtectedRoute
+            path='/manager/add'
+            component={ManagerAdd}
+            requiredRoles={[Roles.HOSPITAL_ADMIN]}
+            exact
+          />
+          <ProtectedRoute
+            path='/manager/:id'
+            component={ManagerEdit}
+            requiredRoles={[Roles.HOSPITAL_ADMIN]}
+            exact
+          />
+
           {/* Receptionist */}
 
           <Route path='/receptionists' component={ReceptionistList} />
@@ -118,7 +140,7 @@ function AppRouter() {
           <Route exact path='/patient/vaccine' component={PatientVaccineForm} />
           <Route exact path='/patient/edit/:id' component={PatientEdit} />
 
-          {/* Admin Dashboard Route */}
+          {/* Admin Routes */}
           <ProtectedRoute
             exact
             path='/admindashboard'
@@ -132,34 +154,53 @@ function AppRouter() {
             component={Specialization}
             requiredRoles={[Roles.ADMIN]}
           />
-
           <ProtectedRoute
             exact
             path='/admin/manage'
             component={AdminManage}
             requiredRoles={[Roles.ADMIN]}
           />
-
           <ProtectedRoute
             exact
             path='/admin/new'
             component={AddAdmin}
             requiredRoles={[Roles.ADMIN]}
           />
-
-          {/* Hospital routes */}
-          <Route exact path='/manageHospitals' component={AdminDashboard} />
-          <Route exact path='/addHospital' component={AddHospital} />
-          <Route exact path='/updateHospital/:id' component={UpdateHospital} />
-
-          {/* Hospital Admin routes */}
-
-          <Route exact path='/manageHadmins' component={AdminManageHAdmins} />
-          <Route exact path='/addHospitalAdmin' component={AddHospitalAdmin} />
-          <Route
+          <ProtectedRoute
+            exact
+            path='/manageHospitals'
+            component={AdminDashboard}
+            requiredRoles={[Roles.ADMIN]}
+          />
+          <ProtectedRoute
+            exact
+            path='/addHospital'
+            component={AddHospital}
+            requiredRoles={[Roles.ADMIN]}
+          />
+          <ProtectedRoute
+            exact
+            path='/updateHospital/:id'
+            component={UpdateHospital}
+            requiredRoles={[Roles.ADMIN]}
+          />
+          <ProtectedRoute
+            exact
+            path='/manageHadmins'
+            component={AdminManageHAdmins}
+            requiredRoles={[Roles.ADMIN]}
+          />
+          <ProtectedRoute
+            exact
+            path='/addHospitalAdmin'
+            component={AddHospitalAdmin}
+            requiredRoles={[Roles.ADMIN]}
+          />
+          <ProtectedRoute
             exact
             path='/updateHospitalAdmin/:id'
             component={UpdateHospitalAdmin}
+            requiredRoles={[Roles.ADMIN]}
           />
 
           {/* Doctor routes */}
@@ -169,7 +210,6 @@ function AppRouter() {
             component={DoctorDashboard}
             requiredRoles={[Roles.DOCTOR]}
           />
-
           <ProtectedRoute
             exact
             path='/doctor/update'

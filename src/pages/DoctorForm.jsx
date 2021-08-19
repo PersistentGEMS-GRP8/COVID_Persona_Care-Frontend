@@ -246,6 +246,7 @@ const DoctorForm = (props) => {
                     type='submit'
                     disabled={isSubmitting}
                     className='w-100 m-2'
+                    variant={error ? 'danger' : 'primary'}
                   >
                     {isExitingDoctor
                       ? 'Add to Hospital'
