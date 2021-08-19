@@ -10,7 +10,7 @@ import { register } from '../services/userService';
 import { useAuth } from '../context/authContext';
 
 const Register = () => {
-  // const [error, setError] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
 
   const { signUp, error, loading } = useAuth();
 
@@ -47,6 +47,7 @@ const Register = () => {
       values.contactNo,
       values.password
     );
+    setSubmitted(true);
 
     setSubmitting(false);
   };
@@ -55,6 +56,11 @@ const Register = () => {
     <Container className='p-2'>
       <h1 className='my-3'>Register</h1>
       {error && <Alert variant='danger'>{error}</Alert>}
+      {!error && submitted && (
+        <Alert variant='success'>
+          Successfull Registered, You can login now
+        </Alert>
+      )}
 
       <Formik
         initialValues={initialValues}

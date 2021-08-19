@@ -45,6 +45,12 @@ import HospitalVaccineList from './components/Manager/HospitalVaccineList';
 import HospitalVaccineAdd from './components/Manager/HospitalVaccineAdd';
 import HospitalVaccineEdit from './components/Manager/HospitalVaccineEdit';
 import ManagerNavbar from './components/Manager/ManagerNavbar';
+import Specialization from './components/Admin/ManageSpecialization/Specialization';
+import PatientVaccineStatus from './pages/Patient/PatientVaccineStatus';
+import PatientHome from './pages/Patient/PatientHome';
+import PatientNavbar from './components/navbar/PatientNavbar';
+import AdminManage from './components/Admin/AdminManage';
+import AddAdmin from './components/Admin/AddAdmin';
 
 function AppRouter() {
   const { user } = useAuth();
@@ -53,6 +59,7 @@ function AppRouter() {
     <>
       {role === Roles.DOCTOR && <DoctorNavbar />}
       {role === Roles.HOSPITAL_MANAGER && <ManagerNavbar />}
+      {role === Roles.PATIENT && <PatientNavbar />}
       <main>
         {/* <Container fluid> */}
 
@@ -83,14 +90,23 @@ function AppRouter() {
             requiredRoles={[Roles.HOSPITAL_MANAGER]}
           />
           <ProtectedRoute
-            exact path='/addHospitalVaccines' component={HospitalVaccineAdd}
-            requiredRoles={[Roles.HOSPITAL_MANAGER]} />
-          <ProtectedRoute
-            exact path='/editHospitalVaccine/:id'
-            component={HospitalVaccineEdit} requiredRoles={[Roles.HOSPITAL_MANAGER]}
+            exact
+            path='/addHospitalVaccines'
+            component={HospitalVaccineAdd}
+            requiredRoles={[Roles.HOSPITAL_MANAGER]}
           />
           <ProtectedRoute
-            exact path='/manageVaccines' component={HospitalVaccineList} requiredRoles={[Roles.HOSPITAL_MANAGER]} />
+            exact
+            path='/editHospitalVaccine/:id'
+            component={HospitalVaccineEdit}
+            requiredRoles={[Roles.HOSPITAL_MANAGER]}
+          />
+          <ProtectedRoute
+            exact
+            path='/manageVaccines'
+            component={HospitalVaccineList}
+            requiredRoles={[Roles.HOSPITAL_MANAGER]}
+          />
           {/* Receptionist */}
 
           <Route path='/receptionists' component={ReceptionistList} />
@@ -107,6 +123,27 @@ function AppRouter() {
             exact
             path='/admindashboard'
             component={AdminDashboard}
+            requiredRoles={[Roles.ADMIN]}
+          />
+
+          <ProtectedRoute
+            exact
+            path='/specialization'
+            component={Specialization}
+            requiredRoles={[Roles.ADMIN]}
+          />
+
+          <ProtectedRoute
+            exact
+            path='/admin/manage'
+            component={AdminManage}
+            requiredRoles={[Roles.ADMIN]}
+          />
+
+          <ProtectedRoute
+            exact
+            path='/admin/new'
+            component={AddAdmin}
             requiredRoles={[Roles.ADMIN]}
           />
 
@@ -138,6 +175,21 @@ function AppRouter() {
             path='/doctor/update'
             component={DoctorUpdate}
             requiredRoles={[Roles.DOCTOR]}
+          />
+
+          {/* Patient route */}
+          <ProtectedRoute
+            path='/patient/home'
+            component={PatientHome}
+            requiredRoles={[Roles.PATIENT]}
+            exact
+          />
+
+          <ProtectedRoute
+            path='/patient/vaccine/status'
+            component={PatientVaccineStatus}
+            requiredRoles={[Roles.PATIENT]}
+            exact
           />
 
           <Route component={NotFound} />

@@ -37,16 +37,19 @@ export const getHospitalAdmin = (id) => {
 }
 
 //post hospital admin --> register a hospital admin
-export const postHospitalAdmin = ({item}) => {
+export const postHospitalAdmin = (item) => {
     return http
-        .post('/register/', item)
+        .post('/register', item)
 
         .then(res => {
-            console.log("HOSPITAL ADMIN",res);
+            console.log("HOSPITAL ADMIN",res.data);
             alert('Hospital Admin submitted successfully');
         })
         .catch(function (error) {
             console.log(error);
+            if (error.response.status==400){
+                alert('UserName already exists');
+            }    
         })
         .finally(function (error) {
             console.log(error);
@@ -83,21 +86,4 @@ export const updateHospitalAdmin = (id,{item}) => {
         })
     }
 
-//register a hospital admin --> unused API call
-
-// export const createHospitalAdmin = ({personaUser}) => {
-//     console.log("HospitalAdmin",personaUser)
-//     return http
-//         .post('/register/', personaUser )
-//         .then(res => {
-//             console.log(res);
-//         })
-//         .catch(function (error) {
-//             //handle error 
-//             console.log(error);
-//         })
-//         .finally(function (error) {
-//             console.log(error);
-//         })
-// }
 

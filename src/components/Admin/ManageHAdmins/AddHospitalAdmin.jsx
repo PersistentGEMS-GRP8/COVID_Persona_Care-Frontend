@@ -4,25 +4,22 @@ import AdminNavbar from '../AdminNavbar';
 import {postHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
 import {getHospitalList} from "../../Actions/hospitalAPICalls";
 import {getHospitalAdminList} from "../../Actions/hospitalAdminAPICalls";
-import { forEach } from "lodash";
-import HospitalAdminList from "./HospitalAdminList";
-
 
 class AddHospitalAdmin extends Component {
     constructor(props) {
         super(props);
         this.state={
-            name:" ",
-            email:" ",
-            contactNo:" ",
-            hId:" ",
-            type: "hospitalAdmin",
+            name:"",
+            email:"",
+            contactNo:"",
+            hId:"",
+            type:"hospitalAdmin",
 
             HospitalList:[],
             HospitalAdminHIdList:[],
 
-            username:' ',
-            password: ' ',
+            username:'',
+            password:'',
             role:'ROLE_HOSPITALADMIN ',
 
             errors:[]
@@ -74,9 +71,6 @@ class AddHospitalAdmin extends Component {
                 }else{
                     console.log("RESPONSE NULL")
                 }
-
-
-             
         });
 
     }
@@ -89,7 +83,7 @@ class AddHospitalAdmin extends Component {
         personaUser:
              {
             username:this.state.username,
-            password: this.state.password,
+            password:this.state.password,
             role: this.state.role
         },
         person: {
@@ -100,12 +94,24 @@ class AddHospitalAdmin extends Component {
             hId:this.state.hId
         }
     } 
-   
+
         var errors = [];
+
+        //name
+        if (item.person.name.length < 3) {
+            errors.push("name");
+        }
+
+        //email
         const expression = /\S+@\S+/;
         var validEmail = expression.test(String(this.state.email).toLowerCase());
         if (!validEmail) {
           errors.push("email");
+        }
+
+         //contact No
+        if ((item.person.contactNo.length !=10 )&&(item.person.contactNo.length !=12 ) ){
+        errors.push("contactNo");
         }
     
         this.setState({
@@ -117,10 +123,7 @@ class AddHospitalAdmin extends Component {
 
         }else{
 
-            postHospitalAdmin({item});
-
-            //Add username & password to PersonaUser Table
-            //createHospitalAdmin({personaUser});
+            postHospitalAdmin(item);
             
             console.log("Add Hospital Admin success");
             this.resetForm();
@@ -176,9 +179,16 @@ class AddHospitalAdmin extends Component {
                                 onChange={this.onChange}
                                 id="name"
                                 type="text" 
-                                className="form-control" 
+                                className={
+                                    this.hasError("name")
+                                      ? "form-control is-invalid"
+                                      : "form-control"
+                                  }
                                 placeholder="name"
                                 required/>
+                            <div className="invalid-feedback">
+                            Name should be atleast 3 characters.
+                            </div>
                        
                             <label >Email:</label>
                             <input 
@@ -202,14 +212,14 @@ class AddHospitalAdmin extends Component {
                                 id="contactNo"
                                 type="text" 
                                 className={
-                                    this.hasError("email")
+                                    this.hasError("contactNo")
                                       ? "form-control is-invalid"
                                       : "form-control"
                                   }
                                 placeholder="contactNo"
                                 required/>
                             <div class="invalid-feedback">
-                                ContactNo. should be between 10 to 12 characters
+                            Contact no should contain 10 or 12 characters
                                 </div>
 
                             <label >Username:</label>

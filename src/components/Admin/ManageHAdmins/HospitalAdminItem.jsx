@@ -46,14 +46,14 @@ class HospitalAdminItem extends Component {
       <div>
         <div className="col-lg-12 card" key={hospitalAdminData.id}>
           <table className="table table-striped">
-          {/* <thead>
-              <tr>
+          <thead>
+              {/* <tr>
               <th scope="col">HospitalAdminId</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Contact Number</th>
-              </tr>
-          </thead> */}
+              </tr> */}
+          </thead> 
           <tbody>
             <tr>
             <th scope="row">{hospitalAdminData.id}</th>
@@ -61,9 +61,9 @@ class HospitalAdminItem extends Component {
               <td> {hospitalAdminData.email}</td>
               <td> {hospitalAdminData.contactNo}</td>
               <td> { this.state.HospitalList.map(hospital => 
-                  <p key={hospitalAdminData.hId} value={hospitalAdminData.hId}>
+                  <div key={hospitalAdminData.hId} value={hospitalAdminData.hId}>
                     {hospitalAdminData.hId==hospital.hId?<p>{hospital.hName}</p>:" "}
-                  </p>)
+                  </div>)
                    }</td>
               <td ><a href={'/updateHospitalAdmin/'+ hospitalAdminData.id} className="button" onClick={() => updateHospitalAdmin(hospitalAdminData)}> Update </a></td>
               <td> <a href={'#'} className="button"  onClick={() => removeHospitalAdmin(hospitalAdminData)}> Delete </a></td>

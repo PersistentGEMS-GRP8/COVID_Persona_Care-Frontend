@@ -44,6 +44,7 @@ const AuthProvider = ({ children }) => {
     if (decodedToken.isHospitalAdmin) return Roles.HOSPITAL_ADMIN;
     if (decodedToken.isManager) return Roles.HOSPITAL_MANAGER;
     if (decodedToken.isDoctor) return Roles.DOCTOR;
+    if (decodedToken.isPatient) return Roles.PATIENT;
 
     return '';
   };
@@ -114,6 +115,10 @@ const AuthProvider = ({ children }) => {
         history.replace('/doctor/dashboard');
         return;
 
+      case Roles.PATIENT:
+        history.replace('/patient/home');
+        return;
+
       default:
         history.replace('/');
     }
@@ -148,7 +153,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const signUp = async (name, username, email, contactNo, password) => {
-    setLoading(true);
+    // setLoading(true);
     const userData = {
       personaUser: {
         username,
@@ -169,8 +174,9 @@ const AuthProvider = ({ children }) => {
       if (err.response && err.response.status === 400) {
         setError(err.response.data.message);
       }
+      setError('Something went wrong');
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
