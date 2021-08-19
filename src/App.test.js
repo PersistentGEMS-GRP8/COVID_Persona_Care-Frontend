@@ -1,9 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 import Enzyme, { mount } from 'enzyme';
-import Quotes from './components/Quotes';
 
-// Add your adapter version below
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 Enzyme.configure({ adapter: new Adapter() });
