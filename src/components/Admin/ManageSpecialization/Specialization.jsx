@@ -69,12 +69,14 @@ const Specialization = (props) => {
     setName(e.target.value);
   };
 
-  const deleteHandler = async (id) => {
+  const deleteHandler = async (spec) => {
     // const updatedSpecializations =
-    setSpecializations(specializations.filter((s) => s.id !== id));
+    const specializationsBefore = specializations;
+    setSpecializations(specializations.filter((s) => s.id !== spec.id));
     try {
-      await deleteSpecialization(id);
+      await deleteSpecialization(spec.id);
     } catch (e) {
+      setSpecializations(specializationsBefore);
       if (e.response && e.response.status === 400) {
         setError(e.response.data.message);
       }
@@ -193,7 +195,7 @@ const Specialization = (props) => {
                   </Button>
                 </td>
                 <td>
-                  <Button variant='danger' onClick={() => deleteHandler(s.id)}>
+                  <Button variant='danger' onClick={() => deleteHandler(s)}>
                     Delete
                   </Button>
                 </td>
