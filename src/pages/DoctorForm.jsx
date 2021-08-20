@@ -130,6 +130,7 @@ const DoctorForm = (props) => {
       email: doctor.email,
       contactNo: doctor.contactNo,
       specialization: doctor.specializationId,
+      userName: '',
     });
     setDoctors([]);
     setIsExistingDoctor(true);
