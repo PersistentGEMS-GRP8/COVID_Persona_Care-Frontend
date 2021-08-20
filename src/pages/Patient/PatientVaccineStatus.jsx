@@ -32,13 +32,13 @@ const vaccineData = [
     numberOfVaccine: '1',
     hospitalName: 'ABC Hospital',
   },
-  {
-    certificateNo: '2542',
-    vaccineName: 'Aztra',
-    date: '08-08-2021',
-    numberOfVaccine: '2',
-    hospitalName: 'ABC Hospital',
-  },
+  // {
+  //   certificateNo: '2542',
+  //   vaccineName: 'Aztra',
+  //   date: '08-08-2021',
+  //   numberOfVaccine: '2',
+  //   hospitalName: 'ABC Hospital',
+  // },
 ];
 
 const PatientVaccineStatus = () => {

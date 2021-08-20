@@ -6,7 +6,7 @@ const AuthRoute = ({ component: Component, requiredRoles, ...rest }) => {
   const { isAuthenticated, loading } = useAuth();
 
   const render = (props) => {
-    if (loading) return 'Loading';
+    // if (loading) return 'Loading';
     if (!isAuthenticated) return <Component {...props} />;
 
     return <Redirect to='/' />;
