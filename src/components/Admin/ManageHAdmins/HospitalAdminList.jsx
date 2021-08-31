@@ -16,18 +16,20 @@ class HospitalAdminList extends Component {
       <div>
         <h4>HospitalAdmins List</h4>
         <div className="col-lg-12">
-          <div className="col-lg-8">
-        <table className="table table-striped">
+          <div className="col-lg-9">
+            <table className="table table-striped">
             <thead>
                 <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
-                <th scope="col">E-mail</th>
+                <th scope="col">E-mail Address</th>
                 <th scope="col">Contact Number</th>
+                <th scope="col">Hospital Name</th>
                 </tr>
             </thead>
+            <tbody></tbody>
             </table>
-            </div>
+          </div>
 
         {this.props.items.map((record, id) => {
           return (

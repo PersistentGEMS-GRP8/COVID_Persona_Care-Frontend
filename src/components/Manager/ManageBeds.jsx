@@ -1,20 +1,20 @@
 import React from 'react';
 import * as hospitalService from '../../services/HospitalService';
-import ManagerNavbar from '../Manager/ManagerNavbar';
-import Swal from 'sweetalert2';
+
 
 class ManageBeds extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             quantity: 0,
+            hospitalId:localStorage.getItem('hospitalId'),
             hospital: {
             }
         }
     }
 
     async componentDidMount() {
-        const hospital = (await hospitalService.getHospitalById(12)).data;
+        const hospital = (await hospitalService.getHospitalById(this.state.hospitalId)).data;
         this.setState({
             quantity: hospital.noOfBeds,
             hospital: hospital
@@ -23,15 +23,7 @@ class ManageBeds extends React.Component {
 
     updateBeds = () => {
         const noOfBeds = this.state.quantity;
-        hospitalService.updateHospitalBeds(12, noOfBeds).then(res => {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Successfully Updated',
-                showConfirmButton: false,
-                timer: 1500
-              })
-        });
+        hospitalService.updateHospitalBeds(this.state.hospitalId, noOfBeds);
     }
     incrementBeds = () => {
         this.setState({ quantity: this.state.quantity + 1 });
@@ -43,7 +35,6 @@ class ManageBeds extends React.Component {
     render() {
         return (
             <div>
-                <ManagerNavbar />
                 <br></br>
                 <div class="container">
                     <div class="row">

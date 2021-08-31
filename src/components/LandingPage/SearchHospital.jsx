@@ -42,9 +42,9 @@ class SearchHospital extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="fixed-bottom">
+                    {/* <div className="fixed-bottom">
                         <Footer />
-                    </div>
+                    </div> */}
                 </div>
             )
         } else {
@@ -55,9 +55,9 @@ class SearchHospital extends React.Component {
                         <h2 className="main-topic" style={{ "text-align": "left" }}>Search Result</h2>
                         <p>Not found</p>
                     </div>
-                    <div className="fixed-bottom">
+                    {/* <div className="fixed-bottom">
                         <Footer />
-                    </div>
+                    </div> */}
                 </div>
             )
         }

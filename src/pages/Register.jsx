@@ -10,12 +10,13 @@ import { register } from '../services/userService';
 import { useAuth } from '../context/authContext';
 
 const Register = () => {
-  // const [error, setError] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
 
   const { signUp, error, loading } = useAuth();
 
   const initialValues = {
     name: '',
+    userName: '',
     email: '',
     contactNo: '',
     password: '',
@@ -23,6 +24,7 @@ const Register = () => {
   };
   const validationSchema = Yup.object({
     name: Yup.string().min(3).required('Required'),
+    userName: Yup.string().min(3).required('Required'),
     email: Yup.string().email('Invalid Email Address').required('Required'),
     contactNo: Yup.string()
       .min(10, 'Must be atleast 10 character')
@@ -37,16 +39,16 @@ const Register = () => {
   });
 
   const submitHandler = async (values, { setSubmitting }) => {
-    // setError(null);
     setSubmitting(true);
-    await signUp(values.name, values.email, values.contactNo, values.password);
-    // try {
-    //   await register(values);
-    //   console.log(values);
-    // } catch (err) {
-    //   if (err.response && err.response.status === 400)
-    //     setError(err.response.data);
-    // }
+    await signUp(
+      values.name,
+      values.userName,
+      values.email,
+      values.contactNo,
+      values.password
+    );
+    setSubmitted(true);
+
     setSubmitting(false);
   };
 
@@ -54,6 +56,11 @@ const Register = () => {
     <Container className='p-2'>
       <h1 className='my-3'>Register</h1>
       {error && <Alert variant='danger'>{error}</Alert>}
+      {!error && submitted && (
+        <Alert variant='success'>
+          Successfull Registered, You can login now
+        </Alert>
+      )}
 
       <Formik
         initialValues={initialValues}
@@ -69,6 +76,13 @@ const Register = () => {
                   type='text'
                   placeholder='Name'
                   name='name'
+                  required
+                />
+                <TextInput
+                  label='Username'
+                  type='text'
+                  placeholder='User name'
+                  name='userName'
                   required
                 />
                 <TextInput

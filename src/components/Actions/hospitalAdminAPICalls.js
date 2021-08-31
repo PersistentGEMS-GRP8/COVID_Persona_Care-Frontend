@@ -6,33 +6,29 @@ export const getHospitalAdminList = () => {
         .get('/hospitalAdmins/')
         
         .then(res => {
-            return res;
-            
+            return res;            
         })
         .catch(function (error) {
             //handle error 
             console.log(error);
-
         })
         .finally(function (error) {
             console.log(error);
-
         })
 }
 
-//get hospital admin
+//get hospital admin by id
 export const getHospitalAdmin = (id) => {
-        console.log("IDDDD",id);
+    console.log("HospitalAdminID",id);
 
     return http
         .get('/hospitalAdmins/'+id )
         
         .then(res => {
-            console.log("RESDATA",res.data);
+            console.log("RES.DATA",res.data);
             return res;
         })
         .catch(function (error) {
-            //handle error 
             console.log(error);
         })
         .finally(function (error) {
@@ -40,81 +36,54 @@ export const getHospitalAdmin = (id) => {
         })
 }
 
-
-//post hospital admin
-export const postHospitalAdmin = ({item}) => {
-    console.log("BBBBBBBBBBB",item)
-
-    
+//post hospital admin --> register a hospital admin
+export const postHospitalAdmin = (item) => {
     return http
-        .post('/register/', item)
+        .post('/register', item)
 
         .then(res => {
-
-            console.log("HOSPITAL ADMIN",res);
+            console.log("HOSPITAL ADMIN",res.data);
+            alert('Hospital Admin submitted successfully');
         })
         .catch(function (error) {
-            //handle error 
             console.log(error);
-
+            if (error.response.status==400){
+                alert('UserName already exists');
+            }    
         })
         .finally(function (error) {
             console.log(error);
         })
-
 }
 
-
-//delete hospital admin
+//delete hospital admin by id
 export const deleteHospitalAdmin = (id) => {
-    // console.log("IDDDD",id);
     return http
         .delete('/hospitalAdmins/'+ id )
         .then(res => {
             console.log(res.data);
         })
         .catch(function (error) {
-            //handle error 
             console.log(error);
         })
         .finally(function (error) {
             console.log(error);
         })
-
     }
 
-     //update hospital admin
-     export const updateHospitalAdmin = (id,{item}) => {
-        return http
-            .put('/hospitalAdmins/'+ id,item)
-            .then(res => {
-                console.log(res.data);
-            })
-            .catch(function (error) {
-                //handle error 
-                console.log(error);
-            })
-            .finally(function (error) {
-                console.log(error);
-            })
-    
+//update hospital admin
+export const updateHospitalAdmin = (id,{item}) => {
+    return http
+        .put('/hospitalAdmins/'+ id,item)
+        .then(res => {
+            console.log(res.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function (error) {
+            console.log(error);
+        })
     }
 
-    //register a hospital admin
-    export const createHospitalAdmin = ({personaUser}) => {
-        console.log("HospitalAdmin",personaUser)
-        return http
-            .post('/register/', personaUser )
-            .then(res => {
-                console.log(res);
-            })
-            .catch(function (error) {
-                //handle error 
-                console.log(error);
-            })
-            .finally(function (error) {
-                console.log(error);
-            })
-
-}
 

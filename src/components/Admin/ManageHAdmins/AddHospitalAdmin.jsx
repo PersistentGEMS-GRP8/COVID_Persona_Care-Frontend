@@ -3,36 +3,39 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AdminNavbar from '../AdminNavbar';
 import {postHospitalAdmin} from "../../Actions/hospitalAdminAPICalls";
 import {getHospitalList} from "../../Actions/hospitalAPICalls";
+import {getHospitalAdminList} from "../../Actions/hospitalAdminAPICalls";
 
 class AddHospitalAdmin extends Component {
     constructor(props) {
         super(props);
         this.state={
-            name:" ",
-            email:" ",
-            contactNo:" ",
-            hId:" ",
-            type: "hospitalAdmin",
+            name:"",
+            email:"",
+            contactNo:"",
+            hId:"",
+            type:"hospitalAdmin",
 
             HospitalList:[],
+            HospitalAdminHIdList:[],
 
-            username:' ',
-            password: ' ',
+            username:'',
+            password:'',
             role:'ROLE_HOSPITALADMIN ',
 
             errors:[]
         };
 
-      }
-
+    }
+    
+    //get input field changed
     onChange = event => {
         this.setState({ [event.target.id]: event.target.value });
-
     };
 
+    //check for errors
     hasError(key) {
         return this.state.errors.indexOf(key) !== -1;
-      }
+    }
 
     componentDidMount() {
                
@@ -42,7 +45,6 @@ class AddHospitalAdmin extends Component {
               let {HospitalList} = this.state;
               response.map((item, i) => {
                   HospitalList.push(item)
-    
                   return  HospitalList;
               });
               console.log("HospitalList:",HospitalList);
@@ -51,17 +53,37 @@ class AddHospitalAdmin extends Component {
                   HospitalList
               });
             });
+
+            getHospitalAdminList().then(res => {
+                if(res!=null){
+                  let response = res.data;
+                  let {HospitalAdminHIdList} = this.state;
+      
+                  response.map((item, i) => {
+                      HospitalAdminHIdList.push(item.hId)
+                      return  HospitalAdminHIdList;
+                  });
+      
+                  this.setState({
+                      HospitalAdminHIdList
+                  });
+      
+                }else{
+                    console.log("RESPONSE NULL")
+                }
+        });
+
     }
 
-    onSubmit = e => {
-       
+
+    onSubmit = e => {  
         e.preventDefault();
 
         const item ={
         personaUser:
              {
             username:this.state.username,
-            password: this.state.password,
+            password:this.state.password,
             role: this.state.role
         },
         person: {
@@ -72,12 +94,24 @@ class AddHospitalAdmin extends Component {
             hId:this.state.hId
         }
     } 
-   
+
         var errors = [];
+
+        //name
+        if (item.person.name.length < 3) {
+            errors.push("name");
+        }
+
+        //email
         const expression = /\S+@\S+/;
         var validEmail = expression.test(String(this.state.email).toLowerCase());
         if (!validEmail) {
           errors.push("email");
+        }
+
+         //contact No
+        if ((item.person.contactNo.length !=10 )&&(item.person.contactNo.length !=12 ) ){
+        errors.push("contactNo");
         }
     
         this.setState({
@@ -89,10 +123,7 @@ class AddHospitalAdmin extends Component {
 
         }else{
 
-            postHospitalAdmin({item});
-
-            //Add username & password to PersonaUser Table
-            //createHospitalAdmin({personaUser});
+            postHospitalAdmin(item);
             
             console.log("Add Hospital Admin success");
             this.resetForm();
@@ -102,11 +133,12 @@ class AddHospitalAdmin extends Component {
         }
     };
 
+    //resetting the form after submit + cancel
     resetForm = () => { 
         this.formRef.reset();
-     };
+    };
 
-        render() {
+    render() {
 
         return (
             <div>
@@ -125,11 +157,16 @@ class AddHospitalAdmin extends Component {
                                 required 
                                 >
                             <option selected disabled>Choose...</option>
-                            { this.state.HospitalList.map(value => 
-                                <option 
-                                 key={value.hId} value={value.hId}
-                                >
+                            {/* { this.state.HospitalList.map(value => 
+                                <option key={value.hId} value={value.hId}  >
                                     {value.hName}
+                                </option>)
+                             } */}
+
+                            {this.state.HospitalList.map(value => 
+                                <option key={value.hId} value={value.hId}  >
+                                    {this.state.HospitalAdminHIdList.some(a=>(a==value.hId))?
+                                    '':value.hName}
                                 </option>)
                              }
                             </select>
@@ -142,12 +179,18 @@ class AddHospitalAdmin extends Component {
                                 onChange={this.onChange}
                                 id="name"
                                 type="text" 
-                                className="form-control" 
+                                className={
+                                    this.hasError("name")
+                                      ? "form-control is-invalid"
+                                      : "form-control"
+                                  }
                                 placeholder="name"
-                                required
-                               />
+                                required/>
+                            <div className="invalid-feedback">
+                            Name should be atleast 3 characters.
+                            </div>
                        
-                             <label >Email:</label>
+                            <label >Email:</label>
                             <input 
                                 onChange={this.onChange}
                                 id="email"
@@ -169,14 +212,14 @@ class AddHospitalAdmin extends Component {
                                 id="contactNo"
                                 type="text" 
                                 className={
-                                    this.hasError("email")
+                                    this.hasError("contactNo")
                                       ? "form-control is-invalid"
                                       : "form-control"
                                   }
                                 placeholder="contactNo"
                                 required/>
-                                <div class="invalid-feedback">
-                                ContactNo. should be between 10 to 12 characters
+                            <div class="invalid-feedback">
+                            Contact no should contain 10 or 12 characters
                                 </div>
 
                             <label >Username:</label>
@@ -196,18 +239,16 @@ class AddHospitalAdmin extends Component {
                                 className="form-control" 
                                 placeholder="password"
                                 required/>
-                       
-                    <br/>
-                    <div className="btn-toolbar" role="toolbar">
-                       <div className="btn-group mr-2" role="group" aria-label="First group">
-                       <button type="submit" className="button" >Submit</button> 
-
-                       </div>
-                        <div className="btn-group mr-2" role="group" aria-label="First group">
-                    <button onClick={this.resetForm} type="reset" className="button" >Cancel</button> 
-                    </div>
+                                <br/>                               
+                                <div className="btn-toolbar" role="toolbar">
+                                <div className="btn-group mr-2" role="group" aria-label="First group">
+                                    <button type="submit" className="button" >Submit</button> 
+                                </div>
+                                <div className="btn-group mr-2" role="group" aria-label="First group">
+                                    <button onClick={this.resetForm} type="reset" className="button" >Cancel</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </form>
             </div>

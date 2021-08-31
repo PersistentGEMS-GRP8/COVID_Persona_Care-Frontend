@@ -9,10 +9,9 @@ class Home extends React.Component {
         return (
             <div>
                 <Navbar/>
-                <br></br> <br></br>
                 <Carousel/>
                 <ServiceCards/>
-                <Footer/>
+                {/* <Footer/> */}
             </div>
         );
     }

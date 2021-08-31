@@ -11,7 +11,7 @@ class UpdateHospitalAdmin extends Component {
         this.state={
             data:[]
         }
-      }
+    }
         
     componentDidMount() {
         const id = this.props.match.params.id;
@@ -25,13 +25,11 @@ class UpdateHospitalAdmin extends Component {
         });
     }
 
-   
     onChange = event => {
        this.setState({ [event.target.id]: event.target.value });
     };
 
     onSubmit = e => {
-
         const id= this.props.match.params.id;
         e.preventDefault();
         const item = {
@@ -40,27 +38,28 @@ class UpdateHospitalAdmin extends Component {
             email:this.state.email,
             contactNo:this.state.contactNo,
             hId:this.state.data.hId,
+            userId:this.state.data.userId,
             type:"hospitalAdmin"
             };
 
             updateHospitalAdmin(id,{item});
+
+            this.resetForm();
             
             console.log("Update Hospital Admin success");
 
             //redirect to adminDashboard and refresh the page
-            //  this.props.history.push('/manageHadmins')
-            //  window.location.reload(false);
+             this.props.history.push('/manageHadmins')
+             window.location.reload(false);
 
-             };
+    };
 
     resetForm = () => { 
         console.log("Cancel");
         this.formRef.reset();
-        // this.setState({name: "", email: "", contactNo: ""})
-
-     };
+    };
         
-        render() {
+    render() {
 
         return (
             <div>
@@ -82,7 +81,7 @@ class UpdateHospitalAdmin extends Component {
                                 placeholder={this.state.data.name}
                                 disabled/>
                        
-                             <label >Email:</label>
+                            <label >Email:</label>
                             <input 
                                 onChange={this.onChange}
                                 value={this.state.email}
@@ -90,8 +89,7 @@ class UpdateHospitalAdmin extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder={this.state.data.email}
-                                required
-                                />
+                                required/>
                      
                             <label >Contact Number:</label>
                             <input 
@@ -101,20 +99,18 @@ class UpdateHospitalAdmin extends Component {
                                 type="text" 
                                 className="form-control" 
                                 placeholder={this.state.data.contactNo}
-                                required
-                                />
-                   <br/>
-                   <div className="btn-toolbar" role="toolbar">
-                       <div className="btn-group mr-2" role="group" aria-label="First group">
-                            <button type="submit" className="button" >Update</button> 
+                                required/>
+                        <br/>
+                        <div className="btn-toolbar" role="toolbar">
+                            <div className="btn-group mr-2" role="group" aria-label="First group">
+                                <button type="submit" className="button" >Update</button> 
+                            </div>
+                            <div className="btn-group mr-2" role="group" aria-label="First group">
+                                <button onClick={this.resetForm} type="reset" className="button" >Cancel</button>
+                            </div>
                         </div>
-                        <div className="btn-group mr-2" role="group" aria-label="First group">
-                            <button onClick={this.resetForm} type="reset" className="button" >Cancel</button>
                         </div>
                     </div>
-                    </div>
-                    </div>
-
                 </form>
             </div>
         );

@@ -18,9 +18,9 @@ class AuthService {
     // });
   }
 
-  logout() {
-    localStorage.removeItem('token');
-  }
+  // logout() {
+  //   localStorage.removeItem('token');
+  // }
 
   getCurrentToken() {
     return JSON.parse(localStorage.getItem('token'));
