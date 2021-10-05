@@ -1,7 +1,7 @@
 // import axios from 'axios';
 import http from './httpService';
 
-// const PATIENT_API_BASE_URL = "http://localhost:8088/COVIDPersonaCare/patients";
+// const PATIENT_API_BASE_URL = "http://localhost:8088/COVIDPersonaCare";
 
 class PatientService {
 
@@ -10,23 +10,23 @@ class PatientService {
     }
 
     getPatientByHId(hId){
-        return http.get('/patient/getByHId/' + hId);
+        return http.get('/patients/getByHId/' + hId);
     }
 
     createPatient(patient){
-        return http.post('/patient/register', patient);
+        return http.post('/patients/add', patient);
     }
 
     getPatientById(patientId){
-        return http.get('/patient/' + patientId);
+        return http.get('/patients/' + patientId);
     }
 
     updatePatient(patient){
-        return http.put('/patient/', patient);
+        return http.put('/patients/', patient);
     }
 
     deletePatient(patientId){
-        return http.delete('/patient/' + patientId);
+        return http.delete('/patients/' + patientId);
     }
 }
 
