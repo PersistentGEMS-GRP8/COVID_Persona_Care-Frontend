@@ -35,10 +35,13 @@ import DoctorNavbar from './components/navbar/DoctorNavbar';
 import { ProtectedRoute, AuthRoute } from './routes';
 import DoctorDashboard from './pages/Doctor/DoctorDashboard';
 import DoctorUpdate from './pages/Doctor/DoctorUpdate';
+
+import ReceptionistDashboard from './components/Receptionist/ReceptionistDashboard';
 import PatientAdd from './components/Receptionist/ManagePatients/PatientAdd';
 import PatientEdit from './components/Receptionist/ManagePatients/PatientEdit';
+import ReceptionistNavbar from './components/Receptionist/ReceptionistNavbar';
+
 import PatientVaccineForm from './components/Receptionist/ManagePatients/PatientVaccineForm';
-import ReceptionistDashboard from './components/Receptionist/ReceptionistDashboard';
 
 import HospitalVaccineList from './components/Manager/HospitalVaccineList';
 import HospitalVaccineAdd from './components/Manager/HospitalVaccineAdd';
@@ -50,6 +53,8 @@ import PatientHome from './pages/Patient/PatientHome';
 import PatientNavbar from './components/navbar/PatientNavbar';
 import AdminManage from './components/Admin/AdminManage';
 import AddAdmin from './components/Admin/AddAdmin';
+import PatientList from './components/Receptionist/ManagePatients/PatientList';
+
 
 function AppRouter() {
   const { user } = useAuth();
@@ -59,6 +64,7 @@ function AppRouter() {
       {role === Roles.DOCTOR && <DoctorNavbar />}
       {role === Roles.HOSPITAL_MANAGER && <ManagerNavbar />}
       {role === Roles.PATIENT && <PatientNavbar />}
+      {role === Roles.RECEPTIONIST && <ReceptionistNavbar/>}
       <main>
         {/* <Container fluid> */}
 
@@ -150,10 +156,30 @@ function AppRouter() {
             exact
           />
 
-          <Route exact path='/patient/list' component={ReceptionistDashboard} />
-          <Route exact path='/patient/add' component={PatientAdd} />
-          <Route exact path='/patient/vaccine' component={PatientVaccineForm} />
-          <Route exact path='/patient/edit/:id' component={PatientEdit} />
+          {/* Receptionist Routes */}
+          <Route exact 
+            path='/patients' 
+            component={PatientList} 
+            // requiredRoles={[Roles.RECEPTIONIST]} 
+          />
+
+          <Route exact 
+            path='/patients/add' 
+            component={PatientAdd} 
+            // requiredRoles={[Roles.RECEPTIONIST]} 
+          />
+
+          <Route exact 
+            path='/patients/:id' 
+            component={PatientEdit} 
+            // requiredRoles={[Roles.RECEPTIONIST]} 
+          />
+
+          <Route exact 
+            path='/patient/vaccine' 
+            component={PatientVaccineForm} 
+            // requiredRoles={[Roles.RECEPTIONIST]} 
+          />
 
           {/* Admin Routes */}
           <ProtectedRoute

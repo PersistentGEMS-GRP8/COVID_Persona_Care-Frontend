@@ -1,21 +1,19 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import Navbar from '../layout/navbar';
-import PatientList from './ManagePatients/PatientList';
+import ReceptionistNavbar from './ReceptionistNavbar';
 
 export default class ReceptionistDashboard extends Component {
     render() {
         return (
             <div>
-                <Navbar/>
+                <ReceptionistNavbar/>
                 <div className="container">
                     <br></br>
                     <div>
                     <h3>Patients</h3>       
-                    <Link to="/patient/add" className="btn button-custom float-end" >Register Patient</Link>         
+                    <Link to="/patients/add" className="btn button-custom float-end" >Register Patient</Link>         
                     </div>
                     <br/><br/>
-                    <PatientList/>
                 </div>
             </div>
         )
