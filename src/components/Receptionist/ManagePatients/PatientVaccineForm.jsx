@@ -35,12 +35,12 @@ export default class PatientVaccineForm extends Component {
         const {vaccination} = this.state;
         console.log(vaccination)
         PatientVaccineService.createPatientVaccination(vaccination).then(res => {
-            this.props.history.push('/patient/list');
+            this.props.history.push('/patients');
         });      
     }
 
     cancel(){
-        this.props.history.push("/patient/add");
+        this.props.history.push("/patients/add");
     }
 
     render() {
