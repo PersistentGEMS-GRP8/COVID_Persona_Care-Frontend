@@ -5,16 +5,18 @@ import ReceptionistNavbar from '../ReceptionistNavbar';
 export default class PatientEdit extends Component {
 
     emptyPatient = {
+        type: 'patient',
         id: '',
         name: '',
         email: '',
         contactNo: '',
-        vaccinationStatus: ''
+        vaccinationStatus: false,
+        createdAt: '',
+        updatedAt: ''
     }
 
     constructor(props) {
         super(props);
-
         this.state = {
             patient: this.emptyPatient,
             selectedOption: '',
@@ -33,12 +35,16 @@ export default class PatientEdit extends Component {
     
     async componentDidMount() {
         const person = (await PatientService.getPatientById(this.props.match.params.id)).data;
-        if(!person.vaccinationStatus){
-          person.vaccinationStatus = "No"
-        }
+
+        let patient = {...this.state.patient}
+
+        Object.keys(person).forEach((key) => {
+          patient[key] = person[key];
+        })
+
         this.setState({
-          patient: person,
-          selectedOption: person.vaccinationStatus
+          patient: patient,
+          selectedOption: patient.vaccinationStatus
         }); 
         
     }
@@ -65,7 +71,7 @@ export default class PatientEdit extends Component {
           errors.push("email");
           errorMsgs.emailError = 'Please provide a email.'
         } else {
-          const expression = /\S+@\S+/;
+          const expression = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
           var validEmail = expression.test(String(patient.email).toLowerCase());
     
           if (!validEmail) {
@@ -99,29 +105,45 @@ export default class PatientEdit extends Component {
     handleSubmit(event) {
       event.preventDefault();
       const { patient } = this.state;
-      patient.type = 'patient';
-      if (this.validate()) {
-        console.log(patient);
-        PatientService.updatePatient(patient).then(res => {
-          this.props.history.push('/patients');
-        });
+
+      let msgs = {
+        nameError: '',
+        emailError: '',
+        contactNoError: ''
       }
+
+      this.setState({
+        errors: [],
+        errorMsgs: msgs
+      }, () => {
+        if (this.validate()) {
+          PatientService.updatePatient(patient).then(res => {
+            console.log("Updated ",patient);
+            this.props.history.push('/patients');
+          }).catch(function (error) {
+            console.log(error);
+          }.bind(this));
+          
+        }
+      });
     }
 
     handleChange(event) {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
+        const value = event.target.value;
+        const name = event.target.name;
         let patient = { ...this.state.patient };
         patient[name] = value;
         this.setState({ patient });
     }
 
     handleOptionChange(event) {
-        const value = event.target.value;
         let selected = { ...this.state.selectedOption };
         let person = {...this.state.patient}
-        selected = value;
+
+        let value = event.target.value;
+        if (value==="true") selected = true;
+        else if (value === "false") selected = false;
+
         person.vaccinationStatus = selected;
         this.setState({
           selectedOption : selected,
@@ -145,13 +167,17 @@ export default class PatientEdit extends Component {
                 <div className="container">
                     <h2>Patient Details</h2>
                     <br></br>
-                    <form>
+                    <form onSubmit={this.handleSubmit}>
                         <div className="mb-3 row">
                             <label className="col-sm-2 col-form-label">Name</label>
                             <div className="col-sm-10">
                                 <input className={this.hasError("name") ? "form-control is-invalid" : "form-control"} 
                                 name="name" id="name" value={patient.name} onChange={this.handleChange} placeholder="Jane Doe"/>
+                                <div style={{fontSize: 12, color: "red"}}>
+                                  {errorMsgs.nameError}
+                                </div>
                             </div>
+                            
                             
                         </div>
                         <div className="mb-3 row">
@@ -160,7 +186,11 @@ export default class PatientEdit extends Component {
                                 <input className={this.hasError("email") ? "form-control is-invalid" : "form-control"} 
                                 name="email" id="email"
                                 value={patient.email} onChange={this.handleChange} placeholder="abc@testmail.com"/>
+                                <div style={{fontSize: 12, color: "red"}}>
+                                  {errorMsgs.emailError}
+                                </div>
                             </div>
+                            
                         </div>
                         <div className="mb-3 row">
                             <label className="col-sm-2 col-form-label">Contact number</label>
@@ -168,18 +198,21 @@ export default class PatientEdit extends Component {
                                 <input className={this.hasError("contactNo") ? "form-control is-invalid" : "form-control"}
                                 name="contactNo" id="contactNo"
                                 value={patient.contactNo} onChange={this.handleChange} placeholder="+91XXXXXXXXXX"/>
+                                <div style={{fontSize: 12, color: "red"}}>
+                                  {errorMsgs.contactNoError}
+                                </div>
                             </div>
                         </div>
                         <div className="mb-3 row">
                             <label className="col-sm-2 col-form-label">Vaccination Status</label>
                             <div className="col-sm-10">
                               <div className="col-sm-5">
-                                <input type="radio" name="vaccinationStatus" value="Yes" 
-                                  checked={this.state.selectedOption === "Yes"} onChange={this.handleOptionChange} />Yes
+                                <input type="radio" name="vaccinationStatus" value="true" 
+                                  checked={this.state.selectedOption == true} onChange={this.handleOptionChange} />Yes
                               </div>
                               <div className="col-sm-5">
-                                <input type="radio" name="vaccinationStatus" value="No" 
-                                  checked={this.state.selectedOption === "No"} onChange={this.handleOptionChange} />No
+                                <input type="radio" name="vaccinationStatus" value="false" 
+                                  checked={this.state.selectedOption == false} onChange={this.handleOptionChange} />No
                               </div>
                             </div>
                         </div>
