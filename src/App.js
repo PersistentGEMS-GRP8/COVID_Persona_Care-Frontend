@@ -36,7 +36,6 @@ import { ProtectedRoute, AuthRoute } from './routes';
 import DoctorDashboard from './pages/Doctor/DoctorDashboard';
 import DoctorUpdate from './pages/Doctor/DoctorUpdate';
 
-import ReceptionistDashboard from './components/Receptionist/ReceptionistDashboard';
 import PatientAdd from './components/Receptionist/ManagePatients/PatientAdd';
 import PatientEdit from './components/Receptionist/ManagePatients/PatientEdit';
 import ReceptionistNavbar from './components/Receptionist/ReceptionistNavbar';

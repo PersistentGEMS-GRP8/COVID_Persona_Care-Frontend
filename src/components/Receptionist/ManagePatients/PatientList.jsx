@@ -7,7 +7,8 @@ class PatientList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            patients: [] 
+            patients: [],
+            modalIsOpen: false
         }
         this.editPatient = this.editPatient.bind(this);
         this.removePatient = this.removePatient.bind(this);
@@ -42,7 +43,7 @@ class PatientList extends Component {
             <td>{patient.name}</td>
             <td>{patient.email}</td>
             <td>{patient.contactNo}</td>
-            <td>{patient.vaccinationStatus}</td>
+            <td>{patient.vaccinationStatus? "Yes" : "No"}</td>
             <td>
                 <div className="btn-group">
                     <button className="btn button-custom btn-sm" onClick={() => this.editPatient(patient.id)}>Edit</button>
