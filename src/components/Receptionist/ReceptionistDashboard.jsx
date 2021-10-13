@@ -11,7 +11,7 @@ export default class ReceptionistDashboard extends Component {
                     <br></br>
                     <div>
                     <h3>Patients</h3>       
-                    <Link to="/patients/add" className="btn button-custom float-end" >Register Patient</Link>         
+                    <Link to="/patients/add" className="btn btn-primary float-end" >Register Patient</Link>         
                     </div>
                     <br/><br/>
                 </div>

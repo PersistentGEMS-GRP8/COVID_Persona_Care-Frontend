@@ -219,7 +219,7 @@ export default class PatientEdit extends Component {
                         <br></br>
                         <div className="mb-3 row">
                             <div className="col text-center">
-                            <button className="btn button-custom me-2" type="submit">Register</button>
+                            <button className="btn btn-primary me-2" type="submit">Update</button>
                             <button className="btn btn-danger ms-2" onClick={this.cancel}>Cancel</button>
                             </div>
                         </div>

@@ -155,9 +155,9 @@ class PatientAdd extends Component {
                 <br/>
                 <div className="container">
                     <h2>Patient Details</h2>
-                    <div className="col text-right">
+                    {/* <div className="col text-right">
                     <Link to="/patient/vaccine" className="btn button-custom ms-2" >Vaccination Details</Link>
-                    </div>
+                    </div> */}
                     
 
                     <br></br>
@@ -212,7 +212,7 @@ class PatientAdd extends Component {
                         <br></br>
                         <div className="mb-3 row">
                             <div className="col text-center">
-                            <button className="btn button-custom me-2" type="submit">Register</button>
+                            <button className="btn btn-primary me-2" type="submit">Register</button>
                             <button className="btn btn-danger ms-2" onClick={this.cancel}>Cancel</button>
                             </div>
                         </div>
