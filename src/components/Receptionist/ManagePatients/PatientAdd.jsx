@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import PatientService from '../../../services/PatientService';
-import ReceptionistNavbar from '../ReceptionistNavbar';
 
 class PatientAdd extends Component {
 
@@ -151,7 +150,6 @@ class PatientAdd extends Component {
 
         return (
             <div>
-                <ReceptionistNavbar/>
                 <br/>
                 <div className="container">
                     <h2>Patient Details</h2>
