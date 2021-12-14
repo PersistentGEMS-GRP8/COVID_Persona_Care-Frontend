@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import Modal from 'react-modal';
 import PatientService from '../../../services/PatientService';
 import ReceptionistDashboard from '../ReceptionistDashboard';
+
+Modal.setAppElement('#root')
 
 class PatientList extends Component {
 
@@ -8,21 +11,33 @@ class PatientList extends Component {
         super(props);
         this.state = {
             patients: [],
-            modalIsOpen: false
+            modalIsOpen: false,
+            popupPatient: []
         }
         this.editPatient = this.editPatient.bind(this);
-        this.removePatient = this.removePatient.bind(this);
+        this.removePatientModal = this.removePatientModal.bind(this);
+        this.deletePatient = this.deletePatient.bind(this);
     }
 
     editPatient(id) {
         this.props.history.push(`/patients/${id}`);
     }
 
-    removePatient(id){
+    setModalIsOpen(open) {
+        this.setState({modalIsOpen: open});
+    }
+
+    removePatientModal(patient){
+        this.setState({popupPatient:patient});
+        this.setModalIsOpen(true);
+    }
+
+    deletePatient(id) {
         PatientService.deletePatient(id).then( () => {
             let updatedPatients = [...this.state.patients].filter(i => i.id !== id);
             this.setState({patients: updatedPatients});
-        })
+        });
+        this.setModalIsOpen(false);
     }
 
     componentDidMount() {
@@ -46,8 +61,8 @@ class PatientList extends Component {
             <td>{patient.vaccinationStatus? "Yes" : "No"}</td>
             <td>
                 <div className="btn-group">
-                    <button className="btn button-custom btn-sm" onClick={() => this.editPatient(patient.id)}>Edit</button>
-                    <button className="btn button-delete btn-sm" onClick={() => this.removePatient(patient.id)}>Delete</button>
+                    <button className="btn btn-outline-primary btn-sm" onClick={() => this.editPatient(patient.id)}>Edit</button>
+                    <button className="btn btn-outline-danger btn-sm" onClick={() => this.removePatientModal(patient)}>Delete</button>
                 </div>
             </td>
         </tr>
@@ -73,6 +88,60 @@ class PatientList extends Component {
                         </tbody>
                     </table>
                 </div>
+                
+                <Modal 
+                    isOpen={this.state.modalIsOpen}
+                    shouldCloseOnEsc={true}
+                    shouldCloseOnOverlayClick={true}
+                    style={
+                        {
+                            content: {
+                                top: '50%',
+                                left: '50%',
+                                right: 'auto',
+                                bottom: 'auto',
+                                marginRight: '-50%',
+                                transform: 'translate(-50%, -50%)',
+                            }
+                        }
+                    } >
+                    <div className="col text-right">
+                            <button className="btn btn-outline-primary btn-sm" onClick={() => this.setModalIsOpen(false)}>Close</button>
+                    </div>
+                    <div className="row">
+                        <div className="text-left">
+                            <h2>Are you sure you want to delete this patient?</h2>
+                        </div>
+                        
+                    </div>
+                    <div className="row">
+                        <table>
+                            <tr>
+                                <th width="10%">ID</th>
+                                <th width="30%">Name</th>
+                                <th width="20%">Email</th>
+                                <th width="20%">Contact No</th>
+                                <th width="10%">Vaccinated</th>
+                            </tr>
+                            <tr>
+                                <td>{this.state.popupPatient.id}</td>
+                                <td>{this.state.popupPatient.name}</td>
+                                <td>{this.state.popupPatient.email}</td>
+                                <td>{this.state.popupPatient.contactNo}</td>
+                                <td>{this.state.popupPatient.vaccinationStatus ? "Yes" : "No"}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div className="row">
+                        <div className="col text-right">
+                            <button className="btn btn-primary btn-lg" onClick={() => this.setModalIsOpen(false)}>No</button>
+                        </div>
+                        <div className="col text-left">
+                            <button className="btn btn-danger btn-lg" onClick={()=> this.deletePatient(this.state.popupPatient.id)}>Yes</button>
+                        </div>
+                    </div>
+                </Modal>
+                
             </div>
         );
     }
