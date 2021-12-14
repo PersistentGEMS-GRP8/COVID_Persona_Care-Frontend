@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PatientService from '../../../services/PatientService';
-import ReceptionistNavbar from '../ReceptionistNavbar';
 
 export default class PatientEdit extends Component {
 
@@ -162,7 +161,6 @@ export default class PatientEdit extends Component {
 
         return (
             <div>
-                <ReceptionistNavbar/> 
                 <br/>
                 <div className="container">
                     <h2>Patient Details</h2>
@@ -172,7 +170,7 @@ export default class PatientEdit extends Component {
                             <label className="col-sm-2 col-form-label">Name</label>
                             <div className="col-sm-10">
                                 <input className={this.hasError("name") ? "form-control is-invalid" : "form-control"} 
-                                name="name" id="name" value={patient.name} onChange={this.handleChange} placeholder="Jane Doe"/>
+                                name="name" id="name" value={patient.name} onChange={this.handleChange}/>
                                 <div style={{fontSize: 12, color: "red"}}>
                                   {errorMsgs.nameError}
                                 </div>
@@ -185,7 +183,7 @@ export default class PatientEdit extends Component {
                             <div className="col-sm-10">
                                 <input className={this.hasError("email") ? "form-control is-invalid" : "form-control"} 
                                 name="email" id="email"
-                                value={patient.email} onChange={this.handleChange} placeholder="abc@testmail.com"/>
+                                value={patient.email} onChange={this.handleChange}/>
                                 <div style={{fontSize: 12, color: "red"}}>
                                   {errorMsgs.emailError}
                                 </div>
@@ -197,7 +195,7 @@ export default class PatientEdit extends Component {
                             <div className="col-sm-10">
                                 <input className={this.hasError("contactNo") ? "form-control is-invalid" : "form-control"}
                                 name="contactNo" id="contactNo"
-                                value={patient.contactNo} onChange={this.handleChange} placeholder="+91XXXXXXXXXX"/>
+                                value={patient.contactNo} onChange={this.handleChange}/>
                                 <div style={{fontSize: 12, color: "red"}}>
                                   {errorMsgs.contactNoError}
                                 </div>
