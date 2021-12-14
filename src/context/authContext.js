@@ -45,6 +45,7 @@ const AuthProvider = ({ children }) => {
     if (decodedToken.isManager) return Roles.HOSPITAL_MANAGER;
     if (decodedToken.isDoctor) return Roles.DOCTOR;
     if (decodedToken.isPatient) return Roles.PATIENT;
+    if (decodedToken.isReceptionist) return Roles.RECEPTIONIST;
 
     return '';
   };
@@ -117,6 +118,10 @@ const AuthProvider = ({ children }) => {
 
       case Roles.PATIENT:
         history.replace('/patient/home');
+        return;
+
+      case Roles.RECEPTIONIST:
+        history.replace('/patients');
         return;
 
       default:

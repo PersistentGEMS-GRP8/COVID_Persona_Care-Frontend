@@ -156,22 +156,22 @@ function AppRouter() {
           />
 
           {/* Receptionist Routes */}
-          <Route exact 
+          <ProtectedRoute exact 
             path='/patients' 
             component={PatientList} 
-            // requiredRoles={[Roles.RECEPTIONIST]} 
+            requiredRoles={[Roles.RECEPTIONIST]} 
           />
 
-          <Route exact 
+          <ProtectedRoute exact 
             path='/patients/add' 
             component={PatientAdd} 
-            // requiredRoles={[Roles.RECEPTIONIST]} 
+            requiredRoles={[Roles.RECEPTIONIST]} 
           />
 
-          <Route exact 
+          <ProtectedRoute exact 
             path='/patients/:id' 
             component={PatientEdit} 
-            // requiredRoles={[Roles.RECEPTIONIST]} 
+            requiredRoles={[Roles.RECEPTIONIST]} 
           />
 
           <Route exact 
