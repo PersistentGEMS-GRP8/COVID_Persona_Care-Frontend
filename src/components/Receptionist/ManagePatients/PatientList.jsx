@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 import PatientService from '../../../services/PatientService';
-import ReceptionistDashboard from '../ReceptionistDashboard';
 
 Modal.setAppElement('#root')
 
@@ -70,7 +70,14 @@ class PatientList extends Component {
 
         return (
             <div>
-                <ReceptionistDashboard/>
+                <div className="container">
+                    <br></br>
+                    <div>
+                    <h3>Patients</h3>       
+                    <Link to="/patients/add" className="btn btn-primary float-end" >Register Patient</Link>         
+                    </div>
+                    <br/><br/>
+                </div>
                 <div className="container">
                     <table className="table table-hover">
                         <thead>
@@ -105,33 +112,37 @@ class PatientList extends Component {
                             }
                         }
                     } >
-                    <div className="col text-right">
+                    <div>
+                    <div className="row float-end">
                             <button className="btn btn-outline-primary btn-sm" onClick={() => this.setModalIsOpen(false)}>Close</button>
                     </div>
-                    <div className="row">
-                        <div className="text-left">
-                            <h2>Are you sure you want to delete this patient?</h2>
-                        </div>
-                        
+                    <div className="row text-left">
+                        <h5>Are you sure you want to delete this patient?</h5>
                     </div>
+                    <br/>
                     <div className="row">
                         <table>
-                            <tr>
-                                <th width="10%">ID</th>
-                                <th width="30%">Name</th>
-                                <th width="20%">Email</th>
-                                <th width="20%">Contact No</th>
-                                <th width="10%">Vaccinated</th>
-                            </tr>
-                            <tr>
-                                <td>{this.state.popupPatient.id}</td>
-                                <td>{this.state.popupPatient.name}</td>
-                                <td>{this.state.popupPatient.email}</td>
-                                <td>{this.state.popupPatient.contactNo}</td>
-                                <td>{this.state.popupPatient.vaccinationStatus ? "Yes" : "No"}</td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th width="10%">ID</th>
+                                    <th width="25%">Name</th>
+                                    <th width="25%">Email</th>
+                                    <th width="25%">Contact No</th>
+                                    <th width="15%">Vaccinated</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{this.state.popupPatient.id}</td>
+                                    <td>{this.state.popupPatient.name}</td>
+                                    <td>{this.state.popupPatient.email}</td>
+                                    <td>{this.state.popupPatient.contactNo}</td>
+                                    <td>{this.state.popupPatient.vaccinationStatus ? "Yes" : "No"}</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
+                    <br/><br/>
                     <div className="row">
                         <div className="col text-right">
                             <button className="btn btn-primary btn-lg" onClick={() => this.setModalIsOpen(false)}>No</button>
@@ -139,6 +150,7 @@ class PatientList extends Component {
                         <div className="col text-left">
                             <button className="btn btn-danger btn-lg" onClick={()=> this.deletePatient(this.state.popupPatient.id)}>Yes</button>
                         </div>
+                    </div>
                     </div>
                 </Modal>
                 
